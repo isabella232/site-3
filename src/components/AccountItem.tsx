@@ -66,8 +66,6 @@ export default connect<AccountItemStateProps,
 
     disableActions:
       unlockedAccount.progress.loading || deletingAccountId !== null,
-
-    network
   }),
   {
     unlockAccount,
