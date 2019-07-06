@@ -1,7 +1,10 @@
 #!/bin/bash
 
-# Requires that the AWS profile deploy-ethvault has the appropriate credentials
-AWS_DEPLOYMENT_PROFILE=deploy-ethvault
+# Uses the AWS profile deploy-ethvault if available
+[[ $(aws configure --profile deploy-ethvault list) && $? -eq 0 ]] && \
+    AWS_DEPLOYMENT_PROFILE=deploy-ethvault || \
+    AWS_DEPLOYMENT_PROFILE=default
+
 BUCKET_NAME=app-ethvault-dev-stack-assetsbucket-1dmoq3zf0j7l3
 
 aws s3 --profile=${AWS_DEPLOYMENT_PROFILE} cp --recursive --exclude build/index.html build s3://$BUCKET_NAME
