@@ -1,0 +1,66 @@
+{
+  "name": "site",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@download/blockies": "^1.0.3",
+    "bignumber.js": "^9.0.0",
+    "copy-to-clipboard": "^3.2.0",
+    "downloadjs": "^1.4.7",
+    "ethers": "^4.0.30",
+    "jointz": "0.0.7",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-qr-svg": "^2.2.1",
+    "react-redux": "^7.1.0",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.0.1",
+    "redux": "^4.0.1",
+    "redux-persist": "^5.10.0",
+    "redux-thunk": "^2.3.0",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.87.2",
+    "styled-components": "^4.3.1",
+    "typescript": "^3.5.2",
+    "zxcvbn": "^4.4.2"
+  },
+  "homepage": "https://app.ethvault.dev",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "./scripts/deploy.sh"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "resolutions": {
+    "browserslist": "4.6.2",
+    "caniuse-lite": "1.0.30000974"
+  },
+  "devDependencies": {
+    "@types/downloadjs": "^1.4.1",
+    "@types/jest": "^24.0.15",
+    "@types/react": "^16.8.20",
+    "@types/react-dom": "^16.8.4",
+    "@types/react-redux": "^7.1.0",
+    "@types/react-router-dom": "^4.3.4",
+    "@types/styled-components": "^4.1.16",
+    "@types/zxcvbn": "^4.4.0"
+  },
+  "license": "UNLICENSED"
+}

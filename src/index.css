@@ -1,0 +1,16 @@
+* {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box !important;
+}
+
+::-webkit-scrollbar {
+    display: none;
+    height: 0;
+    width: 0;
+}
+
+textarea {
+    resize: none !important;
+}
