@@ -13,11 +13,9 @@ install: npm install
 
 script:
   - npm test
-  - npm run build
 
 deploy:
   provider: script
-  skip_cleanup: true
-  script: ./scripts/deploy.sh
+  script: npm run deploy
   on:
     branch: master
