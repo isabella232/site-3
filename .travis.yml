@@ -1,12 +1,23 @@
 language: node_js
+
 node_js:
   - node
+
 cache: npm
+
+before_install:
+  - pip install --user awscli
+  - export PATH=$PATH:$HOME/.local/bin
+
 install: npm install
+
 script:
   - npm test
   - npm run build
+
 deploy:
   provider: script
   skip_cleanup: true
   script: ./scripts/deploy.sh
+  on:
+    branch: master
