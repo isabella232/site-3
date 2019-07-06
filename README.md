@@ -1,4 +1,6 @@
-# ethvault-site
+# ethvault/site
+
+[![Build Status](https://travis-ci.org/ethvault/site.svg?branch=master)](https://travis-ci.org/ethvault/site)
 
 This is the site that is deployed to https://app.ethvault.dev
 
