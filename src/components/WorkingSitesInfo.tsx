@@ -16,7 +16,7 @@ export interface Site {
 
 export const WORKING_SITES_INFO: Readonly<Site[]> = [
   {
-    name: 'EthVault Wallet',
+    name: 'Ethvault Wallet',
     labels: [ SiteLabel.WORKING ],
     description: 'A simple wallet app for sending transactions.',
     url: 'embedded-wallet.ethvault.dev'

@@ -13,7 +13,7 @@ const FooterButtons = ({ openSidebar }: FooterButtonProps) => {
     <Button.Group size="large" fluid>
       <Button
         style={{ borderRadius: 0 }}
-        title="Return to the EthVault home page"
+        title="Return to the Ethvault home page"
         secondary
         as={LocationAwareLink}
         to={{ pathname: '/' }}>
