@@ -58,12 +58,12 @@ const infuraProviders: { [networkName in NetworkId]?: InfuraClient } = {};
 
 class InfuraRpcError extends Error {
   public readonly code: number;
-  public readonly reason: string;
+  public readonly message: string;
 
-  constructor(code: number, reason: string) {
-    super(`${code}: ${reason}`);
+  constructor(code: number, message: string) {
+    super(`${code}: ${message}`);
     this.code = code;
-    this.reason = reason;
+    this.message = message;
   }
 }
 
@@ -104,8 +104,8 @@ export function getOrCreateJsonRpcClient(network: NetworkId): InfuraClient {
         }
 
         if ('error' in json) {
-          const { error: { code, reason } } = json;
-          throw new InfuraRpcError(code, reason);
+          const { error: { code, message } } = json;
+          throw new InfuraRpcError(code, message);
         } else if ('result' in json) {
           return json[ 'result' ];
         }

@@ -96,7 +96,7 @@ export interface SuccessResponseSendMessageData extends BaseSendMessageData {
 }
 
 export interface ErrorResponseSendMessageData extends BaseSendMessageData {
-  error: { code: number; reason: string };
+  error: { code: number; message: string };
 }
 
 export interface RequestSendMessageData extends BaseSendMessageData {
@@ -127,11 +127,11 @@ export function sendMessages(data: MessageData[]): SendMessagesAction {
  * Send a rejection message to the iframe provider
  * @param id id of the request
  * @param code numeric reason for rejection
- * @param reason string reason for rejection
+ * @param message string reason for rejection
  */
-function sendRejectMessage(id: string | number, code: number, reason: string): SendMessagesAction {
+function sendRejectMessage(id: string | number, code: number, message: string): SendMessagesAction {
   return sendMessages([
-    { error: { code, reason }, id }
+    { error: { code, message }, id }
   ]);
 }
 
@@ -150,9 +150,9 @@ function sendResultMessage(id: string | number, result: any): SendMessagesAction
  * Used to dismiss a request because it will not be processed.
  * @param id to dismiss
  * @param code number representation of the reason to dismiss
- * @param reason textual representation of the reason to dismiss
+ * @param message textual representation of the reason to dismiss
  */
-export function rejectActionableRequest(id: number | string, code: number = 1, reason: string = 'The request is not authorized'): EthereumProviderThunkAction<void> {
+export function rejectActionableRequest(id: number | string, code: number = 1, message: string = 'The request is not authorized'): EthereumProviderThunkAction<void> {
   return (dispatch) => {
     // Hide the request
     dispatch({
@@ -161,7 +161,7 @@ export function rejectActionableRequest(id: number | string, code: number = 1, r
     });
 
     // Send a rejection message
-    dispatch(sendRejectMessage(id, code, reason));
+    dispatch(sendRejectMessage(id, code, message));
   };
 }
 
