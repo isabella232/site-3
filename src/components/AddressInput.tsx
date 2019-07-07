@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Input, InputProps } from 'semantic-ui-react';
 import { GlobalState } from '../reducers';
 import { Account } from '../util/model';
-import { getProvider, NetworkId, NETWORKS_INFO } from '../util/networks';
+import { getInfuraProvider, NetworkId, NETWORKS_INFO } from '../util/networks';
 
 /**
  * Return true if the value is a valid string address
@@ -42,7 +42,8 @@ async function reverseLookupAddress(network: NetworkId, address: string): Promis
   }
 
   try {
-    return await getProvider(network).lookupAddress(address);
+    const provider = getInfuraProvider(network);
+    return await provider.lookupAddress(address);
   } catch (error) {
     console.debug(`Failed to look up address in ENS: ${address}`, error);
     return null;

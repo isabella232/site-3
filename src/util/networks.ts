@@ -51,13 +51,13 @@ export const NETWORKS_INFO: NetworksInfo = {
   }
 };
 
-const providers: { [networkName in NetworkId]?: InfuraProvider } = {};
+const infuraProviders: { [networkName in NetworkId]?: InfuraProvider } = {};
 
 /**
  * Get a provider for the given network
  * @param network network for which to get the provider
  */
-export function getProvider(network: NetworkId): InfuraProvider {
-  return providers[ network ] ||
-    (providers[ network ] = new InfuraProvider(network, INFURA_KEY));
+export function getInfuraProvider(network: NetworkId): InfuraProvider {
+  return infuraProviders[ network ] ||
+    (infuraProviders[ network ] = new InfuraProvider(network, INFURA_KEY));
 }

@@ -1,9 +1,10 @@
+import BigNumber from 'bignumber.js';
 import { Wallet } from 'ethers';
 import { arrayify } from 'ethers/utils';
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { GlobalState } from '../reducers';
-import { getProvider, NetworkId, NETWORKS_INFO } from '../util/networks';
+import { getInfuraProvider, NetworkId, NETWORKS_INFO } from '../util/networks';
 import { randomId } from '../util/random';
 import {
   AddressValidator,
@@ -47,6 +48,7 @@ export interface TransactionParamShape {
   value?: Quantity;
   gasPrice?: Quantity;
   data: Hex;
+  nonce: Quantity;
 }
 
 export interface SignTransactionRequest {
@@ -182,16 +184,6 @@ export function acceptActionableRequest(id: number | string, result: any): Ether
 }
 
 /**
- * Return the hex nonce for a particular address and network from the remote node
- * @param network id of the network
- * @param address address to get transaction nonce for
- */
-async function getNonce(network: NetworkId, address: string): Promise<number> {
-  const provider = getProvider(network);
-  return provider.getTransactionCount(address, 'pending');
-}
-
-/**
  * Accept a given requested transaction ID. We do not support modifying the transaction-that is entirely
  * up to the client application.
  * @param id ID of the transaction to accept.
@@ -230,13 +222,29 @@ export function acceptRequest(id: number | string): EthereumProviderThunkAction<
 
     switch (request.method) {
       case 'eth_sendTransaction':
-        const [ transaction ] = request.params;
+        const [ sendTransactionRequest ] = request.params;
 
-        if (transaction.from !== unlockedAccount.address) {
+        if (sendTransactionRequest.from !== unlockedAccount.address) {
           dispatch(showAlert({
             header: 'Failed to sign transaction',
             message: 'The requested account is not unlocked',
             level: 'error'
+          }));
+          dispatch(rejectActionableRequest(id));
+          return;
+        }
+
+        let nonce: string;
+        try {
+          const provider = getInfuraProvider(network);
+          const transactionCount = await provider.getTransactionCount(unlockedAccount.address);
+
+          nonce = `0x${new BigNumber(transactionCount).toString(16)}`;
+        } catch (error) {
+          dispatch(showAlert({
+            header: 'Failed to calculate nonce',
+            message: `An unexpected error occurred while attempting to get the nonce: ${error.message}`,
+            level: 'error',
           }));
           dispatch(rejectActionableRequest(id));
           return;
@@ -247,22 +255,18 @@ export function acceptRequest(id: number | string): EthereumProviderThunkAction<
           const wallet = new Wallet(unlockedAccount.privateKey);
 
           signedRawTransaction = await wallet.sign({
-            to: transaction.to,
-            // TODO: we can do better than this to calculate the nonce when there are pending transactions
-            // Option 1 (ok): use the transaction pool API
-            // Option 2 (best): store the count on the server and use that - requires helping the user through
-            // when a TX is stuck
-            nonce: await getNonce(network, transaction.from),
-            chainId: parseInt(networkInfo.chainId),
-            data: transaction.data,
-            value: transaction.value,
-            gasPrice: transaction.gasPrice,
-            gasLimit: transaction.gas,
+            chainId: parseInt(networkInfo.chainId, 10),
+            nonce,
+            to: sendTransactionRequest.to,
+            data: sendTransactionRequest.data,
+            value: sendTransactionRequest.value,
+            gasPrice: sendTransactionRequest.gasPrice,
+            gasLimit: sendTransactionRequest.gas,
           });
         } catch (error) {
           dispatch(showAlert({
             header: 'Failed to sign transaction',
-            message: `An unexpected error was occurred while attempting to sign the transaction: ${error.message}`,
+            message: `An unexpected error occurred while attempting to sign the transaction: ${error.message}`,
             level: 'error',
           }));
           dispatch(rejectActionableRequest(id));
@@ -270,7 +274,7 @@ export function acceptRequest(id: number | string): EthereumProviderThunkAction<
         }
 
         try {
-          const provider = getProvider(network);
+          const provider = getInfuraProvider(network);
 
           const response = await provider.sendTransaction(signedRawTransaction);
 

@@ -10,7 +10,7 @@ export const JsonRpcRequestValidator = jointz.object().keys({
 
 export const AddressValidator = jointz.string().pattern(/^0x[a-fA-F0-9]{40}$/);
 export const HexDataValidator = jointz.string().pattern(/^0x[a-fA-F0-9]*$/);
-export const ChainIdValidator = jointz.or(HexDataValidator, jointz.number());
+export const ChainIdValidator = jointz.or(HexDataValidator, jointz.number().integer().min(0));
 
 export const SendTransactionParamValidator = jointz.object().keys({
   from: AddressValidator,
