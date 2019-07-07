@@ -427,6 +427,25 @@ export function handleMessage(message: any): EthereumProviderThunkAction<void> {
 
     const networkInfo = NETWORKS_INFO[ network ];
 
+    // Convert personal_sign to eth_sign
+    if (message.method === 'personal_sign') {
+      if (!message.params || message.params.length !== 2) {
+        dispatch(sendRejectMessage(message.id, -32600, 'Request failed validation'));
+        console.error('Personal sign message received that did not have the correct number of parameters', message);
+        return;
+      }
+
+      // Convert it to an eth_sign message.
+      message = {
+        ...message,
+        method: 'eth_sign',
+        params: [
+          message.params[ 1 ],
+          message.params[ 0 ]
+        ]
+      };
+    }
+
     switch (message.method) {
       case 'enable':
         dispatch(sendMessages([
@@ -469,6 +488,7 @@ export function handleMessage(message: any): EthereumProviderThunkAction<void> {
         const from = message.params[ 0 ].from;
         if (!unlockedAccountInfo || from !== unlockedAccountInfo.address) {
           dispatch(sendRejectMessage(message.id, -32600, `Invalid address: ${from}`));
+          console.error('Send transaction message received that was for an address that is not the unlocked account', from);
           return;
         }
 
@@ -485,13 +505,14 @@ export function handleMessage(message: any): EthereumProviderThunkAction<void> {
           AddressValidator.validate(message.params[ 0 ]).length > 0 ||
           HexDataValidator.validate(message.params[ 1 ]).length > 0) {
           dispatch(sendRejectMessage(message.id, -32600, 'Request failed validation'));
-          console.error('Send transaction message received that did not have the correct number of parameters', message);
+          console.error('Sign message request received that did not have valid parameters', message);
           return;
         }
 
         const from = message.params[ 0 ];
         if (!unlockedAccountInfo || from !== unlockedAccountInfo.address) {
           dispatch(sendRejectMessage(message.id, -32600, `Invalid address: ${from}`));
+          console.error('Sign message request received that was for an address that is not the unlocked account', message);
           return;
         }
 
