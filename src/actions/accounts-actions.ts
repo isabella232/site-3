@@ -1,6 +1,7 @@
 import copy from 'copy-to-clipboard';
 import download from 'downloadjs';
 import { Wallet } from 'ethers';
+import { throttle } from 'lodash';
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { GlobalState } from '../reducers';
@@ -9,6 +10,9 @@ import { Account } from '../util/model';
 import { loggedOut, LoggedOutAction } from './auth-actions';
 import { accountChanged, SendMessagesAction } from './ethereum-provider-actions';
 import { closeCreateAccountDialog, CloseCreateAccountDialog, showAlert, ShowAlertAction } from './ui-actions';
+
+
+const PROGRESS_REPORT_THROTTLE_MILLISECONDS = 125;
 
 interface LoadAccountsAction extends Action<'LOAD_ACCOUNTS'> {
 }
@@ -216,19 +220,23 @@ export const unlockAccount: (
     try {
       const fullAccount = await API.getAccountWithEncryptedJson(id, token);
 
+      const throttledReportProgress = throttle((progress: number) => dispatch({
+        type: 'UNLOCK_ACCOUNT_PROGRESS',
+        id,
+        progress
+      }), PROGRESS_REPORT_THROTTLE_MILLISECONDS);
+
       const wallet = await Wallet.fromEncryptedJson(
         JSON.stringify(fullAccount.encryptedJson),
         password,
         progress => {
-          dispatch({
-            type: 'UNLOCK_ACCOUNT_PROGRESS',
-            id,
-            progress
-          });
+          throttledReportProgress(progress);
 
           return false;
         }
       );
+
+      throttledReportProgress.cancel();
 
       dispatch({
         type: 'UNLOCK_ACCOUNT_SUCCESS',
@@ -469,17 +477,23 @@ export const createAccount: (
 
     const newWallet = Wallet.createRandom();
 
+    const throttledReportProgress = throttle((progress: number) => {
+      dispatch({
+        type: 'CREATE_ACCOUNT_WALLET_GENERATED_PROGRESS',
+        progress
+      });
+    }, PROGRESS_REPORT_THROTTLE_MILLISECONDS);
+
     const encryptedJson = JSON.parse(
       await newWallet.encrypt(params.password, {}, (progress: number) => {
-        dispatch({
-          type: 'CREATE_ACCOUNT_WALLET_GENERATED_PROGRESS',
-          progress
-        });
+        throttledReportProgress(progress);
 
         // We must return false to not cancel the generation.
         return false;
       })
     );
+
+    throttledReportProgress.cancel();
 
     dispatch({
       type: 'CREATE_ACCOUNT_WALLET_GENERATED_PROGRESS',
