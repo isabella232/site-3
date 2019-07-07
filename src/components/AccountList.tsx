@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Dimmer, Divider, Header, Icon, Item, Loader, Message, Segment } from 'semantic-ui-react';
+import { Dimmer, Header, Icon, Item, Loader, Message, Segment } from 'semantic-ui-react';
 import { openCreateAccountDialog } from '../actions/ui-actions';
 import { GlobalState } from '../reducers';
 import { AccountsState } from '../reducers/accounts-reducer';
@@ -42,8 +42,6 @@ const AccountList = connect(
         <CreateAccountButton/>
 
         <SignOutButton floated="right"/>
-
-        <Divider/>
 
         <Item.Group divided unstackable>
           {
