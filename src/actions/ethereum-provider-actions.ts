@@ -406,6 +406,8 @@ export function clearQueue(): ClearQueueAction {
  * @param message that was received
  */
 export function handleMessage(message: any): EthereumProviderThunkAction<void> {
+  message = JSON.parse(JSON.stringify(message));
+
   return async (dispatch, getState) => {
     console.debug('Message received from iframe', message);
 
@@ -426,6 +428,15 @@ export function handleMessage(message: any): EthereumProviderThunkAction<void> {
     const networkInfo = NETWORKS_INFO[ network ];
 
     switch (message.method) {
+      case 'enable':
+        dispatch(sendMessages([
+          {
+            id: message.id,
+            result: true
+          }
+        ]));
+        break;
+
       case 'eth_accounts':
         // TODO: we shouldn't just expose a user's accounts like this.
         dispatch(
