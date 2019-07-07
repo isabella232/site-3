@@ -1,5 +1,4 @@
 // The supported network options.
-import { InfuraProvider } from 'ethers/providers';
 import { INFURA_KEY } from './env';
 
 export type NetworkId = 'mainnet' | 'ropsten' | 'rinkeby' | 'kovan';
@@ -51,13 +50,65 @@ export const NETWORKS_INFO: NetworksInfo = {
   }
 };
 
-const infuraProviders: { [networkName in NetworkId]?: InfuraProvider } = {};
+interface InfuraClient {
+  send(method: string, params: any[]): Promise<any>;
+}
+
+const infuraProviders: { [networkName in NetworkId]?: InfuraClient } = {};
+
+class InfuraRpcError extends Error {
+  public readonly code: number;
+  public readonly reason: string;
+
+  constructor(code: number, reason: string) {
+    super(`${code}: ${reason}`);
+    this.code = code;
+    this.reason = reason;
+  }
+}
 
 /**
  * Get a provider for the given network
  * @param network network for which to get the provider
  */
-export function getInfuraProvider(network: NetworkId): InfuraProvider {
+export function getOrCreateJsonRpcClient(network: NetworkId): InfuraClient {
   return infuraProviders[ network ] ||
-    (infuraProviders[ network ] = new InfuraProvider(network, INFURA_KEY));
+    (infuraProviders[ network ] = {
+      async send(method, params) {
+        const id = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+
+        const response = await fetch(`${NETWORKS_INFO[ network ].nodeUrl}`, {
+          method: 'POST',
+          credentials: 'omit',
+          mode: 'cors',
+          body: JSON.stringify({
+            id,
+            jsonrpc: '2.0',
+            method,
+            params
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('Request failed to send');
+        }
+
+        const json = await response.json();
+
+        if (typeof json !== 'object') {
+          throw new Error(`Expected object but got ${typeof json} in response`);
+        }
+
+        if (json.jsonrpc !== '2.0' || json.id !== id) {
+          throw new Error('Invalid response: missing jsonrpc or non-matching id');
+        }
+
+        if ('error' in json) {
+          const { error: { code, reason } } = json;
+          throw new InfuraRpcError(code, reason);
+        } else if ('result' in json) {
+          return json[ 'result' ];
+        }
+      }
+    });
 }

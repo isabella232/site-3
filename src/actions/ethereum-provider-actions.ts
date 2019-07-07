@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
-import { Wallet } from 'ethers';
 import { arrayify } from 'ethers/utils';
+import { Wallet } from 'ethers/wallet';
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { GlobalState } from '../reducers';
-import { getInfuraProvider, NetworkId, NETWORKS_INFO } from '../util/networks';
+import { getOrCreateJsonRpcClient, NetworkId, NETWORKS_INFO } from '../util/networks';
 import { randomId } from '../util/random';
 import {
   AddressValidator,
@@ -236,9 +236,9 @@ export function acceptRequest(id: number | string): EthereumProviderThunkAction<
 
         let nonce: string;
         try {
-          const provider = getInfuraProvider(network);
+          const client = getOrCreateJsonRpcClient(network);
           const transactionCount =
-            await provider.send('eth_getTransactionCount', [ unlockedAccount.address, 'pending' ]);
+            await client.send('eth_getTransactionCount', [ unlockedAccount.address, 'pending' ]);
 
           nonce = `0x${new BigNumber(transactionCount).toString(16)}`;
         } catch (error) {
@@ -275,11 +275,11 @@ export function acceptRequest(id: number | string): EthereumProviderThunkAction<
         }
 
         try {
-          const provider = getInfuraProvider(network);
+          const client = getOrCreateJsonRpcClient(network);
 
-          const response = await provider.sendTransaction(signedRawTransaction);
+          const transactionHash = await client.send('eth_sendRawTransaction', [ signedRawTransaction ]);
 
-          const etherscanTxUrl = `${networkInfo.etherscanBaseUrl}/tx/${response.hash}`;
+          const etherscanTxUrl = `${networkInfo.etherscanBaseUrl}/tx/${transactionHash}`;
 
           dispatch(showAlert({
             header: 'Sent transaction',
@@ -287,7 +287,7 @@ export function acceptRequest(id: number | string): EthereumProviderThunkAction<
             moreInfoUrl: etherscanTxUrl,
             level: 'success'
           }));
-          dispatch(acceptActionableRequest(id, response.hash));
+          dispatch(acceptActionableRequest(id, transactionHash));
         } catch (error) {
           dispatch(showAlert({
             header: 'Failed to broadcast signed transaction',

@@ -1,9 +1,11 @@
+import { InfuraProvider } from 'ethers/providers';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Input, InputProps } from 'semantic-ui-react';
 import { GlobalState } from '../reducers';
+import { INFURA_KEY } from '../util/env';
 import { Account } from '../util/model';
-import { getInfuraProvider, NetworkId, NETWORKS_INFO } from '../util/networks';
+import { NetworkId, NETWORKS_INFO } from '../util/networks';
 
 /**
  * Return true if the value is a valid string address
@@ -42,8 +44,11 @@ async function reverseLookupAddress(network: NetworkId, address: string): Promis
   }
 
   try {
-    const provider = getInfuraProvider(network);
-    return await provider.lookupAddress(address);
+    // TODO: replace this with something lower level
+    // We already have a client.
+    const client = new InfuraProvider(network, INFURA_KEY);
+
+    return await client.lookupAddress(address);
   } catch (error) {
     console.debug(`Failed to look up address in ENS: ${address}`, error);
     return null;
