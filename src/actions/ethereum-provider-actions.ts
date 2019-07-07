@@ -237,7 +237,8 @@ export function acceptRequest(id: number | string): EthereumProviderThunkAction<
         let nonce: string;
         try {
           const provider = getInfuraProvider(network);
-          const transactionCount = await provider.getTransactionCount(unlockedAccount.address);
+          const transactionCount =
+            await provider.send('eth_getTransactionCount', [ unlockedAccount.address, 'pending' ]);
 
           nonce = `0x${new BigNumber(transactionCount).toString(16)}`;
         } catch (error) {
