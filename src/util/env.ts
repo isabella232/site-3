@@ -10,3 +10,4 @@ export const AUTH0_BASE_URL: string = process.env
   .REACT_APP_AUTH0_LOGIN_BASE_URL as any;
 export const INFURA_KEY: string = process.env.REACT_APP_INFURA_KEY as any;
 export const VERSION: string = process.env.REACT_APP_VERSION as any;
+export const GOOGLE_ANALYTICS_ID: string = process.env.REACT_APP_GOOGLE_ANALYTICS_ID as any;
