@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Button, Icon, Label, Modal, TransitionablePortal } from 'semantic-ui-react';
+import { Button, Icon, Label, Modal } from 'semantic-ui-react';
 import {
   acceptRequest,
   ActionableRequest,
@@ -10,6 +10,7 @@ import {
 } from '../actions/ethereum-provider-actions';
 import { GlobalState } from '../reducers';
 import { NetworkId, NETWORKS_INFO } from '../util/networks';
+import AnimatedModal from './AnimatedModal';
 import SignMessageRequestInfo from './SignMessageRequestInfo';
 import SignTransactionRequestInfo from './SignTransactionRequestInfo';
 
@@ -41,34 +42,31 @@ export default connect(
     const rendering = next === null ? showing : next;
 
     return (
-      <TransitionablePortal open={next !== null} transition={{ animation: 'scale' }}>
-        <Modal open size="tiny">
-          <Modal.Header>
-            {
-              rendering ? TYPE_TO_HEADER[ rendering.method ] : null
-            }
-            <Label
-              attached="top right"
-              color={NETWORKS_INFO[ network ].color}>{NETWORKS_INFO[ network ].displayName}</Label>
-          </Modal.Header>
-          <Modal.Content>
-            {
-              rendering ? (
-                rendering.method === 'eth_sign' ?
-                  <SignMessageRequestInfo request={rendering}/> :
-                  <SignTransactionRequestInfo request={rendering}/>
-              ) : null
-            }
-          </Modal.Content>
-          <Modal.Actions>
-            <Button color="red" type="button" onClick={() => next && dismissRequest(next.id)}>
-              <Icon name="cancel"/> Reject
-            </Button>
-            <Button primary type="button" onClick={() => next && acceptRequest(next.id)}>
-              <Icon name="send"/> Sign
-            </Button>
-          </Modal.Actions>
-        </Modal>
-      </TransitionablePortal>
+      <AnimatedModal open={!!next} size="tiny">
+        <Modal.Header>
+          {
+            rendering ? TYPE_TO_HEADER[ rendering.method ] : null
+          }
+          <Label
+            color={NETWORKS_INFO[ network ].color}>{NETWORKS_INFO[ network ].displayName}</Label>
+        </Modal.Header>
+        <Modal.Content>
+          {
+            rendering ? (
+              rendering.method === 'eth_sign' ?
+                <SignMessageRequestInfo request={rendering}/> :
+                <SignTransactionRequestInfo request={rendering}/>
+            ) : null
+          }
+        </Modal.Content>
+        <Modal.Actions>
+          <Button color="red" type="button" onClick={() => next && dismissRequest(next.id)}>
+            <Icon name="cancel"/> Reject
+          </Button>
+          <Button primary type="button" onClick={() => next && acceptRequest(next.id)}>
+            <Icon name="send"/> Sign
+          </Button>
+        </Modal.Actions>
+      </AnimatedModal>
     );
   });

@@ -56,6 +56,13 @@ interface AccountDeletedAction extends Action<'ACCOUNT_DELETED'> {
   id: string;
 }
 
+interface OpenUnlockAction extends Action<'OPEN_UNLOCK'> {
+  id: string;
+}
+
+interface CancelUnlockAction extends Action<'CANCEL_UNLOCK'> {
+}
+
 export type AccountActions =
   | LoadAccountsAction
   | AccountsLoadedAction
@@ -74,7 +81,9 @@ export type AccountActions =
   | DeleteAccountAction
   | AccountDeletedAction
   | ShowQrCodeAction
-  | DismissShowQrCodeAction;
+  | DismissShowQrCodeAction
+  | OpenUnlockAction
+  | CancelUnlockAction;
 
 type AccountThunkAction<R> = ThunkAction<R,
   GlobalState,
@@ -109,11 +118,11 @@ export const loadAccounts: () => AccountThunkAction<void> = () => {
   };
 };
 
-export interface UnlockAccountAction extends Action<'UNLOCK_ACCOUNT'> {
+export interface UnlockAccountAction extends Action<'UNLOCK_ACCOUNT_START'> {
   id: string;
 }
 
-export interface ExportKeyAction extends Action<'EXPORT_KEY'> {
+export interface ExportKeyAction extends Action<'EXPORT_KEY_START'> {
   id: string;
 }
 
@@ -165,7 +174,7 @@ export function lockAccounts(): AccountThunkAction<void> {
 export const exportKey: (id: string) => AccountThunkAction<void> = id => {
   return async (dispatch, getState) => {
     dispatch({
-      type: 'EXPORT_KEY',
+      type: 'EXPORT_KEY_START',
       id
     });
 
@@ -193,6 +202,19 @@ export const exportKey: (id: string) => AccountThunkAction<void> = id => {
   };
 };
 
+export function openUnlock(id: string): OpenUnlockAction {
+  return {
+    type: 'OPEN_UNLOCK',
+    id
+  };
+}
+
+export function cancelUnlock(): CancelUnlockAction {
+  return {
+    type: 'CANCEL_UNLOCK'
+  };
+}
+
 export const unlockAccount: (
   id: string,
   password: string
@@ -213,9 +235,11 @@ export const unlockAccount: (
     }
 
     dispatch({
-      type: 'UNLOCK_ACCOUNT',
+      type: 'UNLOCK_ACCOUNT_START',
       id
     });
+
+    dispatch(cancelUnlock());
 
     try {
       const fullAccount = await API.getAccountWithEncryptedJson(id, token);

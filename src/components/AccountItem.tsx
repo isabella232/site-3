@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Divider, Dropdown, Icon, Item, Progress } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { deleteAccount, exportKey, lockAccounts, unlockAccount } from '../actions/accounts-actions';
+import { deleteAccount, exportKey, lockAccounts, openUnlock } from '../actions/accounts-actions';
 import { GlobalState } from '../reducers';
 import { getBlockyDataUri } from '../util/blockies';
 import { Account } from '../util/model';
@@ -22,7 +22,7 @@ interface AccountItemStateProps {
 }
 
 interface AccountItemDispatchProps {
-  unlockAccount: (id: string, password: string) => void;
+  openUnlock: (id: string) => void;
   lockAccounts: () => void;
   exportKey: (id: string) => void;
   deleteAccount: (id: string) => void;
@@ -68,7 +68,7 @@ export default connect<AccountItemStateProps,
       unlockedAccount.progress.loading || deletingAccountId !== null,
   }),
   {
-    unlockAccount,
+    openUnlock,
     lockAccounts,
     exportKey,
     deleteAccount,
@@ -81,7 +81,7 @@ export default connect<AccountItemStateProps,
      unlockProgress,
      isBeingDeleted,
      disableActions,
-     unlockAccount,
+     openUnlock,
      lockAccounts,
      exportKey,
      deleteAccount
@@ -130,14 +130,7 @@ export default connect<AccountItemStateProps,
                         </Dropdown.Item> :
                         <Dropdown.Item
                           disabled={isBeingUnlocked || disableActions}
-                          onClick={() => {
-                            const password = window.prompt(
-                              `Enter password to unlock account "${name}"`
-                            );
-                            if (password !== null) {
-                              unlockAccount(id, password);
-                            }
-                          }}>
+                          onClick={() => openUnlock(id)}>
                           <Icon name="lock"/> Unlock account
                         </Dropdown.Item>
                     }

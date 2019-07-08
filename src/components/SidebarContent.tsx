@@ -4,11 +4,13 @@ import { Divider, Header } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { loadAccounts } from '../actions/accounts-actions';
 import { GlobalState } from '../reducers';
+import { VERSION } from '../util/env';
 import AccountList from './AccountList';
 import { ChangeNetworkDropdown } from './ChangeNetworkDropdown';
 import { CloseSidebarButton } from './CloseSidebarButton';
 import { CreateAccountDialog } from './CreateAccountDialog';
 import { LoggedOutPlaceholder } from './Placeholders';
+import UnlockAccountPasswordDialog from './UnlockAccountPasswordDialog';
 
 const StyledContainer = styled.section`
   display: flex;
@@ -80,7 +82,7 @@ export default connect(
           <StyledHeader>
             <ChangeNetworkDropdown/>
 
-            <Header style={{ margin: 0 }} as="h1">
+            <Header style={{ margin: 0 }} as="h1" title={VERSION}>
               My Vault
             </Header>
 
@@ -100,6 +102,8 @@ export default connect(
           </StyledContent>
 
           <CreateAccountDialog/>
+
+          <UnlockAccountPasswordDialog/>
         </StyledContainer>
       );
     }

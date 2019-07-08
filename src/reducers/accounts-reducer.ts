@@ -36,6 +36,7 @@ export interface AccountsState {
   exportingAccountId: string | null;
   deletingAccountId: string | null;
   showingQrCodeAccountId: string | null;
+  collectingUnlockPasswordId: string | null;
 }
 
 const initialState: Readonly<AccountsState> = {
@@ -63,6 +64,7 @@ const initialState: Readonly<AccountsState> = {
   exportingAccountId: null,
   deletingAccountId: null,
   showingQrCodeAccountId: null,
+  collectingUnlockPasswordId: null,
 };
 
 export const accountsReducer: Reducer<AccountsState, AccountActions | LoggedOutAction> =
@@ -145,7 +147,7 @@ export const accountsReducer: Reducer<AccountsState, AccountActions | LoggedOutA
           }
         };
 
-      case 'UNLOCK_ACCOUNT':
+      case 'UNLOCK_ACCOUNT_START':
         return {
           ...state,
           unlockedAccount: {
@@ -204,7 +206,7 @@ export const accountsReducer: Reducer<AccountsState, AccountActions | LoggedOutA
           }
         };
 
-      case 'EXPORT_KEY':
+      case 'EXPORT_KEY_START':
         return {
           ...state,
           exportingAccountId: action.id,
@@ -248,6 +250,18 @@ export const accountsReducer: Reducer<AccountsState, AccountActions | LoggedOutA
         return {
           ...state,
           showingQrCodeAccountId: null,
+        };
+
+      case 'OPEN_UNLOCK':
+        return {
+          ...state,
+          collectingUnlockPasswordId: action.id,
+        };
+
+      case 'CANCEL_UNLOCK':
+        return {
+          ...state,
+          collectingUnlockPasswordId: null,
         };
 
       default:

@@ -30,11 +30,12 @@ export default connect(
   ({ account, showQrCode, copyAddressToClipboard, network }: AccountAddressProps) => (
     account ? (
       <FlexParent>
-        <FlexChildGrowNoWrap>
+        <FlexChildGrowNoWrap title={account.address}>
           {account.address}
         </FlexChildGrowNoWrap>
         <FlexChildFixed>
           <Button
+            title="Show QR code"
             onClick={() => showQrCode(account.id)}
             icon compact basic>
             <Icon name="qrcode"/>

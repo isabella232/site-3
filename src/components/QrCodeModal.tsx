@@ -2,10 +2,11 @@ import * as React from 'react';
 import { useState } from 'react';
 import { QRCode } from 'react-qr-svg';
 import { connect } from 'react-redux';
-import { Button, Modal, TransitionablePortal } from 'semantic-ui-react';
+import { Button, Modal } from 'semantic-ui-react';
 import { dismissShowQrCode } from '../actions/accounts-actions';
 import { GlobalState } from '../reducers';
 import { Account } from '../util/model';
+import AnimatedModal from './AnimatedModal';
 
 interface QrCodeModalProps {
   accounts: Account[];
@@ -29,28 +30,26 @@ export default connect(
     }
 
     return (
-      <TransitionablePortal open={Boolean(account)}>
-        <Modal open onClose={() => dismissShowQrCode()} size="mini">
-          <Modal.Header>{lastAccount && lastAccount.name}</Modal.Header>
-          <Modal.Content>
-            {
-              lastAccount &&
-              <QRCode
-                value={lastAccount.address}
-                bgColor="#FFFFFF"
-                fgColor="#000000"
-                level="H"
-                style={{ width: '100%' }}
-              />
-            }
-          </Modal.Content>
-          <Modal.Actions>
-            <Button secondary onClick={() => dismissShowQrCode()}>
-              Done
-            </Button>
-          </Modal.Actions>
-        </Modal>
-      </TransitionablePortal>
+      <AnimatedModal open={Boolean(account)} onClose={() => dismissShowQrCode()} size="mini">
+        <Modal.Header>{lastAccount && lastAccount.name}</Modal.Header>
+        <Modal.Content>
+          {
+            lastAccount &&
+            <QRCode
+              value={lastAccount.address}
+              bgColor="#FFFFFF"
+              fgColor="#000000"
+              level="H"
+              style={{ width: '100%' }}
+            />
+          }
+        </Modal.Content>
+        <Modal.Actions>
+          <Button secondary onClick={() => dismissShowQrCode()}>
+            Done
+          </Button>
+        </Modal.Actions>
+      </AnimatedModal>
     );
   }
 );
