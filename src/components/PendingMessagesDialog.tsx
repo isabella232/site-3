@@ -43,12 +43,12 @@ export default connect(
 
     return (
       <AnimatedModal open={!!next} size="tiny">
+        <Label
+          attached="top"
+          color={NETWORKS_INFO[ network ].color}>{NETWORKS_INFO[ network ].displayName}</Label>
+
         <Modal.Header>
-          {
-            rendering ? TYPE_TO_HEADER[ rendering.method ] : null
-          }
-          <Label
-            color={NETWORKS_INFO[ network ].color}>{NETWORKS_INFO[ network ].displayName}</Label>
+          {rendering ? TYPE_TO_HEADER[ rendering.method ] : null}
         </Modal.Header>
         <Modal.Content>
           {
