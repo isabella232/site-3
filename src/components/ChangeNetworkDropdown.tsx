@@ -4,6 +4,7 @@ import { Dropdown } from 'semantic-ui-react';
 import { setNetwork } from '../actions/ethereum-provider-actions';
 import { GlobalState } from '../reducers';
 import { NetworkId, NETWORKS_INFO } from '../util/networks';
+import { AnalyticsCategory, track } from './GoogleAnalytics';
 
 export const ChangeNetworkDropdown = connect(
   ({ ethereumProvider: { network } }: GlobalState) => ({
@@ -28,9 +29,12 @@ export const ChangeNetworkDropdown = connect(
           {(Object.keys(NETWORKS_INFO) as NetworkId[]).map(network => (
             <Dropdown.Item
               key={network}
-              onClick={() =>
-                network === currentNetwork ? null : setNetwork(network)
-              }
+              onClick={() => {
+                if (network !== currentNetwork) {
+                  setNetwork(network);
+                  track(AnalyticsCategory.ETHEREUM, 'CHANGE_NETWORK', network);
+                }
+              }}
               active={network === currentNetwork}
             >
               {NETWORKS_INFO[ network ].displayName}

@@ -1,16 +1,18 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Button, ButtonProps, Icon } from 'semantic-ui-react';
+import { ButtonProps, Icon } from 'semantic-ui-react';
 import { openCreateAccountDialog } from '../actions/ui-actions';
+import { AnalyticsCategory } from './GoogleAnalytics';
+import TrackedButton from './TrackedButton';
 
 const CreateAccountButton = connect(
   null,
   { onClick: openCreateAccountDialog }
 )(
   (props: ButtonProps) => (
-    <Button {...props} primary compact>
+    <TrackedButton {...props} primary compact category={AnalyticsCategory.ACCOUNTS} action={'CREATE_ACCOUNT'}>
       <Icon name="plus"/> Create account
-    </Button>
+    </TrackedButton>
   )
 );
 

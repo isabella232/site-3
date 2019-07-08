@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Button, Icon } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { copyAddressToClipboard, showQrCode } from '../actions/accounts-actions';
 import { GlobalState } from '../reducers';
 import { Account } from '../util/model';
 import { NetworkId, NETWORKS_INFO } from '../util/networks';
 import { FlexChildFixed, FlexChildGrow, FlexParent } from './FlexRowComponents';
+import { AnalyticsCategory } from './GoogleAnalytics';
+import TrackedButton from './TrackedButton';
 
 const FlexChildGrowNoWrap = styled(FlexChildGrow)`
   white-space: nowrap;
@@ -34,28 +36,34 @@ export default connect(
           {account.address}
         </FlexChildGrowNoWrap>
         <FlexChildFixed>
-          <Button
+          <TrackedButton
+            category={AnalyticsCategory.ACCOUNTS}
+            action={'SHOW_QR_CODE'}
             title="Show QR code"
             onClick={() => showQrCode(account.id)}
             icon compact basic>
             <Icon name="qrcode"/>
-          </Button>
+          </TrackedButton>
         </FlexChildFixed>
         <FlexChildFixed>
-          <Button
+          <TrackedButton
+            category={AnalyticsCategory.ACCOUNTS}
+            action={'COPY_ADDRESS_TO_CLIPBOARD'}
             title="Copy address to clipboard"
             onClick={() => copyAddressToClipboard(account.id)}
             icon compact basic>
             <Icon name="clipboard"/>
-          </Button>
+          </TrackedButton>
         </FlexChildFixed>
         <FlexChildFixed>
-          <Button
+          <TrackedButton
+            category={AnalyticsCategory.ACCOUNTS}
+            action={'VIEW_ON_ETHERSCAN'}
             icon compact basic as="a" target="_blank" rel="noopener noreferrer"
             title="View on Etherscan"
             href={`${NETWORKS_INFO[ network ].etherscanBaseUrl}/address/${account.address}`}>
             <Icon name="external"/>
-          </Button>
+          </TrackedButton>
         </FlexChildFixed>
       </FlexParent>
     ) : null
