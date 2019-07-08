@@ -4,10 +4,10 @@ describe('Homepage', function () {
 
     cy.get('#url-entry-input').first().type('mycrypto.com{enter}');
 
-    cy.url().should('eq', 'http://localhost:3000/browse/mycrypto.com');
+    cy.location('pathname').should('eq', '/browse/mycrypto.com');
 
     cy.get('#home-button').click();
 
-    cy.url().should('eq', 'http://localhost:3000/');
+    cy.location('pathname').should('eq', '/');
   });
 });
