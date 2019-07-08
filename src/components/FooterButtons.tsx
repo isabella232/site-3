@@ -15,6 +15,7 @@ const FooterButtons = ({ openSidebar }: FooterButtonProps) => {
         style={{ borderRadius: 0 }}
         title="Return to the Ethvault home page"
         secondary
+        id="home-button"
         as={LocationAwareLink}
         to={{ pathname: '/' }}>
         <Icon name="home"/> Home
@@ -23,6 +24,7 @@ const FooterButtons = ({ openSidebar }: FooterButtonProps) => {
         style={{ borderRadius: 0 }}
         title="Open the vault to manage your accounts"
         primary
+        id="open-vault-button"
         onClick={openSidebar}>
         <Icon name="ethereum"/> Vault
       </Button>

@@ -3,7 +3,16 @@ language: node_js
 node_js:
   - node
 
-cache: npm
+addons:
+  apt:
+    packages:
+      - libgconf-2-4
+
+cache:
+  npm: true
+  directories:
+    # We also need to cache folder with Cypress binary.
+    - ~/.cache
 
 before_install:
   - pip install --user awscli
@@ -13,6 +22,7 @@ install: npm install
 
 script:
   - npm test
+  - npx start-server-and-test start http://localhost:3000 cy:run
   - npm run build
 
 deploy:

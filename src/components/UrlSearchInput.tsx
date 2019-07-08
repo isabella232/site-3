@@ -21,6 +21,7 @@ export default class UrlSearchInput extends React.PureComponent<InputProps, { se
               label="https://"
               type="url"
               fluid
+              id="url-entry-input"
               action={{
                 color: 'blue',
                 icon: 'angle right',
