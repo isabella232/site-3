@@ -1,4 +1,5 @@
 // The supported network options.
+import { SemanticCOLORS } from 'semantic-ui-react';
 import { INFURA_KEY } from './env';
 
 export type NetworkId = 'mainnet' | 'ropsten' | 'rinkeby' | 'kovan';
@@ -11,10 +12,12 @@ export interface NetworkInfo {
   nodeUrl: string;
   ensAddress: string | null;
   etherscanBaseUrl: string;
+  color: SemanticCOLORS;
 }
 
 // The network information by identifier
 export type NetworksInfo = { [networkName in NetworkId]: NetworkInfo };
+
 export const NETWORKS_INFO: NetworksInfo = {
   mainnet: {
     displayName: 'Mainnet',
@@ -23,6 +26,7 @@ export const NETWORKS_INFO: NetworksInfo = {
     ensAddress: '0x314159265dD8dbb310642f98f50C066173C1259b',
     nodeUrl: `https://mainnet.infura.io/${INFURA_KEY}`,
     etherscanBaseUrl: `https://etherscan.io`,
+    color: 'green',
   },
   ropsten: {
     displayName: 'Ropsten',
@@ -31,6 +35,7 @@ export const NETWORKS_INFO: NetworksInfo = {
     ensAddress: null,
     nodeUrl: `https://ropsten.infura.io/${INFURA_KEY}`,
     etherscanBaseUrl: `https://ropsten.etherscan.io`,
+    color: 'yellow'
   },
   rinkeby: {
     displayName: 'Rinkeby',
@@ -39,6 +44,7 @@ export const NETWORKS_INFO: NetworksInfo = {
     ensAddress: null,
     nodeUrl: `https://rinkeby.infura.io/${INFURA_KEY}`,
     etherscanBaseUrl: `https://rinkeby.etherscan.io`,
+    color: 'orange'
   },
   kovan: {
     displayName: 'Kovan',
@@ -47,6 +53,7 @@ export const NETWORKS_INFO: NetworksInfo = {
     ensAddress: null,
     nodeUrl: `https://kovan.infura.io/${INFURA_KEY}`,
     etherscanBaseUrl: `https://kovan.etherscan.io`,
+    color: 'purple'
   }
 };
 

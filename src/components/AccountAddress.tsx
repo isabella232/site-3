@@ -6,22 +6,11 @@ import { copyAddressToClipboard, showQrCode } from '../actions/accounts-actions'
 import { GlobalState } from '../reducers';
 import { Account } from '../util/model';
 import { NetworkId, NETWORKS_INFO } from '../util/networks';
+import { FlexChildFixed, FlexChildGrow, FlexParent } from './FlexRowComponents';
 
-const FlexParent = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const FlexChildGrow = styled.div`
-  flex-grow: 1;
-  flex-shrink: 1;
-  overflow: hidden;
+const FlexChildGrowNoWrap = styled(FlexChildGrow)`
   white-space: nowrap;
   text-overflow: ellipsis;
-`;
-
-const FlexChildFixed = styled.div`
-  flex-shrink: 0;
 `;
 
 interface AccountAddressProps {
@@ -41,9 +30,9 @@ export default connect(
   ({ account, showQrCode, copyAddressToClipboard, network }: AccountAddressProps) => (
     account ? (
       <FlexParent>
-        <FlexChildGrow>
+        <FlexChildGrowNoWrap>
           {account.address}
-        </FlexChildGrow>
+        </FlexChildGrowNoWrap>
         <FlexChildFixed>
           <Button
             onClick={() => showQrCode(account.id)}

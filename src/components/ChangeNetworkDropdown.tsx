@@ -23,7 +23,7 @@ export const ChangeNetworkDropdown = connect(
         button
         text={NETWORKS_INFO[ currentNetwork ].displayName}
         compact
-        className={currentNetwork === 'mainnet' ? 'green' : 'yellow'}>
+        className={NETWORKS_INFO[ currentNetwork ].color}>
         <Dropdown.Menu>
           {(Object.keys(NETWORKS_INFO) as NetworkId[]).map(network => (
             <Dropdown.Item

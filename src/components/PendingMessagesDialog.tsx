@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Button, Header, Icon, Modal, TransitionablePortal } from 'semantic-ui-react';
+import { Button, Icon, Label, Modal, TransitionablePortal } from 'semantic-ui-react';
 import {
   acceptRequest,
   ActionableRequest,
@@ -9,6 +9,7 @@ import {
   SignTransactionRequest
 } from '../actions/ethereum-provider-actions';
 import { GlobalState } from '../reducers';
+import { NetworkId, NETWORKS_INFO } from '../util/networks';
 import SignMessageRequestInfo from './SignMessageRequestInfo';
 import SignTransactionRequestInfo from './SignTransactionRequestInfo';
 
@@ -19,15 +20,16 @@ const TYPE_TO_HEADER = {
 
 interface PendingMessagesDialogProps {
   pendingRequests: ActionableRequest[];
+  network: NetworkId;
   dismissRequest: (id: string | number) => void;
   acceptRequest: (id: string | number) => void;
 }
 
 export default connect(
-  ({ ethereumProvider: { pendingRequests } }: GlobalState) => ({ pendingRequests }),
+  ({ ethereumProvider: { pendingRequests, network } }: GlobalState) => ({ pendingRequests, network }),
   { dismissRequest: rejectActionableRequest, acceptRequest }
 )(
-  ({ pendingRequests, dismissRequest, acceptRequest }: PendingMessagesDialogProps) => {
+  ({ pendingRequests, dismissRequest, acceptRequest, network }: PendingMessagesDialogProps) => {
     const next = pendingRequests.length > 0 ? pendingRequests[ 0 ] : null;
     const [ showing, setShowing ] = useState<SignTransactionRequest | SignMessageRequest | null>(null);
 
@@ -42,13 +44,12 @@ export default connect(
       <TransitionablePortal open={next !== null} transition={{ animation: 'scale' }}>
         <Modal open size="tiny">
           <Modal.Header>
-            <Header>
-              <Header.Content>{rendering ? TYPE_TO_HEADER[ rendering.method ] : null}</Header.Content>
-              {
-                pendingRequests.length < 2 ? null :
-                  <Header.Subheader>{pendingRequests.length - 1} other request(s)</Header.Subheader>
-              }
-            </Header>
+            {
+              rendering ? TYPE_TO_HEADER[ rendering.method ] : null
+            }
+            <Label
+              attached="top right"
+              color={NETWORKS_INFO[ network ].color}>{NETWORKS_INFO[ network ].displayName}</Label>
           </Modal.Header>
           <Modal.Content>
             {

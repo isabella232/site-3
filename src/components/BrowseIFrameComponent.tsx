@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
+import { Loader } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { clearQueue, handleMessage, Message, messagesSent, sendMessages } from '../actions/ethereum-provider-actions';
 import { GlobalState } from '../reducers';
@@ -27,8 +28,8 @@ const StyledIFrame = styled.iframe`
   outline: none;
 `;
 
-interface IState {
-  src: string | null;
+interface BrowseIFrameComponentState {
+  loaded: boolean;
 }
 
 interface BrowseIFrameComponentProps
@@ -46,23 +47,26 @@ export default connect(
   }),
   { handleMessage, messagesSent, clearQueue, sendMessages }
 )(
-  class BrowseIFrameComponent extends React.Component<BrowseIFrameComponentProps,
-    IState> {
+  class BrowseIFrameComponent extends React.PureComponent<BrowseIFrameComponentProps,
+    BrowseIFrameComponentState> {
     iframeEl: HTMLIFrameElement | null = null;
 
-    state: IState = {
-      src: null
+    state: BrowseIFrameComponentState = {
+      loaded: false,
     };
 
-    componentWillMount(): void {
+    /**
+     *
+     */
+    private get iframeSrc(): string | null {
       try {
-        this.setState({
-          src: getValidUrl(decodeURIComponent(this.props.match.params.pageUrl))
-        });
+        return getValidUrl(decodeURIComponent(this.props.match.params.pageUrl));
       } catch (error) {
-        this.setState({ src: null });
+        return null;
       }
+    }
 
+    componentWillMount(): void {
       window.addEventListener('message', this.handleWindowMessages);
     }
 
@@ -83,13 +87,7 @@ export default connect(
         // A URL change means we clear the communication channels
         nextProps.clearQueue();
 
-        try {
-          this.setState({
-            src: getValidUrl(decodeURIComponent(nextProps.match.params.pageUrl))
-          });
-        } catch (error) {
-          this.setState({ src: null });
-        }
+        this.setState({ loaded: false });
       }
 
       if (
@@ -122,7 +120,9 @@ export default connect(
       this.iframeEl = iframeEl;
     };
 
-    sendConnect = () => {
+    handleLoaded = () => {
+      this.setState({ loaded: true });
+
       const { sendMessages } = this.props;
 
       sendMessages([
@@ -135,17 +135,20 @@ export default connect(
     };
 
     render() {
-      if (this.state.src === null) {
+      const src = this.iframeSrc;
+      if (src === null) {
         return <InvalidURLPage/>;
       }
 
       return (
         <IFrameContainer>
           <StyledIFrame
-            onLoad={this.sendConnect}
+            onLoad={this.handleLoaded}
             ref={this.updateRef}
-            src={this.state.src}
+            src={src}
           />
+
+          <Loader active={!this.state.loaded} size="huge"/>
         </IFrameContainer>
       );
     }
