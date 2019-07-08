@@ -3,7 +3,9 @@ import ReactGA from 'react-ga';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { GOOGLE_ANALYTICS_ID } from '../util/env';
 
-ReactGA.initialize(GOOGLE_ANALYTICS_ID, { debug: process.env.NODE_ENV === 'development' });
+export function initGoogleAnalytics() {
+  ReactGA.initialize(GOOGLE_ANALYTICS_ID, { debug: process.env.NODE_ENV === 'development' });
+}
 
 export enum AnalyticsCategory {
   ACCOUNTS = 'ACCOUNTS',

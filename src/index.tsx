@@ -5,10 +5,12 @@ import { BrowserRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import 'semantic-ui-css/semantic.min.css';
 import App from './App';
-import GoogleAnalytics from './components/GoogleAnalytics';
+import GoogleAnalytics, { initGoogleAnalytics } from './components/GoogleAnalytics';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import configurePersistedStore from './util/configure-persisted-store';
+
+initGoogleAnalytics();
 
 const { store, persistor } = configurePersistedStore();
 
