@@ -4,7 +4,7 @@ import { Button, Dimmer, Form, Icon, Input, Modal, Progress, TextArea } from 'se
 import { createAccount, CreateAccountActionParams } from '../actions/accounts-actions';
 import { closeCreateAccountDialog } from '../actions/ui-actions';
 import { GlobalState } from '../reducers';
-import AnimatedModal from './AnimatedModal';
+import AnimatedTrackedModal from './AnimatedTrackedModal';
 import PasswordStrengthMeter from './PasswordStrengthMeter';
 
 interface CreateAccountDialogProps {
@@ -80,7 +80,7 @@ export const CreateAccountDialog = connect(
       const { form } = this.state;
 
       return (
-        <AnimatedModal open={props.open} size="mini">
+        <AnimatedTrackedModal open={props.open} size="mini" modalName="CREATE_ACCOUNT_DIALOG">
           <Modal.Header>Create new account</Modal.Header>
           <Dimmer.Dimmable as={Modal.Content}>
             <Dimmer active={props.loading} inverted>
@@ -202,7 +202,7 @@ export const CreateAccountDialog = connect(
               <Icon name="plus"/> Create account
             </Button>
           </Modal.Actions>
-        </AnimatedModal>
+        </AnimatedTrackedModal>
       );
     }
   }

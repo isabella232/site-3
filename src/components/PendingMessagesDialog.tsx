@@ -10,7 +10,7 @@ import {
 } from '../actions/ethereum-provider-actions';
 import { GlobalState } from '../reducers';
 import { NetworkId, NETWORKS_INFO } from '../util/networks';
-import AnimatedModal from './AnimatedModal';
+import AnimatedTrackedModal from './AnimatedTrackedModal';
 import SignMessageRequestInfo from './SignMessageRequestInfo';
 import SignTransactionRequestInfo from './SignTransactionRequestInfo';
 
@@ -42,7 +42,7 @@ export default connect(
     const rendering = next === null ? showing : next;
 
     return (
-      <AnimatedModal open={!!next} size="tiny">
+      <AnimatedTrackedModal open={!!next} size="tiny" modalName="PENDING_MESSAGES_DIALOG">
         <Label
           attached="top"
           color={NETWORKS_INFO[ network ].color}>{NETWORKS_INFO[ network ].displayName}</Label>
@@ -67,6 +67,6 @@ export default connect(
             <Icon name="send"/> Sign
           </Button>
         </Modal.Actions>
-      </AnimatedModal>
+      </AnimatedTrackedModal>
     );
   });

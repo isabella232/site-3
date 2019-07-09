@@ -7,6 +7,7 @@ import { GlobalState } from '../reducers';
 import { getBlockyDataUri } from '../util/blockies';
 import { Account } from '../util/model';
 import AccountAddress from './AccountAddress';
+import { AnalyticsCategory, track } from './GoogleAnalytics';
 
 interface AccountItemOwnProps {
   account: Account;
@@ -124,29 +125,42 @@ export default connect<AccountItemStateProps,
                     {
                       isUnlocked ?
                         <Dropdown.Item
-                          onClick={lockAccounts}
+                          onClick={() => {
+                            track(AnalyticsCategory.ACCOUNTS, 'LOCK_ACCOUNTS_CLICKED');
+                            lockAccounts();
+                          }}
                           disabled={disableActions}>
                           <Icon name="lock open"/> Lock accounts
                         </Dropdown.Item> :
                         <Dropdown.Item
                           disabled={isBeingUnlocked || disableActions}
-                          onClick={() => openUnlock(id)}>
+                          onClick={() => {
+                            track(AnalyticsCategory.ACCOUNTS, 'UNLOCK_ACCOUNT_CLICKED');
+                            openUnlock(id);
+                          }}>
                           <Icon name="lock"/> Unlock account
                         </Dropdown.Item>
                     }
                     <Dropdown.Item
-                      onClick={() => exportKey(id)}
+                      onClick={() => {
+                        track(AnalyticsCategory.ACCOUNTS, 'EXPORT_KEY_CLICKED');
+                        exportKey(id);
+                      }}
                       disabled={isExporting || disableActions}>
                       <Icon name="download"/> Download encrypted backup
                     </Dropdown.Item>
                     <Dropdown.Item
                       disabled={disableActions}
-                      onClick={() => alert('Coming soon.')}>
+                      onClick={() => {
+                        track(AnalyticsCategory.ACCOUNTS, 'EDIT_ACCOUNT_CLICKED');
+                        alert('Coming soon.');
+                      }}>
                       <Icon name="pencil"/> Edit account
                     </Dropdown.Item>
                     <Dropdown.Item
                       disabled={isBeingDeleted || disableActions}
                       onClick={() => {
+                        track(AnalyticsCategory.ACCOUNTS, 'DELETE_ACCOUNT_CLICKED');
                         if (
                           window.confirm(
                             `Are you sure you would like to delete account "${name}"?`

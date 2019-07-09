@@ -15,11 +15,18 @@ export enum AnalyticsCategory {
 
 export interface AnalyticsCategoryArgs {
   [ AnalyticsCategory.ACCOUNTS ]: {
-    CREATE_ACCOUNT: void;
+    CREATE_ACCOUNT_CLICKED: void;
     DELETE_ACCOUNT: void;
     SHOW_QR_CODE: void;
     COPY_ADDRESS_TO_CLIPBOARD: void;
     VIEW_ON_ETHERSCAN: void;
+    CANCEL_UNLOCK: void;
+    SUBMIT_PASSWORD_UNLOCK: void;
+    EXPORT_KEY_CLICKED: void;
+    EDIT_ACCOUNT_CLICKED: void;
+    DELETE_ACCOUNT_CLICKED: void;
+    LOCK_ACCOUNTS_CLICKED: void;
+    UNLOCK_ACCOUNT_CLICKED: void;
   },
   [ AnalyticsCategory.ETHEREUM ]: {
     CHANGE_NETWORK: void;
@@ -27,6 +34,10 @@ export interface AnalyticsCategoryArgs {
   [ AnalyticsCategory.UI ]: {
     OPEN_VAULT: void;
     CLOSE_VAULT: void;
+    GO_HOME_BUTTON: void;
+    SIGN_OUT_BUTTON: void;
+    OPEN_VAULT_BUTTON: void;
+    CLICK_WORKING_SITE_CARD: void;
   }
 }
 

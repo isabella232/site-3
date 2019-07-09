@@ -6,7 +6,7 @@ import { Button, Modal } from 'semantic-ui-react';
 import { dismissShowQrCode } from '../actions/accounts-actions';
 import { GlobalState } from '../reducers';
 import { Account } from '../util/model';
-import AnimatedModal from './AnimatedModal';
+import AnimatedTrackedModal from './AnimatedTrackedModal';
 
 interface QrCodeModalProps {
   accounts: Account[];
@@ -30,7 +30,7 @@ export default connect(
     }
 
     return (
-      <AnimatedModal open={Boolean(account)} onClose={() => dismissShowQrCode()} size="mini">
+      <AnimatedTrackedModal open={Boolean(account)} onClose={() => dismissShowQrCode()} size="mini" modalName="SHOW_QR_CODE">
         <Modal.Header>{lastAccount && lastAccount.name}</Modal.Header>
         <Modal.Content>
           {
@@ -49,7 +49,7 @@ export default connect(
             Done
           </Button>
         </Modal.Actions>
-      </AnimatedModal>
+      </AnimatedTrackedModal>
     );
   }
 );

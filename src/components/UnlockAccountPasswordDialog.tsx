@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Button, Form, Icon, Input, Modal } from 'semantic-ui-react';
+import { Form, Icon, Input, Modal } from 'semantic-ui-react';
 import { cancelUnlock, unlockAccount } from '../actions/accounts-actions';
 import { GlobalState } from '../reducers';
 import { Account } from '../util/model';
-import AnimatedModal from './AnimatedModal';
+import AnimatedTrackedModal from './AnimatedTrackedModal';
+import { AnalyticsCategory } from './GoogleAnalytics';
+import TrackedButton from './TrackedButton';
 
 interface UnlockAccountPasswordDialogProps {
   unlockingAccount: Account | null;
@@ -63,14 +65,12 @@ export default connect(
       const showing = unlockingAccount ? unlockingAccount : rendering;
 
       return (
-        <AnimatedModal open={!!unlockingAccount} size="mini">
+        <AnimatedTrackedModal open={!!unlockingAccount} size="mini" modalName="UNLOCK_ACCOUNT_PASSWORD_DIALOG">
           <Modal.Header>
             Unlock account: {showing && showing.name}
           </Modal.Header>
           <Modal.Content>
-            <Form
-              onSubmit={() => unlockingAccount && unlockAccount(unlockingAccount.id, password)}
-              compact>
+            <Form onSubmit={() => unlockingAccount && unlockAccount(unlockingAccount.id, password)}>
               <Form.Field>
                 <label htmlFor="unlock-account-name">Account name</label>
                 <Input
@@ -89,6 +89,7 @@ export default connect(
                   type="password"
                   fluid
                   placeholder="Account password"
+                  autoComplete="current-password"
                   required
                   value={password}
                   ref={passwordInput => this.passwordInput = passwordInput}
@@ -101,16 +102,19 @@ export default connect(
             </Form>
           </Modal.Content>
           <Modal.Actions>
-            <Button type="button" onClick={() => unlockingAccount && cancelUnlock()}>
+            <TrackedButton type="button" onClick={() => unlockingAccount && cancelUnlock()}
+                           category={AnalyticsCategory.ACCOUNTS} action={'CANCEL_UNLOCK'}>
               Cancel
-            </Button>
-            <Button
+            </TrackedButton>
+            <TrackedButton
               primary type="button"
-              onClick={() => this.submitButton && this.submitButton.click()}>
+              onClick={() => this.submitButton && this.submitButton.click()}
+              category={AnalyticsCategory.ACCOUNTS} action={'SUBMIT_PASSWORD_UNLOCK'}
+            >
               <Icon name="key"/> Unlock
-            </Button>
+            </TrackedButton>
           </Modal.Actions>
-        </AnimatedModal>
+        </AnimatedTrackedModal>
       );
     }
   }

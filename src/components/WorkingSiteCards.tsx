@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Label } from 'semantic-ui-react';
 import styled from 'styled-components';
+import { AnalyticsCategory, track } from './GoogleAnalytics';
 import LocationAwareLink from './LocationAwareLink';
 import { WORKING_SITES_INFO } from './WorkingSitesInfo';
 
@@ -14,7 +15,9 @@ export default function WorkingSiteCards() {
       <Card.Group stackable itemsPerRow={2}>
         {
           WORKING_SITES_INFO.map(({ name, labels, description, url }) => (
-            <Card key={url} fluid link as={LocationAwareLink} to={{ pathname: `/browse/${encodeURIComponent(url)}` }}>
+            <Card
+              key={url} fluid link as={LocationAwareLink} to={{ pathname: `/browse/${encodeURIComponent(url)}` }}
+              onClick={() => track(AnalyticsCategory.UI, 'CLICK_WORKING_SITE_CARD', name)}>
               <Card.Content>
                 <Card.Header>{name}</Card.Header>
               </Card.Content>

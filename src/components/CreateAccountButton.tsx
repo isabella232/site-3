@@ -10,7 +10,7 @@ const CreateAccountButton = connect(
   { onClick: openCreateAccountDialog }
 )(
   (props: ButtonProps) => (
-    <TrackedButton {...props} primary compact category={AnalyticsCategory.ACCOUNTS} action={'CREATE_ACCOUNT'}>
+    <TrackedButton {...props} primary compact category={AnalyticsCategory.ACCOUNTS} action={'CREATE_ACCOUNT_CLICKED'}>
       <Icon name="plus"/> Create account
     </TrackedButton>
   )
