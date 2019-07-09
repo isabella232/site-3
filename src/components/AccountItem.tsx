@@ -103,7 +103,12 @@ export default connect<AccountItemStateProps,
         <Item.Meta>
           <AccountAddress accountId={id}/>
         </Item.Meta>
-        <Item.Description title={description}>{description}</Item.Description>
+        <Item.Description title={description}>
+          {
+            description.split('\n')
+              .map((line, ix) => (<span key={ix}>{line}<br/></span>))
+          }
+        </Item.Description>
         <Divider/>
         <Item.Extra>
           {
