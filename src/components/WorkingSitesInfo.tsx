@@ -33,7 +33,7 @@ export const WORKING_SITES_INFO: Readonly<Site[]> = [
     name: 'ENS',
     labels: [ NEW_LABEL, WIP_LABEL ],
     description: 'ENS offers a secure & decentralised way to address resources both on and off the blockchain using simple, human-readable names.',
-    url: 'kickback.events'
+    url: 'manager.ens.domains'
   },
   {
     logo: EthvaultWalletTempLogo,
