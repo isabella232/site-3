@@ -258,7 +258,7 @@ export const accountsReducer: Reducer<AccountsState, AccountActions | LoggedOutA
           collectingUnlockPasswordId: action.id,
         };
 
-      case 'CANCEL_UNLOCK':
+      case 'DISMISS_UNLOCK_DIALOG':
         return {
           ...state,
           collectingUnlockPasswordId: null,

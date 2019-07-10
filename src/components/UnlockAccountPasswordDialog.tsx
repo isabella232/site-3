@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Form, Icon, Input, Modal } from 'semantic-ui-react';
-import { cancelUnlock, unlockAccount } from '../actions/accounts-actions';
+import { dismissUnlockDialog, unlockAccount } from '../actions/accounts-actions';
 import { GlobalState } from '../reducers';
 import { Account } from '../util/model';
 import AnimatedTrackedModal from './AnimatedTrackedModal';
@@ -11,7 +11,7 @@ import TrackedButton from './TrackedButton';
 interface UnlockAccountPasswordDialogProps {
   unlockingAccount: Account | null;
   unlockAccount: (id: string, password: string) => void;
-  cancelUnlock: () => void;
+  dismissUnlockDialog: () => void;
 }
 
 interface UnlockAccountPasswordDialogState {
@@ -25,7 +25,7 @@ export default connect(
   }),
   {
     unlockAccount,
-    cancelUnlock
+    dismissUnlockDialog
   }
 )(
   class UnlockAccountPasswordDialog extends React.PureComponent<UnlockAccountPasswordDialogProps, UnlockAccountPasswordDialogState> {
@@ -55,7 +55,7 @@ export default connect(
 
     render() {
       const {
-        cancelUnlock,
+        dismissUnlockDialog,
         unlockAccount,
         unlockingAccount
       } = this.props;
@@ -102,7 +102,7 @@ export default connect(
             </Form>
           </Modal.Content>
           <Modal.Actions>
-            <TrackedButton type="button" onClick={() => unlockingAccount && cancelUnlock()}
+            <TrackedButton type="button" onClick={() => unlockingAccount && dismissUnlockDialog()}
                            category={AnalyticsCategory.ACCOUNTS} action={'CANCEL_UNLOCK'}>
               Cancel
             </TrackedButton>

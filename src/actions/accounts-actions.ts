@@ -60,7 +60,7 @@ interface OpenUnlockAction extends Action<'OPEN_UNLOCK'> {
   id: string;
 }
 
-interface CancelUnlockAction extends Action<'CANCEL_UNLOCK'> {
+interface DismissUnlockDialogAction extends Action<'DISMISS_UNLOCK_DIALOG'> {
 }
 
 export type AccountActions =
@@ -83,7 +83,7 @@ export type AccountActions =
   | ShowQrCodeAction
   | DismissShowQrCodeAction
   | OpenUnlockAction
-  | CancelUnlockAction;
+  | DismissUnlockDialogAction;
 
 type AccountThunkAction<R> = ThunkAction<R,
   GlobalState,
@@ -209,9 +209,9 @@ export function openUnlock(id: string): OpenUnlockAction {
   };
 }
 
-export function cancelUnlock(): CancelUnlockAction {
+export function dismissUnlockDialog(): DismissUnlockDialogAction {
   return {
-    type: 'CANCEL_UNLOCK'
+    type: 'DISMISS_UNLOCK_DIALOG'
   };
 }
 
@@ -243,6 +243,8 @@ export const unlockAccount: (
       type: 'UNLOCK_ACCOUNT_START',
       id
     });
+
+    dispatch(dismissUnlockDialog());
 
     try {
       const fullAccount = await API.getAccountWithEncryptedJson(account.id, token);
