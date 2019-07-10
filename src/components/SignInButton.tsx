@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { Route } from 'react-router';
-import { Button, ButtonProps, Icon } from 'semantic-ui-react';
+import { ButtonProps, Icon } from 'semantic-ui-react';
 import { AUTH0_API_AUDIENCE, AUTH0_BASE_URL, AUTH0_CLIENT_ID } from '../util/env';
+import { AnalyticsCategory } from './GoogleAnalytics';
+import TrackedButton from './TrackedButton';
 
 function encodeParameters(parameters: { [ paramName: string ]: string }) {
   return Object.keys(parameters)
@@ -38,17 +40,18 @@ export default function SignInButton(props: ButtonProps) {
         });
 
         return (
-          <Button
+          <TrackedButton
+            category={AnalyticsCategory.UI}
+            action="SIGN_IN_BUTTON"
             {...props}
             onClick={() => {
               sessionStorage.setItem(AUTH_FLOW_STATE_LOCAL_STORAGE_KEY, state);
             }}
             href={`${AUTH0_BASE_URL}/authorize?${parameters}`}
             title="Sign in to Ethvault to manage your accounts and use Dapps"
-            primary
-          >
+            primary>
             <Icon name="sign in alternate"/> Sign In
-          </Button>
+          </TrackedButton>
         );
       }}
     </Route>

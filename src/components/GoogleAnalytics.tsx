@@ -36,6 +36,7 @@ export interface AnalyticsCategoryArgs {
     CLOSE_VAULT: void;
     GO_HOME_BUTTON: void;
     SIGN_OUT_BUTTON: void;
+    SIGN_IN_BUTTON: void;
     OPEN_VAULT_BUTTON: void;
     CLICK_WORKING_SITE_CARD: void;
   }

@@ -234,15 +234,18 @@ export const unlockAccount: (
       throw new Error('Unlocking in progress.');
     }
 
+    const account = getState().accounts.accounts.find(account => account.id === id);
+    if (!account) {
+      throw new Error('Inavlid account ID!');
+    }
+
     dispatch({
       type: 'UNLOCK_ACCOUNT_START',
       id
     });
 
-    dispatch(cancelUnlock());
-
     try {
-      const fullAccount = await API.getAccountWithEncryptedJson(id, token);
+      const fullAccount = await API.getAccountWithEncryptedJson(account.id, token);
 
       const throttledReportProgress = throttle((progress: number) => dispatch({
         type: 'UNLOCK_ACCOUNT_PROGRESS',
@@ -273,7 +276,7 @@ export const unlockAccount: (
 
       dispatch(
         showAlert({
-          header: `Unlocked account`,
+          header: `Unlocked account: "${fullAccount.name}"`,
           message:
             'You may now use this account with a supported application.',
           level: 'success'
@@ -292,7 +295,7 @@ export const unlockAccount: (
 
       dispatch(
         showAlert({
-          header: 'Failed to unlock account',
+          header: `Failed to unlock account: "${account.name}"`,
           message:
             `The following error was encountered while trying to unlock the account: ${error.message}`,
           level: 'error'
@@ -371,7 +374,7 @@ export const deleteAccount: (id: string) => AccountThunkAction<void> = id => {
       dispatch(
         showAlert({
           header: 'Failed to delete account',
-          message: 'The account with the specified ID does not exist',
+          message: 'The account with the specified ID does not exist.',
           level: 'error'
         })
       );
@@ -393,7 +396,7 @@ export const deleteAccount: (id: string) => AccountThunkAction<void> = id => {
 
       dispatch(
         showAlert({
-          header: `Account "${account.name}" deleted`,
+          header: `Account deleted: "${account.name}"`,
           message:
             'Your account has been permanently deleted. Your keys will be evicted from the service within a week. Contact support as soon as possible if this was an accident.',
           level: 'warning'
@@ -402,7 +405,7 @@ export const deleteAccount: (id: string) => AccountThunkAction<void> = id => {
     } catch (error) {
       dispatch(
         showAlert({
-          header: 'Failed to delete account',
+          header: `Failed to delete account: "${account.name}"`,
           message:
             'An error occurred while trying to delete your account. Please contact support if the issue persists.',
           level: 'error'
@@ -449,13 +452,13 @@ export const copyAddressToClipboard: (
     if (copy(account.address)) {
       dispatch(showAlert({
         level: 'success',
-        header: `Copied address for account "${account.name}"`,
+        header: `Copied address for account: "${account.name}"`,
         message: 'The account address has been copied to the clipboard.'
       }));
     } else {
       dispatch(showAlert({
         level: 'error',
-        header: 'Failed to copy to clipboard',
+        header: 'Failed to copy address to clipboard',
         message: 'Sorry, your browser does not support copying to clipboard.'
       }));
     }

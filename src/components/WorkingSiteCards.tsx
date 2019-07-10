@@ -24,6 +24,10 @@ const StyledImage = styled(Image)`
   padding: 1rem !important;
 `;
 
+const StyledCardContentNoGrow = styled(Card.Content)`
+  flex-grow: 0 !important;
+`;
+
 export default function WorkingSiteCards() {
   return (
     <StyledContainer>
@@ -34,14 +38,14 @@ export default function WorkingSiteCards() {
               key={url} fluid link as={LocationAwareLink} to={{ pathname: `/browse/${encodeURIComponent(url)}` }}
               onClick={() => track(AnalyticsCategory.UI, 'CLICK_WORKING_SITE_CARD', name)}>
               <StyledImage src={logo} wrapped ui={false}/>
-              <Card.Content>
+              <StyledCardContentNoGrow>
                 <Card.Header>{name}</Card.Header>
-              </Card.Content>
-              <Card.Content>
+              </StyledCardContentNoGrow>
+              <StyledCardContentNoGrow>
                 <Card.Meta>
                   {labels.map(({ text, color }, ix) => <Label size="small" key={ix} color={color}>{text}</Label>)}
                 </Card.Meta>
-              </Card.Content>
+              </StyledCardContentNoGrow>
               <Card.Content>
                 <Card.Description>
                   {description}
