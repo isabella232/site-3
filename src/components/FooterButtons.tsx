@@ -14,14 +14,25 @@ interface FooterButtonProps {
 const StyledButtonGroup = styled(Button.Group)`
   @media all and (display-mode: standalone) {
     > .button {
-      padding-bottom: 2rem;
+      padding-bottom: 1.5rem;
+    }
+  }
+  
+  &.is-standalone {
+    > .button {
+      padding-bottom: 1.5rem;
     }
   }
 `;
 
+const isStandalone = window &&
+  window.navigator &&
+  'standalone' in window.navigator &&
+  window.navigator[ 'standalone' ] === true;
+
 const FooterButtons = ({ openSidebar }: FooterButtonProps) => {
   return (
-    <StyledButtonGroup size="large" fluid>
+    <StyledButtonGroup size="large" fluid className={isStandalone ? 'is-standalone' : ''}>
       <TrackedButton
         style={{ borderRadius: 0 }}
         title="Return to the Ethvault home page"
