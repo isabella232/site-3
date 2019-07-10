@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Label } from 'semantic-ui-react';
+import { Card, Image, Label } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { AnalyticsCategory, track } from './GoogleAnalytics';
 import LocationAwareLink from './LocationAwareLink';
@@ -9,15 +9,31 @@ const StyledContainer = styled.div`
   margin-top: 2rem;
 `;
 
+const StyledImage = styled(Image)`
+  img {
+    height: 100% !important;
+    width: auto !important;
+  }
+  
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0,0,0,0.5);
+  
+  height: 12rem;
+  padding: 1rem !important;
+`;
+
 export default function WorkingSiteCards() {
   return (
     <StyledContainer>
-      <Card.Group stackable itemsPerRow={2}>
+      <Card.Group stackable itemsPerRow={4} doubling>
         {
-          WORKING_SITES_INFO.map(({ name, labels, description, url }) => (
+          WORKING_SITES_INFO.map(({ name, labels, description, url, logo }) => (
             <Card
               key={url} fluid link as={LocationAwareLink} to={{ pathname: `/browse/${encodeURIComponent(url)}` }}
               onClick={() => track(AnalyticsCategory.UI, 'CLICK_WORKING_SITE_CARD', name)}>
+              <StyledImage src={logo} wrapped ui={false}/>
               <Card.Content>
                 <Card.Header>{name}</Card.Header>
               </Card.Content>
