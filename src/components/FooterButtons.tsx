@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Icon } from 'semantic-ui-react';
+import styled from 'styled-components';
 import { openSidebar } from '../actions/ui-actions';
 import { AnalyticsCategory } from './GoogleAnalytics';
 import LocationAwareLink from './LocationAwareLink';
@@ -10,9 +11,17 @@ interface FooterButtonProps {
   openSidebar: typeof openSidebar
 }
 
+const StyledButtonGroup = styled(Button.Group)`
+  @media all and (display-mode: standalone) {
+    > .button {
+      padding-bottom: 2rem;
+    }
+  }
+`;
+
 const FooterButtons = ({ openSidebar }: FooterButtonProps) => {
   return (
-    <Button.Group size="large" fluid>
+    <StyledButtonGroup size="large" fluid>
       <TrackedButton
         style={{ borderRadius: 0 }}
         title="Return to the Ethvault home page"
@@ -34,7 +43,7 @@ const FooterButtons = ({ openSidebar }: FooterButtonProps) => {
         onClick={openSidebar}>
         <Icon name="ethereum"/> Vault
       </TrackedButton>
-    </Button.Group>
+    </StyledButtonGroup>
   );
 };
 
