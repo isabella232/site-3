@@ -120,7 +120,7 @@ export default withRouter(class SearchInput extends React.PureComponent<SearchIn
         {...this.props}
         placeholder="Search for an app"
         id="dapp-search-bar"
-        fluid autoFocus
+        fluid
         value={search}
         onResultSelect={this.handleResultSelect}
         category
