@@ -77,6 +77,14 @@ function matchingSearch(value: string): CategorizedResults[] {
   return sitesByCategory(filtered);
 }
 
+/**
+ * Returns true if the keyboard event is an enter press
+ * @param e keyboard event
+ */
+function isEnter(e: KeyboardEvent) {
+  return (e.key && e.key === 'Enter') || (e.keyCode && e.keyCode === 13);
+}
+
 export default withRouter(class SearchInput extends React.PureComponent<SearchInputProps, SearchInputState> {
   state = {
     search: '',
@@ -98,6 +106,11 @@ export default withRouter(class SearchInput extends React.PureComponent<SearchIn
   };
 
   browseToUrl = (url: string) => this.props.history.push(`/browse/${encodeURIComponent(url)}`);
+  handleEnter = (e: KeyboardEvent) => {
+    if (isEnter(e) && this.state.results.length === 1 && this.state.results[ 0 ].results.length === 1) {
+      return this.browseToUrl(this.state.results[ 0 ].results[ 0 ].url);
+    }
+  };
 
   render() {
     const { search, results } = this.state;
@@ -111,6 +124,7 @@ export default withRouter(class SearchInput extends React.PureComponent<SearchIn
         value={search}
         onResultSelect={this.handleResultSelect}
         category
+        onKeyDown={this.handleEnter}
         results={results}
         onSearchChange={this.handleSearchChange}/>
     );
