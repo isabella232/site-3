@@ -43,7 +43,7 @@ export const WORKING_SITES_INFO: Readonly<Site[]> = [
     labels: [ WIP_LABEL ],
     description: 'CryptoKitties is a game centered around breedable, collectible, and oh-so-adorable creatures we call CryptoKitties! Each cat is one-of-a-kind and 100% owned by you; it cannot be replicated, taken away, or destroyed.',
     category: SiteCategory.GAME,
-    url: 'cryptokitties.com'
+    url: 'www.cryptokitties.co'
   },
   {
     logo: ENSLogo,
