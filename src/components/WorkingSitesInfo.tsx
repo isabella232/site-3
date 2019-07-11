@@ -1,9 +1,9 @@
 import { SemanticCOLORS } from 'semantic-ui-react';
+import CryptoKittiesLogo from '../assets/cryptokitties-logo.svg';
 import ENSLogo from '../assets/ens-logo.svg';
 import EthvaultWalletTempLogo from '../assets/ethvault-wallet-temp-logo.png';
 import KickbackLogo from '../assets/kickback-logo.svg';
 import MyCryptoLogo from '../assets/mycrypto-logo.svg';
-import CryptoKittiesLogo from '../assets/cryptokitties-logo.svg';
 
 interface SiteLabel {
   readonly color: SemanticCOLORS;
@@ -38,6 +38,14 @@ export interface Site {
 
 export const WORKING_SITES_INFO: Readonly<Site[]> = [
   {
+    logo: CryptoKittiesLogo,
+    name: 'CryptoKitties',
+    labels: [ WIP_LABEL ],
+    description: 'CryptoKitties is a game centered around breedable, collectible, and oh-so-adorable creatures we call CryptoKitties! Each cat is one-of-a-kind and 100% owned by you; it cannot be replicated, taken away, or destroyed.',
+    category: SiteCategory.GAME,
+    url: 'cryptokitties.com'
+  },
+  {
     logo: ENSLogo,
     name: 'Ethereum Name Service (ENS)',
     labels: [ NEW_LABEL, WIP_LABEL ],
@@ -68,13 +76,5 @@ export const WORKING_SITES_INFO: Readonly<Site[]> = [
     description: 'MyCrypto is an open-source, client-side tool for generating ether wallets, handling ERC-20 tokens, and interacting with the blockchain more easily.',
     url: 'mycrypto.com/account',
     category: SiteCategory.ADMIN,
-  },
-  {
-    logo: CryptoKittiesLogo,
-    name: 'CryptoKitties',
-    labels: [ WIP_LABEL ],
-    description: 'CryptoKitties is a game centered around breedable, collectible, and oh-so-adorable creatures we call CryptoKitties! Each cat is one-of-a-kind and 100% owned by you; it cannot be replicated, taken away, or destroyed.',
-    category: SiteCategory.GAME,
-    url: 'cryptokitties.com'
   }
 ];
