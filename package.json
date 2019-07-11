@@ -1,6 +1,6 @@
 {
   "name": "site",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "private": true,
   "dependencies": {
     "@download/blockies": "^1.0.3",
