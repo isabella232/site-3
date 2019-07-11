@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Message } from 'semantic-ui-react';
-import UrlSearchInput from './UrlSearchInput';
+import SearchInput from './SearchInput';
 import WorkingSiteCards from './WorkingSiteCards';
 
 export default function InvalidURLPage() {
@@ -11,7 +11,7 @@ export default function InvalidURLPage() {
         <Message.Content>The entered URL is not valid. Try one of the following links instead.</Message.Content>
       </Message>
 
-      <UrlSearchInput/>
+      <SearchInput/>
 
       <WorkingSiteCards/>
     </Container>
