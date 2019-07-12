@@ -47,6 +47,7 @@ export default function SignInButton(props: ButtonProps) {
             onClick={() => {
               sessionStorage.setItem(AUTH_FLOW_STATE_LOCAL_STORAGE_KEY, state);
             }}
+            id="sign-in-button"
             href={`${AUTH0_BASE_URL}/authorize?${parameters}`}
             title="Sign in to Ethvault to manage your accounts and use Dapps"
             primary>
