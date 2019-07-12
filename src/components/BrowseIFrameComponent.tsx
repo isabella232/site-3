@@ -143,7 +143,7 @@ export default connect(
       return (
         <IFrameContainer>
           <StyledIFrame
-            sandbox="allow-scripts allow-same-origin"
+            sandbox="allow-scripts allow-same-origin allow-forms"
             onLoad={this.handleLoaded}
             ref={this.updateRef}
             src={src}
