@@ -58,7 +58,7 @@ export const WORKING_SITES_INFO: Readonly<Site[]> = [
     name: 'Ethvault Wallet',
     labels: [ NEW_LABEL ],
     description: 'A simple mobile friendly wallet for sending basic transactions and signing messages.',
-    url: 'embedded-wallet.ethvault.dev',
+    url: 'wallet.ethvault.xyz',
     category: SiteCategory.ADMIN,
   },
   {
