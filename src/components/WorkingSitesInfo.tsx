@@ -7,6 +7,8 @@ import KyberNetworkLogo from '../assets/kybernetwork-logo.svg';
 import MakerDAOLogo from '../assets/makerdao-logo.svg';
 import MyCryptoLogo from '../assets/mycrypto-logo.svg';
 import RadarRelayLogo from '../assets/radarrelay-logo.svg';
+import CompoundLogo from '../assets/compound-logo.png';
+import DyDxLogo from '../assets/dydx-logo.svg';
 
 interface SiteLabel {
   readonly color: SemanticCOLORS;
@@ -47,6 +49,14 @@ export const WORKING_SITES_INFO: Readonly<Site[]> = [
     description: 'CryptoKitties is a game centered around breedable, collectible, and oh-so-adorable creatures we call CryptoKitties! Each cat is one-of-a-kind and 100% owned by you; it cannot be replicated, taken away, or destroyed.',
     category: SiteCategory.GAME,
     url: 'www.cryptokitties.co'
+  },
+  {
+    logo: CompoundLogo,
+    name: 'Compound',
+    labels: [ NOT_STARTED_LABEL ],
+    description: 'Compound is a transparent, autonomous money market— allowing users & applications to frictionlessly earn interest or borrow Ethereum assets without relying on a counterparty.',
+    category: SiteCategory.DEFI,
+    url: 'app.compound.finance'
   },
   {
     logo: ENSLogo,
@@ -102,6 +112,14 @@ export const WORKING_SITES_INFO: Readonly<Site[]> = [
     labels: [ NOT_STARTED_LABEL ],
     description: 'The most secure way to trade ERC20 tokens directly from your Ethereum wallet.',
     url: 'app.radarrelay.com',
+    category: SiteCategory.DEFI,
+  },
+  {
+    logo: DyDxLogo,
+    name: 'dYdX',
+    labels: [ NOT_STARTED_LABEL ],
+    description: 'The most powerful open trading platform for crypto assets.',
+    url: 'trade.dydx.exchange',
     category: SiteCategory.DEFI,
   }
 ];
