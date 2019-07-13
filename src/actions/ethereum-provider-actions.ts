@@ -456,7 +456,7 @@ export function handleMessage(message: any): EthereumProviderThunkAction<void> {
         dispatch(sendMessages([
           {
             id: message.id,
-            result: true
+            result: unlockedAccountInfo !== null ? [ unlockedAccountInfo.address ] : []
           }
         ]));
         break;
