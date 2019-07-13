@@ -43,6 +43,14 @@ export interface Site {
 
 export const WORKING_SITES_INFO: Readonly<Site[]> = [
   {
+    logo: CompoundLogo,
+    name: 'Compound',
+    labels: [ NOT_STARTED_LABEL ],
+    description: 'Compound is a transparent, autonomous money market— allowing users & applications to frictionlessly earn interest or borrow Ethereum assets without relying on a counterparty.',
+    category: SiteCategory.DEFI,
+    url: 'app.compound.finance'
+  },
+  {
     logo: CryptoKittiesLogo,
     name: 'CryptoKitties',
     labels: [ NOT_STARTED_LABEL ],
@@ -51,12 +59,12 @@ export const WORKING_SITES_INFO: Readonly<Site[]> = [
     url: 'www.cryptokitties.co'
   },
   {
-    logo: CompoundLogo,
-    name: 'Compound',
+    logo: DyDxLogo,
+    name: 'dYdX',
     labels: [ NOT_STARTED_LABEL ],
-    description: 'Compound is a transparent, autonomous money market— allowing users & applications to frictionlessly earn interest or borrow Ethereum assets without relying on a counterparty.',
+    description: 'The most powerful open trading platform for crypto assets.',
+    url: 'trade.dydx.exchange',
     category: SiteCategory.DEFI,
-    url: 'app.compound.finance'
   },
   {
     logo: ENSLogo,
@@ -112,14 +120,6 @@ export const WORKING_SITES_INFO: Readonly<Site[]> = [
     labels: [ NOT_STARTED_LABEL ],
     description: 'The most secure way to trade ERC20 tokens directly from your Ethereum wallet.',
     url: 'app.radarrelay.com',
-    category: SiteCategory.DEFI,
-  },
-  {
-    logo: DyDxLogo,
-    name: 'dYdX',
-    labels: [ NOT_STARTED_LABEL ],
-    description: 'The most powerful open trading platform for crypto assets.',
-    url: 'trade.dydx.exchange',
     category: SiteCategory.DEFI,
   }
 ];
