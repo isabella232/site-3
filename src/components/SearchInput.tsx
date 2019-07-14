@@ -71,7 +71,8 @@ function matchingSearch(value: string): CategorizedResults[] {
   }
 
   const filtered = WORKING_SITES_INFO.filter(
-    site => stringMatch(`${site.name} ${site.url} ${site.category}`, tokens)
+    site => (site.status.integrated || process.env.NODE_ENV === 'development') &&
+      stringMatch(`${site.name} ${site.url} ${site.category}`, tokens)
   );
 
   return sitesByCategory(filtered);
