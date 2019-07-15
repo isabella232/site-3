@@ -6,7 +6,9 @@ import styled from 'styled-components';
 import { clearQueue, handleMessage, Message, messagesSent, sendMessages } from '../actions/ethereum-provider-actions';
 import { GlobalState } from '../reducers';
 import { randomId } from '../util/random';
+import { SITES_BY_URL_HOST } from '../util/sites-info';
 import { getValidUrl } from '../util/url';
+import DocumentTitle from './DocumentTitle';
 import InvalidURLPage from './InvalidURLPage';
 
 const IFrameContainer = styled.div`
@@ -39,6 +41,22 @@ interface BrowseIFrameComponentProps
   messagesSent: typeof messagesSent;
   clearQueue: typeof clearQueue;
   sendMessages: typeof sendMessages;
+}
+
+function getPageTitle(iframeSrc: string | null) {
+  if (iframeSrc === null) {
+    return 'Ethvault';
+  }
+
+  try {
+    const url = new URL(iframeSrc);
+
+    const site = SITES_BY_URL_HOST[ url.host ];
+
+    return site ? `Ethvault - ${site.name}` : `Ethvault - ${url.host}`;
+  } catch (error) {
+    return 'Ethvault';
+  }
 }
 
 export default connect(
@@ -150,6 +168,7 @@ export default connect(
           />
 
           <Loader active={!this.state.loaded} size="huge"/>
+          <DocumentTitle title={getPageTitle(this.iframeSrc)}/>
         </IFrameContainer>
       );
     }

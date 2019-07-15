@@ -1,9 +1,9 @@
-import styled from 'styled-components';
-import { Card, Image, Label } from 'semantic-ui-react';
-import { CATEGORY_LABEL_COLORS, Site } from './WorkingSitesInfo';
-import LocationAwareLink from './LocationAwareLink';
-import { AnalyticsCategory, track } from './GoogleAnalytics';
 import React from 'react';
+import { Card, Image, Label } from 'semantic-ui-react';
+import styled from 'styled-components';
+import { CATEGORY_LABEL_COLORS, Site } from '../util/sites-info';
+import { AnalyticsCategory, track } from './GoogleAnalytics';
+import LocationAwareLink from './LocationAwareLink';
 
 const StyledImage = styled(Image)`
   img {
@@ -27,7 +27,7 @@ const StyledCardContentNoGrow = styled(Card.Content)`
 export default function SiteCard({ site: { name, url, logo, category, description, labels } }: { site: Site }) {
   return (
     <Card
-      fluid link as={LocationAwareLink} to={{ pathname: `/browse/${encodeURIComponent(url)}` }}
+      fluid link as={LocationAwareLink} to={{ pathname: `/browse/${encodeURIComponent(url.host + url.pathname)}` }}
       onClick={() => track(AnalyticsCategory.UI, 'CLICK_WORKING_SITE_CARD', name)}>
       <StyledImage src={logo} wrapped ui={false}/>
       <StyledCardContentNoGrow>

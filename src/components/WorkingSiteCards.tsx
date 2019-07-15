@@ -22,7 +22,7 @@ export default function WorkingSiteCards({ search }: WorkingSiteCardsProps) {
       <Card.Group stackable itemsPerRow={4} doubling>
         {
           matches.map(
-            site => <SiteCard key={site.url} site={site}/>
+            site => <SiteCard key={site.url.host} site={site}/>
           )
         }
       </Card.Group>
