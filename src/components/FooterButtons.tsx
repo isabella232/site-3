@@ -35,7 +35,7 @@ const FooterButtons = ({ openSidebar }: FooterButtonProps) => {
         category={AnalyticsCategory.UI}
         action="GO_HOME_BUTTON"
         as={LocationAwareLink}
-        to={{ pathname: '/' }}>
+        to={{ pathname: '/', hash: '' }}>
         <Icon name="home"/> Home
       </TrackedButton>
       <TrackedButton

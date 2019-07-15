@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { createRef } from 'react';
 import { connect } from 'react-redux';
 import { Form, Icon, Input, Modal } from 'semantic-ui-react';
 import { dismissUnlockDialog, unlockAccount } from '../actions/accounts-actions';
@@ -31,11 +32,11 @@ export default connect(
   class UnlockAccountPasswordDialog extends React.PureComponent<UnlockAccountPasswordDialogProps, UnlockAccountPasswordDialogState> {
     state = {
       password: '',
-      rendering: null,
+      rendering: null
     };
 
     private submitButton: HTMLButtonElement | null = null;
-    private passwordInput: Input | null = null;
+    private inputRef = createRef<Input>();
 
     componentDidMount(): void {
       if (this.props.unlockingAccount) {
@@ -47,8 +48,9 @@ export default connect(
       if (nextProps.unlockingAccount && nextProps.unlockingAccount !== this.props.unlockingAccount) {
         this.setState({ password: '', rendering: nextProps.unlockingAccount });
 
-        if (this.passwordInput) {
-          this.passwordInput.focus();
+        if (this.inputRef.current) {
+          console.log(this.inputRef);
+          this.inputRef.current.focus();
         }
       }
     }
@@ -92,7 +94,7 @@ export default connect(
                   autoComplete="current-password"
                   required
                   value={password}
-                  ref={passwordInput => this.passwordInput = passwordInput}
+                  ref={this.inputRef}
                   onChange={e => this.setState({ password: e.target.value })}
                 />
               </Form.Field>
