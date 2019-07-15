@@ -35,8 +35,7 @@ export default connect(
       rendering: null
     };
 
-    private submitButton: HTMLButtonElement | null = null;
-    private inputRef = createRef<Input>();
+    private readonly submitButton = createRef<HTMLButtonElement>();
 
     componentDidMount(): void {
       if (this.props.unlockingAccount) {
@@ -47,11 +46,6 @@ export default connect(
     componentWillReceiveProps(nextProps: Readonly<UnlockAccountPasswordDialogProps>) {
       if (nextProps.unlockingAccount && nextProps.unlockingAccount !== this.props.unlockingAccount) {
         this.setState({ password: '', rendering: nextProps.unlockingAccount });
-
-        if (this.inputRef.current) {
-          console.log(this.inputRef);
-          this.inputRef.current.focus();
-        }
       }
     }
 
@@ -69,7 +63,7 @@ export default connect(
       return (
         <AnimatedTrackedModal open={!!unlockingAccount} size="mini" modalName="UNLOCK_ACCOUNT_PASSWORD_DIALOG">
           <Modal.Header>
-            Unlock account: {showing && showing.name}
+            Unlock account
           </Modal.Header>
           <Modal.Content>
             <Form onSubmit={() => unlockingAccount && unlockAccount(unlockingAccount.id, password)}>
@@ -78,6 +72,7 @@ export default connect(
                 <Input
                   id="unlock-account-name"
                   type="text"
+                  autoComplete="off"
                   fluid
                   readOnly
                   value={showing && showing.name}
@@ -94,13 +89,12 @@ export default connect(
                   autoComplete="current-password"
                   required
                   value={password}
-                  ref={this.inputRef}
                   onChange={e => this.setState({ password: e.target.value })}
                 />
               </Form.Field>
 
               <button type="submit" style={{ visibility: 'hidden' }}
-                      ref={submitButton => this.submitButton = submitButton}/>
+                      ref={this.submitButton}/>
             </Form>
           </Modal.Content>
           <Modal.Actions>
@@ -110,7 +104,7 @@ export default connect(
             </TrackedButton>
             <TrackedButton
               primary type="button"
-              onClick={() => this.submitButton && this.submitButton.click()}
+              onClick={() => this.submitButton.current && this.submitButton.current.click()}
               category={AnalyticsCategory.ACCOUNTS} action={'SUBMIT_PASSWORD_UNLOCK'}
             >
               <Icon name="key"/> Unlock
