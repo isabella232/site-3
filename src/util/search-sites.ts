@@ -10,14 +10,14 @@ interface CategorizedResults {
  * Return sites grouped by their categories
  * @param sites sites to group by category
  */
-function sitesByCategory(sites: readonly Site[]): CategorizedResults[] {
+function categorizeSites(sites: readonly Site[]): CategorizedResults[] {
   return map(groupBy(sites, site => site.category), (results, category) => ({
     results,
     category: category as SiteCategory
   }));
 }
 
-const CATEGORIZED_CARDS = sitesByCategory(VISIBLE_SITES);
+const CATEGORIZED_CARDS = categorizeSites(VISIBLE_SITES);
 
 /**
  * Returns true if the target string matches all of the tokens
@@ -43,5 +43,5 @@ export default function searchSites(q: string): CategorizedResults[] {
     site => stringMatch(`${site.name} ${site.url} ${site.category}`, tokens)
   );
 
-  return sitesByCategory(filtered);
+  return categorizeSites(filtered);
 }

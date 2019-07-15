@@ -41,6 +41,7 @@ export interface AnalyticsCategoryArgs {
     CLICK_WORKING_SITE_CARD: void;
     VISIT_URL_VIA_SEARCH_INPUT: void;
     ABOUT_BUTTON_CLICKED: void;
+    CLEAR_SEARCH_PLACEHOLDER_BUTTON: void;
   }
 }
 

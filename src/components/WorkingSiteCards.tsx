@@ -1,10 +1,12 @@
 import { flatMap } from 'lodash';
 import React from 'react';
-import { Button, Card, Header, Icon, Segment } from 'semantic-ui-react';
+import { Card, Header, Icon, Segment } from 'semantic-ui-react';
 import styled from 'styled-components';
 import searchSites from '../util/search-sites';
+import { AnalyticsCategory } from './GoogleAnalytics';
 import LocationAwareLink from './LocationAwareLink';
 import SiteCard from './SiteCard';
+import TrackedButton from './TrackedButton';
 
 const StyledContainer = styled.div`
   margin-top: 2rem;
@@ -34,7 +36,9 @@ export default function WorkingSiteCards({ search }: WorkingSiteCardsProps) {
                 <Icon name="app store"/>
                 No apps found
               </Header>
-              <Button primary as={LocationAwareLink} to={{ hash: '' }}>Clear search</Button>
+              <TrackedButton
+                category={AnalyticsCategory.UI} action="CLEAR_SEARCH_PLACEHOLDER_BUTTON"
+                as={LocationAwareLink} to={{ hash: '' }}><Icon name="close"/> Clear search</TrackedButton>
             </Segment>
           ) : null
       }
