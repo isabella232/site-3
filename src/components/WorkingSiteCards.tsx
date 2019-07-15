@@ -1,9 +1,10 @@
+import { flatMap } from 'lodash';
 import React from 'react';
 import { Button, Card, Header, Icon, Segment } from 'semantic-ui-react';
 import styled from 'styled-components';
 import searchSites from '../util/search-sites';
-import SiteCard from './SiteCard';
 import LocationAwareLink from './LocationAwareLink';
+import SiteCard from './SiteCard';
 
 const StyledContainer = styled.div`
   margin-top: 2rem;
@@ -14,7 +15,7 @@ interface WorkingSiteCardsProps {
 }
 
 export default function WorkingSiteCards({ search }: WorkingSiteCardsProps) {
-  const matches = searchSites(search).flatMap(({ results }) => results);
+  const matches = flatMap(searchSites(search), (({ results }) => results));
 
   return (
     <StyledContainer>
