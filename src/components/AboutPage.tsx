@@ -14,8 +14,7 @@ export default function AboutPage(props: RouteComponentProps) {
     <StyledContainer>
       <DocumentTitle title="About"/>
       <Header as="h1">About Ethvault</Header>
-
-      <Header as="h2">Mission</Header>
+      
       <Header as="h3">
         Ethvault is a free and <ExternalLink href="https://github.com/ethvault">open
         source</ExternalLink> Ethereum wallet and decentralized app (aka DAPP) browser paired with a key storage
