@@ -43,9 +43,12 @@ export default connect(
 
     return (
       <AnimatedTrackedModal open={!!next} size="tiny" modalName="PENDING_MESSAGES_DIALOG">
-        <Label
-          attached="top"
-          color={NETWORKS_INFO[ network ].color}>{NETWORKS_INFO[ network ].displayName}</Label>
+        {
+          rendering && rendering.method === 'eth_sendTransaction' &&
+          <Label
+            attached="top"
+            color={NETWORKS_INFO[ network ].color}>{NETWORKS_INFO[ network ].displayName}</Label>
+        }
 
         <Modal.Header>
           {rendering ? TYPE_TO_HEADER[ rendering.method ] : null}
