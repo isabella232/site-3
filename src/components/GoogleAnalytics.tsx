@@ -40,6 +40,7 @@ export interface AnalyticsCategoryArgs {
     OPEN_VAULT_BUTTON: void;
     CLICK_WORKING_SITE_CARD: void;
     VISIT_URL_VIA_SEARCH_INPUT: void;
+    ABOUT_BUTTON_CLICKED: void;
   }
 }
 

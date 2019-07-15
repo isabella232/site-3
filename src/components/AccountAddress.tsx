@@ -6,6 +6,7 @@ import { copyAddressToClipboard, showQrCode } from '../actions/accounts-actions'
 import { GlobalState } from '../reducers';
 import { Account } from '../util/model';
 import { NetworkId, NETWORKS_INFO } from '../util/networks';
+import ExternalLink from './ExternalLink';
 import { FlexChildFixed, FlexChildGrow, FlexParent } from './FlexRowComponents';
 import { AnalyticsCategory } from './GoogleAnalytics';
 import TrackedButton from './TrackedButton';
@@ -59,7 +60,7 @@ export default connect(
           <TrackedButton
             category={AnalyticsCategory.ACCOUNTS}
             action={'VIEW_ON_ETHERSCAN'}
-            icon compact basic as="a" target="_blank" rel="noopener noreferrer"
+            icon compact basic as={ExternalLink}
             title="View on Etherscan"
             href={`${NETWORKS_INFO[ network ].etherscanBaseUrl}/address/${account.address}`}>
             <Icon name="external"/>

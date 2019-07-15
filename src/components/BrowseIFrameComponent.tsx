@@ -43,9 +43,9 @@ interface BrowseIFrameComponentProps
   sendMessages: typeof sendMessages;
 }
 
-function getPageTitle(iframeSrc: string | null) {
+function getPageTitle(iframeSrc: string | null): string | null {
   if (iframeSrc === null) {
-    return 'Ethvault';
+    return null;
   }
 
   try {
@@ -53,9 +53,9 @@ function getPageTitle(iframeSrc: string | null) {
 
     const site = SITES_BY_URL_HOST[ url.host ];
 
-    return site ? `Ethvault - ${site.name}` : `Ethvault - ${url.host}`;
+    return site ? site.name : url.host;
   } catch (error) {
-    return 'Ethvault';
+    return null;
   }
 }
 

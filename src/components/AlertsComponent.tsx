@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { dismissAlert } from '../actions/ui-actions';
 import { GlobalState } from '../reducers';
 import { Alert } from '../reducers/ui-reducer';
+import ExternalLink from './ExternalLink';
 
 const AlertParentContainer = styled.div`
   pointer-events: none;
@@ -96,8 +97,8 @@ export default connect(
                   {
                     moreInfoUrl ? (
                       isInternalLink(moreInfoUrl) ?
-                        <Link to={moreInfoUrl}>More info</Link> :
-                        <a href={moreInfoUrl} target="_blank" rel="noopener noreferrer">More info</a>
+                        <Link to={moreInfoUrl}>More info <Icon name="external"/></Link> :
+                        <ExternalLink href={moreInfoUrl}>More info <Icon name="external"/></ExternalLink>
                     ) : null
                   }
                 </Message.Content>

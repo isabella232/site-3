@@ -2,6 +2,7 @@ import { reduce } from 'lodash';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Container } from 'semantic-ui-react';
+import DocumentTitle from './DocumentTitle';
 import SearchInput from './SearchInput';
 import WorkingSiteCards from './WorkingSiteCards';
 
@@ -28,6 +29,8 @@ export default function HomePageComponent(props: RouteComponentProps) {
 
   return (
     <Container style={{ marginTop: '2rem', marginBottom: '2rem' }}>
+      <DocumentTitle title="Home"/>
+
       <SearchInput
         value={search}
         onChange={({ target: { value } }) => props.history.replace({

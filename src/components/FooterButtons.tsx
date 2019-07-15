@@ -48,6 +48,15 @@ const FooterButtons = ({ openSidebar }: FooterButtonProps) => {
         onClick={openSidebar}>
         <Icon name="ethereum"/> Vault
       </TrackedButton>
+      <TrackedButton
+        category={AnalyticsCategory.UI}
+        action={'ABOUT_BUTTON_CLICKED'}
+        as={LocationAwareLink}
+        title="Learn more about Ethvault"
+        style={{ borderRadius: 0 }}
+        to={{ pathname: '/about' }}>
+        <Icon name="help circle"/> About
+      </TrackedButton>
     </StyledButtonGroup>
   );
 };

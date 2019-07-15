@@ -1,5 +1,5 @@
-import { Site, SiteCategory, SITES_INFO } from './sites-info';
 import { groupBy, map } from 'lodash';
+import { VISIBLE_SITES, Site, SiteCategory } from './sites-info';
 
 interface CategorizedResults {
   readonly category: SiteCategory;
@@ -17,7 +17,7 @@ function sitesByCategory(sites: readonly Site[]): CategorizedResults[] {
   }));
 }
 
-const CATEGORIZED_CARDS = sitesByCategory(SITES_INFO);
+const CATEGORIZED_CARDS = sitesByCategory(VISIBLE_SITES);
 
 /**
  * Returns true if the target string matches all of the tokens
@@ -39,9 +39,8 @@ export default function searchSites(q: string): CategorizedResults[] {
     return CATEGORIZED_CARDS;
   }
 
-  const filtered = SITES_INFO.filter(
-    site => (site.status.integrated || process.env.NODE_ENV === 'development') &&
-      stringMatch(`${site.name} ${site.url} ${site.category}`, tokens)
+  const filtered = VISIBLE_SITES.filter(
+    site => stringMatch(`${site.name} ${site.url} ${site.category}`, tokens)
   );
 
   return sitesByCategory(filtered);

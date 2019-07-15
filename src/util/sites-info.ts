@@ -50,7 +50,7 @@ export interface Site {
   readonly category: SiteCategory;
 }
 
-export const SITES_INFO: Readonly<Site[]> = [
+export const ALL_SITES_INFO: Readonly<Site[]> = [
   {
     logo: CompoundLogo,
     name: 'Compound',
@@ -143,4 +143,6 @@ export const SITES_INFO: Readonly<Site[]> = [
   }
 ];
 
-export const SITES_BY_URL_HOST: { [ urlHost: string ]: Site } = keyBy(SITES_INFO, site => site.url.host);
+export const VISIBLE_SITES = ALL_SITES_INFO.filter(site => process.env.NODE_ENV === 'development' || site.status.integrated);
+
+export const SITES_BY_URL_HOST: { [ urlHost: string ]: Site } = keyBy(ALL_SITES_INFO, site => site.url.host);

@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router';
 import { Sidebar } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { GlobalState } from '../reducers';
+import AboutPage from './AboutPage';
 import AuthenticateEndpointComponent from './AuthenticateEndpointComponent';
 import BrowseIFrameComponent from './BrowseIFrameComponent';
 import FooterButtons from './FooterButtons';
@@ -66,6 +67,7 @@ export const AppBackground = connect(
             />
             <Route exact path="/logout" component={SignedOutComponent}/>
             <Route exact path="/" component={HomePageComponent}/>
+            <Route exact path="/about" component={AboutPage}/>
             <Route component={InvalidURLPage}/>
           </Switch>
         </StyledContentInner>
