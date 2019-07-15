@@ -491,7 +491,7 @@ export function handleMessage(message: any): EthereumProviderThunkAction<void> {
         }
 
         const from = message.params[ 0 ].from;
-        if (!unlockedAccountInfo || from !== unlockedAccountInfo.address) {
+        if (!unlockedAccountInfo || from.toLowerCase() !== unlockedAccountInfo.address.toLowerCase()) {
           dispatch(sendRejectMessage(message.id, -32600, `Invalid address: ${from}`));
           console.error('Send transaction message received that was for an address that is not the unlocked account', from);
           return;
@@ -515,7 +515,7 @@ export function handleMessage(message: any): EthereumProviderThunkAction<void> {
         }
 
         const from = message.params[ 0 ];
-        if (!unlockedAccountInfo || from !== unlockedAccountInfo.address) {
+        if (!unlockedAccountInfo || from.toLowerCase() !== unlockedAccountInfo.address.toLowerCase()) {
           dispatch(sendRejectMessage(message.id, -32600, `Invalid address: ${from}`));
           console.error('Sign message request received that was for an address that is not the unlocked account', message);
           return;

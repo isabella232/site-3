@@ -1,9 +1,9 @@
+import { reduce } from 'lodash';
 import * as React from 'react';
+import { RouteComponentProps } from 'react-router';
 import { Container } from 'semantic-ui-react';
 import SearchInput from './SearchInput';
 import WorkingSiteCards from './WorkingSiteCards';
-import { RouteComponentProps } from 'react-router';
-import { reduce } from 'lodash';
 
 function parseSearch(hash: string): string {
   if (hash.length < 2 || !hash.startsWith('#')) {
