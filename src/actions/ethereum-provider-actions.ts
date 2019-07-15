@@ -224,7 +224,7 @@ export function acceptRequest(id: number | string): EthereumProviderThunkAction<
       case 'eth_sendTransaction':
         const [ sendTransactionRequest ] = request.params;
 
-        if (sendTransactionRequest.from !== unlockedAccount.address) {
+        if (sendTransactionRequest.from.toLowerCase() !== unlockedAccount.address.toLowerCase()) {
           dispatch(showAlert({
             header: 'Failed to sign transaction',
             message: 'The requested account is not unlocked',
@@ -303,7 +303,7 @@ export function acceptRequest(id: number | string): EthereumProviderThunkAction<
       case 'eth_sign':
         const [ address, data ] = request.params;
 
-        if (address !== unlockedAccount.address) {
+        if (address.toLowerCase() !== unlockedAccount.address.toLowerCase()) {
           dispatch(showAlert({
             header: 'Failed to sign message',
             message: `The requested signatory address "${address}" is not the unlocked account.`,
