@@ -6,7 +6,8 @@ import DocumentTitle from './DocumentTitle';
 import ExternalLink from './ExternalLink';
 
 const StyledContainer = styled(Container)`
-  margin-top: 2rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 `;
 
 export default function AboutPage(props: RouteComponentProps) {
@@ -14,7 +15,7 @@ export default function AboutPage(props: RouteComponentProps) {
     <StyledContainer>
       <DocumentTitle title="About"/>
       <Header as="h1">About Ethvault</Header>
-      
+
       <Header as="h3">
         Ethvault is a free and <ExternalLink href="https://github.com/ethvault">open
         source</ExternalLink> Ethereum wallet and decentralized app (aka DAPP) browser paired with a key storage
