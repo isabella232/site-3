@@ -36,7 +36,7 @@ const FooterButtons = ({ openSidebar }: FooterButtonProps) => {
         action="GO_HOME_BUTTON"
         as={LocationAwareLink}
         to={{ pathname: '/', hash: '' }}>
-        <Icon name="home"/> Home
+        <Icon name="home"/>
       </TrackedButton>
       <TrackedButton
         style={{ borderRadius: 0 }}
@@ -46,7 +46,7 @@ const FooterButtons = ({ openSidebar }: FooterButtonProps) => {
         category={AnalyticsCategory.UI}
         action="OPEN_VAULT_BUTTON"
         onClick={openSidebar}>
-        <Icon name="ethereum"/> Vault
+        <Icon name="ethereum"/>
       </TrackedButton>
       <TrackedButton
         category={AnalyticsCategory.UI}
@@ -55,7 +55,7 @@ const FooterButtons = ({ openSidebar }: FooterButtonProps) => {
         title="Learn more about Ethvault"
         style={{ borderRadius: 0 }}
         to={{ pathname: '/about' }}>
-        <Icon name="help circle"/> About
+        <Icon name="help circle"/>
       </TrackedButton>
     </StyledButtonGroup>
   );
