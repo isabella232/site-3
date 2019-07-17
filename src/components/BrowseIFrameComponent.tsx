@@ -9,6 +9,7 @@ import { randomId } from '../util/random';
 import { SITES_BY_URL_HOST } from '../util/sites-info';
 import { getValidUrl } from '../util/url';
 import DocumentTitle from './DocumentTitle';
+import { AnalyticsCategory, track } from './GoogleAnalytics';
 import InvalidURLPage from './InvalidURLPage';
 
 const IFrameContainer = styled.div`
@@ -35,7 +36,7 @@ interface BrowseIFrameComponentState {
 }
 
 interface BrowseIFrameComponentProps
-  extends RouteComponentProps<{ pageUrl: string }> {
+  extends RouteComponentProps {
   pendingSendMessages: Message[];
   handleMessage: (data: any) => void;
   messagesSent: typeof messagesSent;
@@ -43,6 +44,10 @@ interface BrowseIFrameComponentProps
   sendMessages: typeof sendMessages;
 }
 
+/**
+ * Get the title of the document for a particular src url
+ * @param iframeSrc url of the iframe
+ */
 function getPageTitle(iframeSrc: string | null): string | null {
   if (iframeSrc === null) {
     return null;
@@ -56,6 +61,35 @@ function getPageTitle(iframeSrc: string | null): string | null {
     return site ? site.name : url.host;
   } catch (error) {
     return null;
+  }
+}
+
+/**
+ * Given a route hash, return the URL that should be rendered in the iframe or null if it's invalid
+ * @param hash hash of the route
+ */
+function getIFrameSrcFromHash(hash: string): string | null {
+  try {
+    if (hash.length < 2) {
+      return null;
+    }
+    return getValidUrl(hash.substring(1));
+  } catch (error) {
+    return null;
+  }
+}
+
+/**
+ * Track when the hash changes to a valid URL. We do this so we can know which sites are getting usage and require
+ * more support.
+ *
+ * @param hash hash of the route
+ */
+function trackHashChange(hash: string) {
+  const src = getIFrameSrcFromHash(hash);
+
+  if (src !== null) {
+    track(AnalyticsCategory.UI, 'VISIT_EMBEDDED_SITE', src);
   }
 }
 
@@ -74,11 +108,12 @@ export default connect(
     };
 
     /**
-     *
+     * Return the src of the iframe to render
      */
-    private get iframeSrc(): string | null {
+    private getIFrameSrc(): string | null {
       try {
-        return getValidUrl(decodeURIComponent(this.props.match.params.pageUrl));
+        const hash = this.props.location.hash;
+        return getIFrameSrcFromHash(hash);
       } catch (error) {
         return null;
       }
@@ -86,6 +121,10 @@ export default connect(
 
     componentWillMount(): void {
       window.addEventListener('message', this.handleWindowMessages);
+    }
+
+    componentDidMount(): void {
+      trackHashChange(this.props.location.hash);
     }
 
     componentWillUnmount(): void {
@@ -101,11 +140,13 @@ export default connect(
     componentWillReceiveProps(
       nextProps: Readonly<BrowseIFrameComponentProps>
     ): void {
-      if (nextProps.match.params.pageUrl !== this.props.match.params.pageUrl) {
+      if (nextProps.location.hash !== this.props.location.hash) {
         // A URL change means we clear the communication channels
         nextProps.clearQueue();
 
         this.setState({ loaded: false });
+
+        trackHashChange(nextProps.location.hash);
       }
 
       if (
@@ -153,7 +194,8 @@ export default connect(
     };
 
     render() {
-      const src = this.iframeSrc;
+      const src = this.getIFrameSrc();
+
       if (src === null) {
         return <InvalidURLPage/>;
       }
@@ -168,7 +210,7 @@ export default connect(
           />
 
           <Loader active={!this.state.loaded} size="huge"/>
-          <DocumentTitle title={getPageTitle(this.iframeSrc)}/>
+          <DocumentTitle title={getPageTitle(src)}/>
         </IFrameContainer>
       );
     }

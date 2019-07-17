@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { setToken } from '../actions/auth-actions';
 import { Token } from '../util/model';
-import { AUTH_FLOW_STATE_LOCAL_STORAGE_KEY } from './SignInButton';
+import { AUTH_FLOW_STATE_LOCAL_STORAGE_KEY, STATE_SEPARATOR } from './SignInButton';
 
 /**
  * Parse a token from the URL hash
@@ -69,16 +69,12 @@ export default connect(
     try {
       const tokenInfo = parseToken(hash);
 
-      console.debug('Token', tokenInfo);
-
       props.setToken(tokenInfo);
 
-      const originPathName = tokenInfo.state.substring(
-        tokenInfo.state.indexOf(':') + 1
-      );
+      const statePieces = tokenInfo.state.split(STATE_SEPARATOR);
 
       return (
-        <Redirect push={false} to={{ pathname: originPathName, hash: '' }}/>
+        <Redirect push={false} to={{ pathname: statePieces[ 1 ], hash: statePieces[ 2 ] }}/>
       );
     } catch (error) {
       console.error('Invalid hash for token', error, hash);

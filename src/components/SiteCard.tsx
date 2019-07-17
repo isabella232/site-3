@@ -27,7 +27,8 @@ const StyledCardContentNoGrow = styled(Card.Content)`
 export default function SiteCard({ site: { name, url, logo, category, description, labels } }: { site: Site }) {
   return (
     <Card
-      fluid link as={LocationAwareLink} to={{ pathname: `/browse/${encodeURIComponent(url.host + url.pathname)}` }}
+      fluid link as={LocationAwareLink}
+      to={{ pathname: '/browse', hash: url.host + (url.pathname === '/' ? '' : url.pathname) }}
       onClick={() => track(AnalyticsCategory.UI, 'CLICK_WORKING_SITE_CARD', name)}>
       <StyledImage src={logo} wrapped ui={false}/>
       <StyledCardContentNoGrow>

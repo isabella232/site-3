@@ -5,6 +5,10 @@ import { AUTH0_API_AUDIENCE, AUTH0_BASE_URL, AUTH0_CLIENT_ID } from '../util/env
 import { AnalyticsCategory } from './GoogleAnalytics';
 import TrackedButton from './TrackedButton';
 
+/**
+ * Form data encodes a set of string parameters
+ * @param parameters to encode
+ */
 function encodeParameters(parameters: { [ paramName: string ]: string }) {
   return Object.keys(parameters)
     .map(paramName => {
@@ -17,11 +21,13 @@ function encodeParameters(parameters: { [ paramName: string ]: string }) {
 export const AUTH_FLOW_STATE_LOCAL_STORAGE_KEY =
   'AUTH_FLOW_STATE_LOCAL_STORAGE_KEY';
 
+export const STATE_SEPARATOR = ';s;';
+
 export default function SignInButton(props: ButtonProps) {
   return (
     <Route>
-      {routeProps => {
-        const state = `${new Date().getTime()}:${window.location.pathname}`;
+      {({ location }) => {
+        const state = `${new Date().getTime()}${STATE_SEPARATOR}${location.pathname}${STATE_SEPARATOR}${location.hash}`;
 
         const redirect_uri = `${window.location.origin}/authenticate`;
 

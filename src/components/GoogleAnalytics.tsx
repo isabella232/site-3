@@ -1,3 +1,4 @@
+import { debounce } from 'lodash';
 import { useState } from 'react';
 import ReactGA from 'react-ga';
 import { RouteComponentProps, withRouter } from 'react-router';
@@ -42,8 +43,13 @@ export interface AnalyticsCategoryArgs {
     VISIT_URL_VIA_SEARCH_INPUT: void;
     ABOUT_BUTTON_CLICKED: void;
     CLEAR_SEARCH_PLACEHOLDER_BUTTON: void;
+    VISIT_EMBEDDED_SITE: void;
   }
 }
+
+// This is a debounced version of the page view function that prevents multiple events from triggering from quick
+// navigation, e.g. redirects.
+const debouncedPageView = debounce(ReactGA.pageview.bind(ReactGA), 100);
 
 /**
  * This signature gives us a function that takes the category, the action and the label if required for the category/action.
@@ -69,7 +75,7 @@ export default withRouter(
 
     if (lastPathname !== location.pathname) {
       setLastPathname(location.pathname);
-      ReactGA.pageview(location.pathname);
+      debouncedPageView(location.pathname);
     }
 
     return null;

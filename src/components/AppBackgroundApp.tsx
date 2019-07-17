@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router';
+import { Redirect, Route, RouteComponentProps, Switch } from 'react-router';
 import { Sidebar } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { GlobalState } from '../reducers';
@@ -46,6 +46,16 @@ const StyledFooter = styled.footer`
   flex-shrink: 0;
 `;
 
+/**
+ * Temporary redirector to push the old route to the new route
+ * @param match matching route
+ */
+function RedirectToNewPathStructure({ match }: RouteComponentProps<{ pageUrl: string; }>) {
+  return (
+    <Redirect to={{ pathname: '/browse', hash: decodeURIComponent(match.params.pageUrl) }}/>
+  );
+}
+
 export const AppBackground = connect(
   ({ ui: { sidebarOpen } }: GlobalState) => ({ sidebarOpen }),
   null
@@ -55,9 +65,10 @@ export const AppBackground = connect(
       <StyledContent>
         <StyledContentInner>
           <Switch>
+            <Route exact path="/browse/:pageUrl" component={RedirectToNewPathStructure}/>
             <Route
               exact
-              path="/browse/:pageUrl"
+              path="/browse"
               component={BrowseIFrameComponent}
             />
             <Route
