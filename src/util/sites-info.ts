@@ -9,6 +9,7 @@ import KickbackLogo from '../assets/kickback-logo.svg';
 import KyberNetworkLogo from '../assets/kybernetwork-logo.svg';
 import MakerDAOLogo from '../assets/makerdao-logo.svg';
 import MyCryptoLogo from '../assets/mycrypto-logo.svg';
+import PeepethLogo from '../assets/peepeth-logo.png';
 import RadarRelayLogo from '../assets/radarrelay-logo.svg';
 
 interface SiteLabel {
@@ -21,13 +22,15 @@ export enum SiteCategory {
   DEFI = 'Decentralized Finance',
   GAME = 'Game',
   SOCIAL = 'Social',
+  WORK = 'Work',
 }
 
 export const CATEGORY_LABEL_COLORS: { [category in SiteCategory]: SemanticCOLORS } = {
-  'Admin & Developer': 'black',
-  'Decentralized Finance': 'olive',
-  'Game': 'pink',
-  'Social': 'yellow'
+  [ SiteCategory.ADMIN ]: 'black',
+  [ SiteCategory.DEFI ]: 'olive',
+  [ SiteCategory.GAME ]: 'pink',
+  [ SiteCategory.SOCIAL ]: 'yellow',
+  [ SiteCategory.WORK ]: 'blue',
 };
 
 const NEW_LABEL: SiteLabel = {
@@ -97,6 +100,15 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
     status: { integrated: true, trackerUrl: null }
   },
   {
+    logo: EthvaultWalletTempLogo,
+    name: 'Ethlance',
+    labels: [ NEW_LABEL ],
+    description: 'The future of work is now. Hire or work for Ether cryptocurrency.',
+    url: new URL('https://ethlance.com'),
+    category: SiteCategory.WORK,
+    status: { integrated: false, trackerUrl: null }
+  },
+  {
     logo: KickbackLogo,
     name: 'Kickback',
     labels: [],
@@ -130,6 +142,15 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
     description: 'MyCrypto is an open-source, client-side tool for generating ether wallets, handling ERC-20 tokens, and interacting with the blockchain more easily.',
     url: new URL('https://mycrypto.com/account'),
     category: SiteCategory.ADMIN,
+    status: { integrated: false, trackerUrl: null }
+  },
+  {
+    logo: PeepethLogo,
+    name: 'Peepeth',
+    labels: [],
+    description: 'MyCrypto is an open-source, client-side tool for generating ether wallets, handling ERC-20 tokens, and interacting with the blockchain more easily.',
+    url: new URL('https://peepeth.com'),
+    category: SiteCategory.SOCIAL,
     status: { integrated: false, trackerUrl: null }
   },
   {
