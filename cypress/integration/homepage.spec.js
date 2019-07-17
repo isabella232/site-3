@@ -8,7 +8,8 @@ describe('Homepage', function () {
 
     cy.get('.card').first().click();
 
-    cy.location('pathname').should('eq', '/browse/mycrypto.com%2Faccount');
+    cy.location('pathname').should('eq', '/browse');
+    cy.location('hash').should('eq', '#mycrypto.com/account');
 
     cy.get('#home-button').click();
 
