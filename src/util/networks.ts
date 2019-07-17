@@ -2,7 +2,7 @@
 import { SemanticCOLORS } from 'semantic-ui-react';
 import { INFURA_KEY } from './env';
 
-export type NetworkId = 'mainnet' | 'ropsten' | 'rinkeby' | 'kovan';
+export type NetworkId = 'mainnet' | 'ropsten' | 'rinkeby' | 'kovan' | 'goerli';
 
 // Information about an individual network.
 export interface NetworkInfo {
@@ -24,7 +24,7 @@ export const NETWORKS_INFO: NetworksInfo = {
     chainId: '1',
     networkId: '1',
     ensAddress: '0x314159265dD8dbb310642f98f50C066173C1259b',
-    nodeUrl: `https://mainnet.infura.io/${INFURA_KEY}`,
+    nodeUrl: `https://mainnet.infura.io/v3/${INFURA_KEY}`,
     etherscanBaseUrl: `https://etherscan.io`,
     color: 'green',
   },
@@ -33,7 +33,7 @@ export const NETWORKS_INFO: NetworksInfo = {
     chainId: '3',
     networkId: '3',
     ensAddress: null,
-    nodeUrl: `https://ropsten.infura.io/${INFURA_KEY}`,
+    nodeUrl: `https://ropsten.infura.io/v3/${INFURA_KEY}`,
     etherscanBaseUrl: `https://ropsten.etherscan.io`,
     color: 'yellow'
   },
@@ -42,7 +42,7 @@ export const NETWORKS_INFO: NetworksInfo = {
     chainId: '4',
     networkId: '4',
     ensAddress: null,
-    nodeUrl: `https://rinkeby.infura.io/${INFURA_KEY}`,
+    nodeUrl: `https://rinkeby.infura.io/v3/${INFURA_KEY}`,
     etherscanBaseUrl: `https://rinkeby.etherscan.io`,
     color: 'orange'
   },
@@ -51,9 +51,18 @@ export const NETWORKS_INFO: NetworksInfo = {
     chainId: '42',
     networkId: '42',
     ensAddress: null,
-    nodeUrl: `https://kovan.infura.io/${INFURA_KEY}`,
+    nodeUrl: `https://kovan.infura.io/v3/${INFURA_KEY}`,
     etherscanBaseUrl: `https://kovan.etherscan.io`,
     color: 'purple'
+  },
+  goerli: {
+    displayName: 'Goerli',
+    chainId: '5',
+    networkId: '5',
+    ensAddress: null,
+    nodeUrl: `https://goerli.infura.io/v3/${INFURA_KEY}`,
+    etherscanBaseUrl: `https://goerli.etherscan.io`,
+    color: 'pink'
   }
 };
 

@@ -58,7 +58,7 @@ export default function AboutPage(props: RouteComponentProps) {
       <p>
         You are free to delete your keys and they will be purged from the service within 1 month. Please contact
         us if you would like us to remove your keys earlier via <a
-        href="mailto:moody.salem@gmail.com">moody.salem@gmail.com</a>
+        href="mailto:moody@ethvault.xyz">moody.salem@gmail.com</a>
         or if you delete your keys by accident.
       </p>
       <Header as="h3">Is there any limit on how many accounts I can have?</Header>
