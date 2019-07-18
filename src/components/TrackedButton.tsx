@@ -9,7 +9,6 @@ import { AnalyticsCategory, AnalyticsCategoryArgs, track } from './GoogleAnalyti
  * @param action action to track
  * @param label label to track
  * @param buttonProps props for the underlying button
- * @constructor
  */
 export default function TrackedButton<TCategory extends AnalyticsCategory,
   TAction extends keyof AnalyticsCategoryArgs[TCategory] & string>({ onClick, category, action, actionLabel, ...buttonProps }: ButtonProps & {

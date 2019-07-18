@@ -46,9 +46,8 @@ function parseToken(hash: string): Token {
     );
   }
 
-  const expectedState = sessionStorage.getItem(
-    AUTH_FLOW_STATE_LOCAL_STORAGE_KEY
-  );
+  const expectedState = sessionStorage.getItem(AUTH_FLOW_STATE_LOCAL_STORAGE_KEY);
+  sessionStorage.removeItem(AUTH_FLOW_STATE_LOCAL_STORAGE_KEY);
 
   if (hashObject.state !== expectedState) {
     throw new Error(`State mismatch: ${hashObject.state} !== ${expectedState}`);

@@ -57,7 +57,7 @@ export default function SignInButton(props: ButtonProps) {
             href={`${AUTH0_BASE_URL}/authorize?${parameters}`}
             title="Sign in to Ethvault to manage your accounts and use Dapps"
             primary>
-            <Icon name="sign in alternate"/> Sign In
+            <Icon name="sign in alternate"/> Sign in
           </TrackedButton>
         );
       }}

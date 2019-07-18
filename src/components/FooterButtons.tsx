@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ButtonGroup, Icon, Responsive, ResponsiveProps } from 'semantic-ui-react';
+import { Button, Icon, Responsive, ResponsiveProps } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { openSidebar } from '../actions/ui-actions';
 import { AnalyticsCategory } from './GoogleAnalytics';
@@ -25,11 +25,18 @@ const StyledIcon = styled(Icon)`
   }
 `;
 
+const StyledButtonGroup = styled(Button.Group)`
+  > .button {
+    border-radius: 0 !important;
+    font-family: 'Exo 2', sans-serif;
+    text-transform: uppercase;
+  }
+`;
+
 const FooterButtons = ({ openSidebar }: FooterButtonProps) => {
   return (
-    <ButtonGroup size="huge" fluid>
+    <StyledButtonGroup size="huge" fluid>
       <TrackedButton
-        style={{ borderRadius: 0 }}
         title="Return to the Ethvault home page"
         secondary
         id="home-button"
@@ -40,7 +47,6 @@ const FooterButtons = ({ openSidebar }: FooterButtonProps) => {
         <StyledIcon name="home"/><OnWideScreens> Home</OnWideScreens>
       </TrackedButton>
       <TrackedButton
-        style={{ borderRadius: 0 }}
         title="Open the vault to manage your accounts"
         primary
         id="open-vault-button"
@@ -54,11 +60,10 @@ const FooterButtons = ({ openSidebar }: FooterButtonProps) => {
         action={'ABOUT_BUTTON_CLICKED'}
         as={LocationAwareLink}
         title="Learn more about Ethvault"
-        style={{ borderRadius: 0 }}
         to={{ pathname: '/about' }}>
         <StyledIcon name="help circle"/><OnWideScreens> Help</OnWideScreens>
       </TrackedButton>
-    </ButtonGroup>
+    </StyledButtonGroup>
   );
 };
 

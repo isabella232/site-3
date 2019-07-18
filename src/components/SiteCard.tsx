@@ -35,7 +35,7 @@ export default function SiteCard({ site: { name, url, logo, category, descriptio
       fluid link as={LocationAwareLink}
       to={{ pathname: '/browse', hash: url.host + (url.pathname === '/' ? '' : url.pathname) }}
       onClick={() => track(AnalyticsCategory.UI, 'CLICK_WORKING_SITE_CARD', name)}>
-      <StyledImage src={logo} wrapped ui={false}/>
+      <StyledImage src={logo} wrapped ui={false} alt={`${name} Logo`}/>
       <StyledCardContentNoGrow>
         <Card.Header>{name}</Card.Header>
       </StyledCardContentNoGrow>

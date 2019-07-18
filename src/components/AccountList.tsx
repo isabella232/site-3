@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Dimmer, Header, Icon, Item, Loader, Message, Segment } from 'semantic-ui-react';
+import { Button, Header, Icon, Item, Loader, Message, Segment } from 'semantic-ui-react';
 import { openCreateAccountDialog } from '../actions/ui-actions';
 import { GlobalState } from '../reducers';
 import { AccountsState } from '../reducers/accounts-reducer';
@@ -25,10 +25,10 @@ const AccountList = connect(
     });
 
     return (
-      <Dimmer.Dimmable>
-        <Dimmer active={isLoading} inverted>
-          <Loader/>
-        </Dimmer>
+      <div>
+        <Button.Group fluid>
+          <CreateAccountButton/><SignOutButton/>
+        </Button.Group>
 
         {
           loadError ?
@@ -38,10 +38,6 @@ const AccountList = connect(
             </Message> :
             null
         }
-
-        <CreateAccountButton/>
-
-        <SignOutButton floated="right"/>
 
         <Item.Group divided unstackable>
           {
@@ -54,15 +50,20 @@ const AccountList = connect(
         {
           accounts.length === 0 ?
             (
-              <Segment placeholder>
-                <Header icon>
-                  <Icon name="key"/> You have not created any accounts.
-                </Header>
-              </Segment>
-            )
-            : null
+              isLoading ?
+                (
+                  <Loader active inline='centered' size="large">Loading accounts...</Loader>
+                ) :
+                (
+                  <Segment placeholder>
+                    <Header icon>
+                      <Icon name="key"/> You have not created any accounts.
+                    </Header>
+                  </Segment>
+                )
+            ) : null
         }
-      </Dimmer.Dimmable>
+      </div>
     );
   });
 

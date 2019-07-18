@@ -30,7 +30,7 @@ const SignOutButton = connect(
               {...props}
               onClick={loggedOut}
               href={signoutUrl}>
-              <Icon name="log out"/> Sign Out
+              <Icon name="log out"/> Sign out
             </TrackedButton>
           );
         }
