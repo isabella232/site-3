@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Divider, Header, Icon, Segment } from 'semantic-ui-react';
+import { Header, Icon, Segment } from 'semantic-ui-react';
 import SignInButton from './SignInButton';
 
 export function LoggedOutPlaceholder() {
