@@ -1,5 +1,6 @@
 import { reduce } from 'lodash';
 import * as React from 'react';
+import { createRef } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Container, Header } from 'semantic-ui-react';
 import styled from 'styled-components';
@@ -29,27 +30,56 @@ const StyledHeader = styled(Header)`
   font-family: 'Roboto', sans-serif;
 `;
 
-export default function HomePageComponent(props: RouteComponentProps) {
-  const search = parseSearch(props.location.hash);
+export default class HomePageComponent extends React.Component<RouteComponentProps> {
+  private searchRef = createRef<SearchInput>();
 
-  return (
-    <Container style={{ marginTop: '2rem', marginBottom: '2rem' }}>
-      <DocumentTitle title="Home"/>
+  interceptSearchToFocusSearchInput = (e: KeyboardEvent) => {
+    if (!this.searchRef.current) {
+      return;
+    }
 
-      <label>
-        <StyledHeader as="h1">ETHVAULT.XYZ</StyledHeader>
+    if (
+      ((e.ctrlKey || e.metaKey) && !e.shiftKey) &&
+      (e.key === 'F' || e.key === 'f' || e.keyCode === 70)
+    ) {
+      this.searchRef.current.focus();
+      e.preventDefault();
+    }
+  };
 
-        <SearchInput
-          value={search}
-          size="huge"
-          onChange={({ target: { value } }) => props.history.replace({
-            ...props.location,
-            hash: `search=${encodeURIComponent(value)}`
-          })}
-        />
-      </label>
+  componentDidMount(): void {
+    window.addEventListener('keydown', this.interceptSearchToFocusSearchInput);
+  }
 
-      <WorkingSiteCards search={search}/>
-    </Container>
-  );
+  componentWillUnmount(): void {
+    window.removeEventListener('keydown', this.interceptSearchToFocusSearchInput);
+  }
+
+  render() {
+    const { location, history } = this.props;
+
+    const search = parseSearch(location.hash);
+
+    return (
+      <Container style={{ marginTop: '2rem', marginBottom: '2rem' }}>
+        <DocumentTitle title="Home"/>
+
+        <label>
+          <StyledHeader as="h1">ETHVAULT.XYZ</StyledHeader>
+
+          <SearchInput
+            value={search}
+            size="huge"
+            ref={this.searchRef}
+            onChange={({ target: { value } }) => history.replace({
+              ...location,
+              hash: `search=${encodeURIComponent(value)}`
+            })}
+          />
+        </label>
+
+        <WorkingSiteCards search={search}/>
+      </Container>
+    );
+  }
 }

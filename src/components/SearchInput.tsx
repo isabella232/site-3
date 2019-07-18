@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import { Input, InputProps } from 'semantic-ui-react';
 
-export default function SearchInput(props: InputProps) {
-  return (
-    <Input
-      {...props}
-      type="search"
-      icon="search"
-      placeholder="Search for an app"
-      id="dapp-search-bar"
-      fluid
-    />
-  );
+export default class SearchInput extends React.Component<InputProps> {
+  private inputRef = createRef<Input>();
+
+  focus() {
+    this.inputRef.current && this.inputRef.current.focus();
+  }
+
+  render() {
+    return (
+      <Input
+        {...this.props}
+        ref={this.inputRef}
+        type="search"
+        icon="search"
+        placeholder="Search for an app"
+        id="dapp-search-bar"
+        fluid
+      />
+    );
+  }
 }
