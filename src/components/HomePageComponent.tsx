@@ -2,6 +2,7 @@ import { reduce } from 'lodash';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Container, Header } from 'semantic-ui-react';
+import styled from 'styled-components';
 import DocumentTitle from './DocumentTitle';
 import SearchInput from './SearchInput';
 import WorkingSiteCards from './WorkingSiteCards';
@@ -24,6 +25,10 @@ function parseSearch(hash: string): string {
   return hashObject[ 'search' ] || '';
 }
 
+const StyledHeader = styled(Header)`
+  font-family: 'Roboto', sans-serif;
+`;
+
 export default function HomePageComponent(props: RouteComponentProps) {
   const search = parseSearch(props.location.hash);
 
@@ -32,7 +37,7 @@ export default function HomePageComponent(props: RouteComponentProps) {
       <DocumentTitle title="Home"/>
 
       <label>
-        <Header as="h1">ETHVAULT.XYZ</Header>
+        <StyledHeader as="h1">ETHVAULT.XYZ</StyledHeader>
 
         <SearchInput
           value={search}
