@@ -73,6 +73,11 @@ export interface ActionableRequestHandled extends Action<'ACTIONABLE_REQUEST_HAN
   id: string | number;
 }
 
+export interface UpdateSendTransactionParameters extends Action<'UPDATE_SEND_TRANSACTION_PARAMETERS'> {
+  id: string | number;
+  updates: Partial<TransactionParamShape>;
+}
+
 export type EthereumProviderActions =
   SendMessagesAction
   | ClearQueueAction
@@ -80,7 +85,8 @@ export type EthereumProviderActions =
   | SetNetworkAction
   | ShowAlertAction
   | ActionableRequestReceived
-  | ActionableRequestHandled;
+  | ActionableRequestHandled
+  | UpdateSendTransactionParameters;
 
 type EthereumProviderThunkAction<R> = ThunkAction<R,
   GlobalState,
@@ -180,6 +186,45 @@ export function acceptActionableRequest(id: number | string, result: any): Ether
 
     // Send the result to the client
     dispatch(sendResultMessage(id, result));
+  };
+}
+
+/**
+ * Called by the form to update details of the request.
+ * @param id id of the request to update
+ * @param updates updates that should be made to the request
+ */
+export function updateSendTransactionParameters(id: number | string, updates: Partial<TransactionParamShape>): EthereumProviderThunkAction<void> {
+  return async (dispatch, getState) => {
+    const {
+      ethereumProvider: { pendingRequests }
+    } = getState();
+
+    const request = pendingRequests.find(request => request.id === id);
+
+    if (!request) {
+      dispatch(showAlert({
+        header: 'Failed to update request',
+        message: 'Something went wrong while looking up the request.',
+        level: 'error',
+      }));
+      return;
+    }
+
+    if (request.method !== 'eth_sendTransaction') {
+      dispatch(showAlert({
+        header: 'Failed to update request',
+        message: 'Something went wrong while attempting to update the request.',
+        level: 'error',
+      }));
+      return;
+    }
+
+    dispatch({
+      type: 'UPDATE_SEND_TRANSACTION_PARAMETERS',
+      id,
+      updates,
+    });
   };
 }
 
@@ -483,23 +528,30 @@ export function handleMessage(message: any): EthereumProviderThunkAction<void> {
           return;
         }
 
-        const sendTransactionParamErrors = SendTransactionParamValidator.validate(message.params[ 0 ]);
+        const transactionParams: TransactionParamShape = message.params[ 0 ];
+
+        const sendTransactionParamErrors = SendTransactionParamValidator.validate(transactionParams);
         if (sendTransactionParamErrors.length > 0) {
           dispatch(sendRejectMessage(message.id, -32600, 'Request failed validation'));
           console.error('Send transaction message received that failed validation', sendTransactionParamErrors);
           return;
         }
 
-        const from = message.params[ 0 ].from;
+        const from = transactionParams.from;
         if (!unlockedAccountInfo || from.toLowerCase() !== unlockedAccountInfo.address.toLowerCase()) {
           dispatch(sendRejectMessage(message.id, -32600, `Invalid address: ${from}`));
           console.error('Send transaction message received that was for an address that is not the unlocked account', from);
           return;
         }
 
+        if (!transactionParams.gasPrice) {
+          // TODO: fetch gas price from elsewhere.
+          transactionParams.gasPrice = `0x${new BigNumber(Math.pow(10, 9)).toString(16)}`;
+        }
+
         dispatch({
           type: 'ACTIONABLE_REQUEST_RECEIVED',
-          request: message
+          request: message,
         });
         break;
       }
@@ -523,7 +575,7 @@ export function handleMessage(message: any): EthereumProviderThunkAction<void> {
 
         dispatch({
           type: 'ACTIONABLE_REQUEST_RECEIVED',
-          request: message
+          request: message,
         });
         break;
       }

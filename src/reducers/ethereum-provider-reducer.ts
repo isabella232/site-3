@@ -56,6 +56,28 @@ export const ethereumProviderReducer: Reducer<EthereumProviderState,
         ]
       };
 
+    case 'UPDATE_SEND_TRANSACTION_PARAMETERS':
+      return {
+        ...state,
+        pendingRequests: state.pendingRequests.map(
+          request => {
+            if (request.id === action.id && request.method === 'eth_sendTransaction') {
+              return {
+                ...request,
+                params: [
+                  {
+                    ...request.params[ 0 ],
+                    ...action.updates
+                  }
+                ]
+              };
+            }
+
+            return request;
+          }
+        ),
+      };
+
     case 'ACTIONABLE_REQUEST_HANDLED':
       return {
         ...state,
