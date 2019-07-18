@@ -19,7 +19,7 @@ export const GetStartedChecklist = connect(
 )(
   function ({ isLoggedIn, hasAccounts, isUnlocked }: { isLoggedIn: boolean; hasAccounts: boolean; isUnlocked: boolean; }) {
     return (
-      <List size="large">
+      <List size="large" relaxed>
         <List.Item>
           <CheckboxItemIcon completed={isLoggedIn} incompleteIcon="sign-in"/>
           <List.Content>
