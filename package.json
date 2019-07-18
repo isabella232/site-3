@@ -1,5 +1,5 @@
 {
-  "name": "site",
+  "name": "@ethvault/site",
   "version": "0.1.49",
   "private": true,
   "dependencies": {
@@ -25,6 +25,10 @@
     "styled-components": "^4.3.1",
     "typescript": "^3.5.2",
     "zxcvbn": "^4.4.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ethvault/site.git"
   },
   "homepage": "https://ethvault.xyz",
   "scripts": {
