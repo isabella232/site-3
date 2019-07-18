@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Divider, Header } from 'semantic-ui-react';
+import { Divider } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { loadAccounts } from '../actions/accounts-actions';
 import { GlobalState } from '../reducers';
@@ -10,6 +10,7 @@ import { ChangeNetworkDropdown } from './ChangeNetworkDropdown';
 import { CloseSidebarButton } from './CloseSidebarButton';
 import { CreateAccountDialog } from './CreateAccountDialog';
 import { LoggedOutPlaceholder } from './Placeholders';
+import { StyledTopLevelHeader } from './StyledTopLevelHeader';
 import UnlockAccountPasswordDialog from './UnlockAccountPasswordDialog';
 
 const StyledContainer = styled.section`
@@ -54,6 +55,10 @@ const StyledContentInner = styled.div`
   -webkit-overflow-scrolling: touch;
 `;
 
+const SidebarHeader = styled(StyledTopLevelHeader)`
+  margin: 0;
+`;
+
 export interface SidebarContentProps {
   loadAccounts: () => void;
   isLoggedIn: boolean;
@@ -79,12 +84,10 @@ export default connect(
     render() {
       return (
         <StyledContainer>
-          <StyledHeader>
+          <StyledHeader title={VERSION}>
             <ChangeNetworkDropdown/>
 
-            <Header style={{ margin: 0 }} as="h1" title={VERSION}>
-              My Vault
-            </Header>
+            <SidebarHeader title={VERSION} as="h2">Vault</SidebarHeader>
 
             <CloseSidebarButton/>
           </StyledHeader>
