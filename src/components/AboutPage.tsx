@@ -4,6 +4,7 @@ import { Container, Divider, Header } from 'semantic-ui-react';
 import styled from 'styled-components';
 import DocumentTitle from './DocumentTitle';
 import ExternalLink from './ExternalLink';
+import { GetStartedChecklist } from './GetStartedChecklist';
 
 const StyledContainer = styled(Container)`
   padding-top: 2rem;
@@ -21,6 +22,25 @@ export default function AboutPage(props: RouteComponentProps) {
         source</ExternalLink> Ethereum wallet and decentralized application browser paired with a key backup
         service.
       </Header>
+
+      <Header as="h3">
+        What does that mean?
+      </Header>
+
+      <p>
+        Ethvault enables you to use Ethereum decentralized applications without needing to understand Ethereum or
+        risking losing your keys.
+        You can send uncensorable peeps via Peepeth, grow your money with Compound, RSVP to events with Kickback,
+        or find work with Ethlance-directly from the browser, from anywhere, the same way you would use any website.
+      </p>
+
+      <Header as="h3">
+        How can I use it?
+      </Header>
+
+      <p>Follow these steps to get started!</p>
+
+      <GetStartedChecklist/>
 
       <Divider/>
 
