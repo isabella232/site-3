@@ -26,6 +26,8 @@ export const ChangeNetworkDropdown = connect(
         compact
         className={NETWORKS_INFO[ currentNetwork ].color}>
         <Dropdown.Menu>
+          <Dropdown.Header>Change network</Dropdown.Header>
+          <Dropdown.Divider/>
           {(Object.keys(NETWORKS_INFO) as NetworkId[]).map(network => (
             <Dropdown.Item
               key={network}
@@ -35,8 +37,7 @@ export const ChangeNetworkDropdown = connect(
                   track(AnalyticsCategory.ETHEREUM, 'CHANGE_NETWORK', network);
                 }
               }}
-              active={network === currentNetwork}
-            >
+              active={network === currentNetwork}>
               {NETWORKS_INFO[ network ].displayName}
             </Dropdown.Item>
           ))}

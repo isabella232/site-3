@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import DocumentTitle from './DocumentTitle';
 import ExternalLink from './ExternalLink';
 import { GetStartedChecklist } from './GetStartedChecklist';
-import { StyledTopLevelHeader } from './StyledTopLevelHeader';
+import { HeaderFont } from './Typography';
 
 const StyledContainer = styled(Container)`
   padding-top: 2rem;
@@ -16,7 +16,7 @@ export default function AboutPage(props: RouteComponentProps) {
   return (
     <StyledContainer>
       <DocumentTitle title="About"/>
-      <StyledTopLevelHeader as="h1">About Ethvault</StyledTopLevelHeader>
+      <Header as="h1"><HeaderFont>About Ethvault</HeaderFont></Header>
 
       <Header as="h2">
         Ethvault is a free and <ExternalLink href="https://github.com/ethvault">open
