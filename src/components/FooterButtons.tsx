@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Icon } from 'semantic-ui-react';
+import { ButtonGroup, Icon, Responsive, ResponsiveProps } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { openSidebar } from '../actions/ui-actions';
 import { AnalyticsCategory } from './GoogleAnalytics';
@@ -8,25 +8,26 @@ import LocationAwareLink from './LocationAwareLink';
 import TrackedButton from './TrackedButton';
 
 interface FooterButtonProps {
-  openSidebar: typeof openSidebar
+  openSidebar: () => void;
 }
 
-const StyledButtonGroup = styled(Button.Group)`
-  &.is-ios-standalone {
-    > .button {
-      padding-bottom: 2rem;
-    }
+const SMALL_SCREEN_WIDTH_PX = 768;
+
+function OnWideScreens(props: ResponsiveProps) {
+  return (
+    <Responsive as={React.Fragment} {...props} minWidth={SMALL_SCREEN_WIDTH_PX}/>
+  );
+}
+
+const StyledIcon = styled(Icon)`
+  @media (max-width: ${SMALL_SCREEN_WIDTH_PX - 1}px) {
+    margin: 0 !important;
   }
 `;
 
-const isIosStandalone = window &&
-  window.navigator &&
-  'standalone' in window.navigator &&
-  window.navigator[ 'standalone' ] === true;
-
 const FooterButtons = ({ openSidebar }: FooterButtonProps) => {
   return (
-    <StyledButtonGroup size="large" fluid className={isIosStandalone ? 'is-ios-standalone' : ''}>
+    <ButtonGroup size="huge" fluid>
       <TrackedButton
         style={{ borderRadius: 0 }}
         title="Return to the Ethvault home page"
@@ -36,7 +37,7 @@ const FooterButtons = ({ openSidebar }: FooterButtonProps) => {
         action="GO_HOME_BUTTON"
         as={LocationAwareLink}
         to={{ pathname: '/', hash: '' }}>
-        <Icon name="home"/>
+        <StyledIcon name="home"/><OnWideScreens> Home</OnWideScreens>
       </TrackedButton>
       <TrackedButton
         style={{ borderRadius: 0 }}
@@ -46,7 +47,7 @@ const FooterButtons = ({ openSidebar }: FooterButtonProps) => {
         category={AnalyticsCategory.UI}
         action="OPEN_VAULT_BUTTON"
         onClick={openSidebar}>
-        <Icon name="ethereum"/>
+        <StyledIcon name="ethereum"/><OnWideScreens> Vault</OnWideScreens>
       </TrackedButton>
       <TrackedButton
         category={AnalyticsCategory.UI}
@@ -55,9 +56,9 @@ const FooterButtons = ({ openSidebar }: FooterButtonProps) => {
         title="Learn more about Ethvault"
         style={{ borderRadius: 0 }}
         to={{ pathname: '/about' }}>
-        <Icon name="help circle"/>
+        <StyledIcon name="help circle"/><OnWideScreens> Help</OnWideScreens>
       </TrackedButton>
-    </StyledButtonGroup>
+    </ButtonGroup>
   );
 };
 

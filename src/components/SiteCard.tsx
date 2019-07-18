@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Image, Label } from 'semantic-ui-react';
+import { Card, CardProps, Image, Label } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { CATEGORY_LABEL_COLORS, Site } from '../util/sites-info';
 import { AnalyticsCategory, track } from './GoogleAnalytics';
@@ -24,9 +24,14 @@ const StyledCardContentNoGrow = styled(Card.Content)`
   flex-grow: 0 !important;
 `;
 
-export default function SiteCard({ site: { name, url, logo, category, description, labels } }: { site: Site }) {
+export interface SiteCardProps extends CardProps {
+  site: Site
+}
+
+export default function SiteCard({ site: { name, url, logo, category, description, labels }, ...cardProps }: SiteCardProps) {
   return (
     <Card
+      {...cardProps}
       fluid link as={LocationAwareLink}
       to={{ pathname: '/browse', hash: url.host + (url.pathname === '/' ? '' : url.pathname) }}
       onClick={() => track(AnalyticsCategory.UI, 'CLICK_WORKING_SITE_CARD', name)}>
@@ -36,8 +41,8 @@ export default function SiteCard({ site: { name, url, logo, category, descriptio
       </StyledCardContentNoGrow>
       <StyledCardContentNoGrow>
         <Card.Meta>
-          <Label size="small" key="category" color={CATEGORY_LABEL_COLORS[ category ]}>{category}</Label>
-          {labels.map(({ text, color }, ix) => <Label size="small" key={ix} color={color}>{text}</Label>)}
+          <Label size="large" key="category" color={CATEGORY_LABEL_COLORS[ category ]}>{category}</Label>
+          {labels.map(({ text, color }, ix) => <Label key={ix} size="large" color={color}>{text}</Label>)}
         </Card.Meta>
       </StyledCardContentNoGrow>
       <Card.Content>

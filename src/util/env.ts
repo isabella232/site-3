@@ -11,3 +11,4 @@ export const AUTH0_BASE_URL: string = process.env
 export const INFURA_KEY: string = process.env.REACT_APP_INFURA_KEY as any;
 export const VERSION: string = process.env.REACT_APP_VERSION as any;
 export const GOOGLE_ANALYTICS_ID: string = process.env.REACT_APP_GOOGLE_ANALYTICS_ID as any;
+export const SHOW_ALL_SITES: boolean = process.env.REACT_APP_SHOW_ALL_SITES === 'true';

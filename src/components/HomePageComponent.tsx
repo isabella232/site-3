@@ -1,7 +1,7 @@
 import { reduce } from 'lodash';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Container } from 'semantic-ui-react';
+import { Container, Header } from 'semantic-ui-react';
 import DocumentTitle from './DocumentTitle';
 import SearchInput from './SearchInput';
 import WorkingSiteCards from './WorkingSiteCards';
@@ -31,13 +31,18 @@ export default function HomePageComponent(props: RouteComponentProps) {
     <Container style={{ marginTop: '2rem', marginBottom: '2rem' }}>
       <DocumentTitle title="Home"/>
 
-      <SearchInput
-        value={search}
-        onChange={({ target: { value } }) => props.history.replace({
-          ...props.location,
-          hash: `search=${encodeURIComponent(value)}`
-        })}
-      />
+      <label>
+        <Header as="h1">ETHVAULT.XYZ</Header>
+
+        <SearchInput
+          value={search}
+          size="huge"
+          onChange={({ target: { value } }) => props.history.replace({
+            ...props.location,
+            hash: `search=${encodeURIComponent(value)}`
+          })}
+        />
+      </label>
 
       <WorkingSiteCards search={search}/>
     </Container>

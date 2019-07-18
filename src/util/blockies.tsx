@@ -1,13 +1,12 @@
 import { createIcon } from '@download/blockies';
+import { memoize } from 'lodash';
 
-const memoizeMap: { [ id: string ]: string } = {};
-
-function getBlockyDataUri(id: string): string {
-  return memoizeMap[ id ] || (memoizeMap[ id ] = createIcon({
+const getBlockyDataUri: (id: string) => string = memoize((id) => {
+  return createIcon({
     seed: id,
     size: 15,
     scale: 3,
-  }).toDataURL());
-}
+  }).toDataURL();
+});
 
 export { getBlockyDataUri };

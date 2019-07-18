@@ -11,6 +11,8 @@ import MakerDAOLogo from '../assets/makerdao-logo.svg';
 import MyCryptoLogo from '../assets/mycrypto-logo.svg';
 import PeepethLogo from '../assets/peepeth-logo.png';
 import RadarRelayLogo from '../assets/radarrelay-logo.svg';
+import { getBlockyDataUri } from './blockies';
+import { SHOW_ALL_SITES } from './env';
 
 interface SiteLabel {
   readonly color: SemanticCOLORS;
@@ -100,9 +102,9 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
     status: { integrated: true, trackerUrl: null }
   },
   {
-    logo: EthvaultWalletTempLogo,
+    logo: getBlockyDataUri('Ethlance'),
     name: 'Ethlance',
-    labels: [ NEW_LABEL ],
+    labels: [],
     description: 'The future of work is now. Hire or work for Ether cryptocurrency.',
     url: new URL('https://ethlance.com'),
     category: SiteCategory.WORK,
@@ -164,6 +166,6 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
   }
 ];
 
-export const VISIBLE_SITES = ALL_SITES_INFO.filter(site => process.env.NODE_ENV === 'development' || site.status.integrated);
+export const VISIBLE_SITES = ALL_SITES_INFO.filter(site => SHOW_ALL_SITES || site.status.integrated);
 
 export const SITES_BY_URL_HOST: { [ urlHost: string ]: Site } = keyBy(ALL_SITES_INFO, site => site.url.host);

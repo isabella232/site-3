@@ -21,10 +21,10 @@ export default function WorkingSiteCards({ search }: WorkingSiteCardsProps) {
 
   return (
     <StyledContainer>
-      <Card.Group stackable itemsPerRow={4} doubling>
+      <Card.Group stackable itemsPerRow={3} doubling>
         {
           matches.map(
-            site => <SiteCard key={site.url.host} site={site}/>
+            site => <SiteCard key={site.url.host} site={site} size="large"/>
           )
         }
       </Card.Group>
@@ -33,8 +33,8 @@ export default function WorkingSiteCards({ search }: WorkingSiteCardsProps) {
           (
             <Segment placeholder>
               <Header icon>
-                <Icon name="app store"/>
-                No apps found
+                <Icon name="search minus"/>
+                No DAPPs found
               </Header>
               <TrackedButton
                 category={AnalyticsCategory.UI} action="CLEAR_SEARCH_PLACEHOLDER_BUTTON"

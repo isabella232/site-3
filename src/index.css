@@ -14,3 +14,7 @@
 textarea {
     resize: none !important;
 }
+
+div.header {
+    overflow: visible !important;
+}
