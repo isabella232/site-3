@@ -7,6 +7,7 @@
     "bignumber.js": "^9.0.0",
     "copy-to-clipboard": "^3.2.0",
     "downloadjs": "^1.4.7",
+    "eth-phishing-detect": "^1.1.13",
     "ethers": "^4.0.30",
     "jointz": "0.0.7",
     "lodash": "^4.17.14",

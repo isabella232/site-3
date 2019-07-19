@@ -5,12 +5,14 @@ import { Loader } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { clearQueue, handleMessage, Message, messagesSent, sendMessages } from '../actions/ethereum-provider-actions';
 import { GlobalState } from '../reducers';
+import isPhishingUrl from '../util/is-phishing-url';
 import { randomId } from '../util/random';
 import { SITES_BY_URL_HOST } from '../util/sites-info';
 import { getValidUrl } from '../util/url';
 import DocumentTitle from './DocumentTitle';
 import { AnalyticsCategory, track } from './GoogleAnalytics';
 import InvalidURLPage from './InvalidURLPage';
+import PhishingURLPage from './PhishingURLPage';
 
 const IFrameContainer = styled.div`
   width: 100%;
@@ -46,19 +48,17 @@ interface BrowseIFrameComponentProps
 
 /**
  * Get the title of the document for a particular src url
- * @param iframeSrc url of the iframe
+ * @param iframeUrl url of the iframe
  */
-function getPageTitle(iframeSrc: string | null): string | null {
-  if (iframeSrc === null) {
+function getPageTitle(iframeUrl: URL | null): string | null {
+  if (iframeUrl === null) {
     return null;
   }
 
   try {
-    const url = new URL(iframeSrc);
+    const site = SITES_BY_URL_HOST[ iframeUrl.host ];
 
-    const site = SITES_BY_URL_HOST[ url.host ];
-
-    return site ? site.name : url.host;
+    return site ? site.name : iframeUrl.host;
   } catch (error) {
     return null;
   }
@@ -68,7 +68,7 @@ function getPageTitle(iframeSrc: string | null): string | null {
  * Given a route hash, return the URL that should be rendered in the iframe or null if it's invalid
  * @param hash hash of the route
  */
-function getIFrameSrcFromHash(hash: string): string | null {
+function getIFrameSrcFromHash(hash: string): URL | null {
   try {
     if (hash.length < 2) {
       return null;
@@ -82,7 +82,7 @@ function getIFrameSrcFromHash(hash: string): string | null {
 
     const search = url.search && url.search.length > 1 ? `${url.search}&ethvault=1` : '?ethvault=1';
 
-    return `${url.origin}${url.pathname}${search}`;
+    return new URL(`${url.origin}${url.pathname}${search}`);
   } catch (error) {
     return null;
   }
@@ -98,7 +98,7 @@ function trackHashChange(hash: string) {
   const src = getIFrameSrcFromHash(hash);
 
   if (src !== null) {
-    track(AnalyticsCategory.UI, 'VISIT_EMBEDDED_SITE', src);
+    track(AnalyticsCategory.UI, 'VISIT_EMBEDDED_SITE', src.toString());
   }
 }
 
@@ -119,7 +119,7 @@ export default connect(
     /**
      * Return the src of the iframe to render
      */
-    private getIFrameSrc(): string | null {
+    private getIFrameSrc(): URL | null {
       try {
         const hash = this.props.location.hash;
         return getIFrameSrcFromHash(hash);
@@ -209,13 +209,17 @@ export default connect(
         return <InvalidURLPage/>;
       }
 
+      if (isPhishingUrl(src)) {
+        return <PhishingURLPage/>;
+      }
+
       return (
         <IFrameContainer>
           <StyledIFrame
             sandbox="allow-scripts allow-same-origin allow-forms allow-modals"
             onLoad={this.handleLoaded}
             ref={this.updateRef}
-            src={src}
+            src={src.toString()}
           />
 
           <Loader active={!this.state.loaded} size="huge"/>
