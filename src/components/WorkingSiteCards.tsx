@@ -1,4 +1,3 @@
-import { flatMap } from 'lodash';
 import React from 'react';
 import { Card, Header, Icon, Segment } from 'semantic-ui-react';
 import styled from 'styled-components';
@@ -17,7 +16,7 @@ interface WorkingSiteCardsProps {
 }
 
 export default function WorkingSiteCards({ search }: WorkingSiteCardsProps) {
-  const matches = flatMap(searchSites(search), (({ results }) => results));
+  const matches = searchSites(search);
 
   return (
     <StyledContainer>

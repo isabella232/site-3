@@ -28,7 +28,11 @@ export interface SiteCardProps extends CardProps {
   site: Site
 }
 
-export default function SiteCard({ site: { name, url, logo, category, description, labels }, ...cardProps }: SiteCardProps) {
+const StyledLabel = styled(Label)`
+  margin-bottom: 0.6rem !important;
+`;
+
+export default function SiteCard({ site: { name, url, logo, category, description, labels, status: { integrated } }, ...cardProps }: SiteCardProps) {
   return (
     <Card
       {...cardProps}
@@ -37,6 +41,17 @@ export default function SiteCard({ site: { name, url, logo, category, descriptio
       onClick={() => track(AnalyticsCategory.UI, 'CLICK_WORKING_SITE_CARD', name)}>
       <StyledImage src={logo} wrapped ui={false} alt={`${name} Logo`}/>
       <StyledCardContentNoGrow>
+        {
+          integrated ? (
+            <StyledLabel color="green" ribbon="right">
+              Integrated
+            </StyledLabel>
+          ) : (
+            <StyledLabel ribbon="right">
+              Work in progress
+            </StyledLabel>
+          )
+        }
         <Card.Header>{name}</Card.Header>
       </StyledCardContentNoGrow>
       <StyledCardContentNoGrow>

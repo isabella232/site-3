@@ -1,23 +1,5 @@
-import { groupBy, map } from 'lodash';
-import { VISIBLE_SITES, Site, SiteCategory } from './sites-info';
-
-interface CategorizedResults {
-  readonly category: SiteCategory;
-  readonly results: Site[];
-}
-
-/**
- * Return sites grouped by their categories
- * @param sites sites to group by category
- */
-function categorizeSites(sites: readonly Site[]): CategorizedResults[] {
-  return map(groupBy(sites, site => site.category), (results, category) => ({
-    results,
-    category: category as SiteCategory
-  }));
-}
-
-const CATEGORIZED_CARDS = categorizeSites(VISIBLE_SITES);
+import { sortBy } from 'lodash';
+import { Site, VISIBLE_SITES } from './sites-info';
 
 /**
  * Returns true if the target string matches all of the tokens
@@ -33,15 +15,16 @@ function stringMatch(targetString: string, tokens: string[]): boolean {
  * Return the categorized results matching a search
  * @param q to search on
  */
-export default function searchSites(q: string): CategorizedResults[] {
+export default function searchSites(q: string): Site[] {
   const tokens = q.split(/\s+/).map(token => token.toLowerCase().trim()).filter(t => t.length > 0);
-  if (tokens.length === 0) {
-    return CATEGORIZED_CARDS;
+
+  let filtered: Site[] = VISIBLE_SITES;
+
+  if (tokens.length > 0) {
+    filtered = VISIBLE_SITES.filter(
+      site => stringMatch(`${site.name} ${site.url} ${site.category}`, tokens)
+    );
   }
 
-  const filtered = VISIBLE_SITES.filter(
-    site => stringMatch(`${site.name} ${site.url} ${site.category}`, tokens)
-  );
-
-  return categorizeSites(filtered);
+  return sortBy(sortBy(filtered, site => site.name), (site) => !site.status.integrated);
 }

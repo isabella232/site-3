@@ -22,6 +22,7 @@ interface SiteLabel {
 export enum SiteCategory {
   ADMIN = 'Admin & Developer',
   DEFI = 'Decentralized Finance',
+  EXCHANGE = 'Exchange',
   GAME = 'Game',
   SOCIAL = 'Social',
   WORK = 'Work',
@@ -33,16 +34,18 @@ export const CATEGORY_LABEL_COLORS: { [category in SiteCategory]: SemanticCOLORS
   [ SiteCategory.GAME ]: 'pink',
   [ SiteCategory.SOCIAL ]: 'yellow',
   [ SiteCategory.WORK ]: 'blue',
+  [ SiteCategory.EXCHANGE ]: 'violet'
 };
 
-const NEW_LABEL: SiteLabel = {
-  color: 'green',
-  text: 'New'
+const LABELS: Readonly<{ [ name: string ]: SiteLabel }> = {
+  NEW: {
+    color: 'green',
+    text: 'New'
+  }
 };
 
 interface IntegrationStatus {
   readonly integrated: boolean;
-  readonly trackerUrl: string | null;
 }
 
 export interface Site {
@@ -63,7 +66,7 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
     description: 'Compound is a transparent, autonomous money market— allowing users & applications to frictionlessly earn interest or borrow Ethereum assets without relying on a counterparty.',
     category: SiteCategory.DEFI,
     url: new URL('https://app.compound.finance'),
-    status: { integrated: false, trackerUrl: null }
+    status: { integrated: false }
   },
   {
     logo: CryptoKittiesLogo,
@@ -72,7 +75,7 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
     description: 'CryptoKitties is a game centered around breedable, collectible, and oh-so-adorable creatures we call CryptoKitties! Each cat is one-of-a-kind and 100% owned by you; it cannot be replicated, taken away, or destroyed.',
     category: SiteCategory.GAME,
     url: new URL('https://www.cryptokitties.co'),
-    status: { integrated: false, trackerUrl: null }
+    status: { integrated: false }
   },
   {
     logo: DyDxLogo,
@@ -80,8 +83,8 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
     labels: [],
     description: 'The most powerful open trading platform for crypto assets.',
     url: new URL('https://trade.dydx.exchange'),
-    category: SiteCategory.DEFI,
-    status: { integrated: false, trackerUrl: null }
+    category: SiteCategory.EXCHANGE,
+    status: { integrated: false }
   },
   {
     logo: ENSLogo,
@@ -90,16 +93,16 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
     description: 'ENS offers a secure & decentralised way to address resources both on and off the blockchain using simple, human-readable names.',
     url: new URL('https://manager.ens.domains'),
     category: SiteCategory.ADMIN,
-    status: { integrated: false, trackerUrl: null }
+    status: { integrated: false }
   },
   {
     logo: EthvaultWalletTempLogo,
     name: 'Ethvault Wallet',
-    labels: [ NEW_LABEL ],
+    labels: [ LABELS.NEW ],
     description: 'A simple mobile friendly wallet for sending basic transactions and signing messages.',
     url: new URL('https://wallet.ethvault.xyz'),
     category: SiteCategory.ADMIN,
-    status: { integrated: true, trackerUrl: null }
+    status: { integrated: true }
   },
   {
     logo: getBlockyDataUri('Ethlance'),
@@ -108,7 +111,7 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
     description: 'The future of work is now. Hire or work for Ether cryptocurrency.',
     url: new URL('https://ethlance.com'),
     category: SiteCategory.WORK,
-    status: { integrated: false, trackerUrl: null }
+    status: { integrated: false }
   },
   {
     logo: KickbackLogo,
@@ -117,7 +120,7 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
     description: 'Event no shows? No problem. Meet Kickback—an Ethereum-based event management service that delivers higher event participation rates by asking registrants to put some skin in the game.',
     url: new URL('https://kickback.events'),
     category: SiteCategory.SOCIAL,
-    status: { integrated: false, trackerUrl: null }
+    status: { integrated: false }
   },
   {
     logo: KyberNetworkLogo,
@@ -126,7 +129,16 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
     description: 'Kyber is an on-chain liquidity protocol that aggregates liquidity from a wide range of reserves, powering instant and secure token exchange in any decentralized application.',
     url: new URL('https://kyberswap.com'),
     category: SiteCategory.DEFI,
-    status: { integrated: false, trackerUrl: null }
+    status: { integrated: false }
+  },
+  {
+    logo: getBlockyDataUri('LocalEthereum'),
+    name: 'LocalEthereum',
+    labels: [ LABELS.NEW ],
+    description: 'LocalEthereum is how people exchange ETH peer-to-peer.',
+    url: new URL('https://localethereum.com'),
+    category: SiteCategory.EXCHANGE,
+    status: { integrated: true }
   },
   {
     logo: MakerDAOLogo,
@@ -135,7 +147,7 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
     description: 'Maker is comprised of a decentralized stablecoin, collateral loans, and community governance',
     url: new URL('https://cdp.makerdao.com'),
     category: SiteCategory.DEFI,
-    status: { integrated: false, trackerUrl: null }
+    status: { integrated: false }
   },
   {
     logo: MyCryptoLogo,
@@ -144,7 +156,7 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
     description: 'MyCrypto is an open-source, client-side tool for generating ether wallets, handling ERC-20 tokens, and interacting with the blockchain more easily.',
     url: new URL('https://mycrypto.com/account'),
     category: SiteCategory.ADMIN,
-    status: { integrated: false, trackerUrl: null }
+    status: { integrated: false }
   },
   {
     logo: PeepethLogo,
@@ -153,7 +165,7 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
     description: 'MyCrypto is an open-source, client-side tool for generating ether wallets, handling ERC-20 tokens, and interacting with the blockchain more easily.',
     url: new URL('https://peepeth.com'),
     category: SiteCategory.SOCIAL,
-    status: { integrated: false, trackerUrl: null }
+    status: { integrated: false }
   },
   {
     logo: RadarRelayLogo,
@@ -161,8 +173,8 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
     labels: [],
     description: 'The most secure way to trade ERC20 tokens directly from your Ethereum wallet.',
     url: new URL('https://app.radarrelay.com'),
-    category: SiteCategory.DEFI,
-    status: { integrated: false, trackerUrl: null }
+    category: SiteCategory.EXCHANGE,
+    status: { integrated: false }
   }
 ];
 
