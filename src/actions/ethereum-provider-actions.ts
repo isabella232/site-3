@@ -479,9 +479,10 @@ export function handleMessage(message: any): EthereumProviderThunkAction<void> {
 
     // Convert personal_sign to eth_sign
     if (message.method === 'personal_sign') {
-      if (!message.params || message.params.length !== 2) {
+      if (!message.params || message.params.length < 2) {
+        // Web3 will send a third argument that represents a password sometimes. We only need the first 2.
         dispatch(sendRejectMessage(message.id, -32600, 'Request failed validation'));
-        console.error('Personal sign message received that did not have the correct number of parameters', message);
+        console.error('Personal sign message received that did not have at least 2 parameters', message);
         return;
       }
 
