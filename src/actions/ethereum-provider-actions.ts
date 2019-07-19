@@ -563,7 +563,7 @@ export function handleMessage(message: any): EthereumProviderThunkAction<void> {
           AddressValidator.validate(message.params[ 0 ]).length > 0 ||
           HexDataValidator.validate(message.params[ 1 ]).length > 0) {
           dispatch(sendRejectMessage(message.id, -32600, 'Request failed validation'));
-          console.error('Sign message request received that did not have valid parameters', message);
+          console.error('Sign message request received that did not have valid parameters. Params must be [valid address, data].', message);
           return;
         }
 

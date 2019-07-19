@@ -21,4 +21,8 @@ export const SendTransactionParamValidator = jointz.object().keys({
   data: HexDataValidator,
   nonce: HexDataValidator,
   chainId: ChainIdValidator,
-}).requiredKeys('from').allowUnknownKeys(false);
+})
+  .requiredKeys('from')
+  // Web3 will sometimes send extra keys, e.g. gasLimit, as a number.
+  // Don't throw because of it.
+  .allowUnknownKeys(true);
