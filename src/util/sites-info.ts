@@ -7,6 +7,7 @@ import ENSLogo from '../assets/ens-logo.svg';
 import EthvaultWalletTempLogo from '../assets/ethvault-wallet-temp-logo.png';
 import KickbackLogo from '../assets/kickback-logo.svg';
 import KyberNetworkLogo from '../assets/kybernetwork-logo.svg';
+import LocalEthereumLogo from '../assets/localethereum-logo.svg';
 import MakerDAOLogo from '../assets/makerdao-logo.svg';
 import MyCryptoLogo from '../assets/mycrypto-logo.svg';
 import PeepethLogo from '../assets/peepeth-logo.png';
@@ -132,7 +133,7 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
     status: { integrated: false }
   },
   {
-    logo: getBlockyDataUri('LocalEthereum'),
+    logo: LocalEthereumLogo,
     name: 'LocalEthereum',
     labels: [ LABELS.NEW ],
     description: 'LocalEthereum is how people exchange ETH peer-to-peer.',

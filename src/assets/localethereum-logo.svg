@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="70" viewBox="-5 0 82 8">
+    <text style="line-height:1.25;-inkscape-font-specification:'Open Sans, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start"
+          x="32" y="125" font-weight="700" font-size="11" font-family="Open Sans" letter-spacing="0" word-spacing="0"
+          stroke-width="0" transform="translate(-33 -117)">
+        <tspan x="32" y="125"
+               style="-inkscape-font-specification:'Open Sans, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start">
+            <tspan style="-inkscape-font-specification:'Open Sans, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start"
+                   fill="#a8a8b7">Local</tspan><tspan style="-inkscape-font-specification:'Open Sans, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start"
+                   fill="#6663b0">Ethereum</tspan>
+        </tspan>
+    </text>
+</svg>
