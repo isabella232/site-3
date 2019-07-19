@@ -73,7 +73,16 @@ function getIFrameSrcFromHash(hash: string): string | null {
     if (hash.length < 2) {
       return null;
     }
-    return getValidUrl(hash.substring(1));
+
+    const url = getValidUrl(hash.substring(1));
+
+    if (!url) {
+      return null;
+    }
+
+    const search = url.search && url.search.length > 1 ? `${url.search}&ethvault=1` : '?ethvault=1';
+
+    return `${url.origin}${url.pathname}${search}`;
   } catch (error) {
     return null;
   }
@@ -203,7 +212,7 @@ export default connect(
       return (
         <IFrameContainer>
           <StyledIFrame
-            sandbox="allow-scripts allow-same-origin allow-forms"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-modals"
             onLoad={this.handleLoaded}
             ref={this.updateRef}
             src={src}

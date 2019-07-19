@@ -1,32 +1,28 @@
+import { memoize } from 'lodash';
+
+const HTTPS_PREFIX = 'https://';
+
 /**
- * Return true if the URL is valid and should be rendered in the iframe.
- * @param url to check
+ * Return the URL corresponding to a given key or false if it's not valid
+ * @param value to check
  */
-export function isValidUrl(url: string): boolean {
+export const getValidUrl = memoize(function (value: string): URL | false {
   try {
-    const parsed = new URL(url);
+    const parsed = new URL(value);
 
-    return !!parsed.host &&
+    if (!!parsed.host &&
       !!parsed.protocol &&
-      parsed.hostname.split('.').every(pc => pc.length > 0);
+      parsed.hostname.split('.').every(pc => pc.length > 0)) {
+      return parsed;
+    }
   } catch (error) {
-    return false;
-  }
-}
-
-export function getValidUrl(userEnteredUrl: string): string | null {
-  if (userEnteredUrl.length === 0) {
-    return null;
+    if (!value.startsWith(HTTPS_PREFIX)) {
+      return getValidUrl(`${HTTPS_PREFIX}${value}`);
+    }
   }
 
-  if (isValidUrl(userEnteredUrl)) {
-    return userEnteredUrl;
-  } else if (isValidUrl(`https://${userEnteredUrl}`)) {
-    return `https://${userEnteredUrl}`;
-  } else {
-    return null;
-  }
-}
+  return false;
+});
 
 export function canBeValidUrl(userEnteredUrl: string): boolean {
   return getValidUrl(userEnteredUrl) !== null;
