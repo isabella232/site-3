@@ -104,10 +104,8 @@ export default function AboutPage(props: RouteComponentProps) {
 
       <Header as="h3">How can I integrate with Ethvault?</Header>
       <p>
-        In summary, you utilize a Web3 provider similar to MetaMask that allows your site to communicate with Ethvault
-        and other iframe based wallets. See the <ExternalLink
-        href="https://github.com/ethvault/iframe-provider">ethvault/iframe-provider</ExternalLink> repository for more
-        information.
+        Follow the <ExternalLink href="https://github.com/ethvault/integration-guide">integration
+        guide</ExternalLink> to integrate with Ethvault.
       </p>
     </StyledContainer>
   );
