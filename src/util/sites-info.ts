@@ -4,7 +4,6 @@ import CompoundLogo from '../assets/compound-logo.png';
 import CryptoKittiesLogo from '../assets/cryptokitties-logo.svg';
 import DyDxLogo from '../assets/dydx-logo.svg';
 import ENSLogo from '../assets/ens-logo.svg';
-import EthvaultWalletTempLogo from '../assets/ethvault-wallet-temp-logo.png';
 import KickbackLogo from '../assets/kickback-logo.svg';
 import KyberNetworkLogo from '../assets/kybernetwork-logo.svg';
 import LocalEthereumLogo from '../assets/localethereum-logo.svg';
@@ -97,7 +96,7 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
     status: { integrated: false }
   },
   {
-    logo: EthvaultWalletTempLogo,
+    logo: '/ethvault-logo.svg',
     name: 'Ethvault Wallet',
     labels: [ LABELS.NEW ],
     description: 'A simple mobile friendly wallet for sending basic transactions and signing messages.',
