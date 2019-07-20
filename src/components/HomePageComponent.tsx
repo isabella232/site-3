@@ -4,6 +4,7 @@ import { createRef } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Container, Header } from 'semantic-ui-react';
 import DocumentTitle from './DocumentTitle';
+import ScrollToTop from './ScrollToTop';
 import SearchInput from './SearchInput';
 import { HeaderFont } from './Typography';
 import WorkingSiteCards from './WorkingSiteCards';
@@ -59,6 +60,7 @@ export default class HomePageComponent extends React.Component<RouteComponentPro
     return (
       <Container style={{ marginTop: '2rem', marginBottom: '2rem' }}>
         <DocumentTitle title="Home"/>
+        <ScrollToTop/>
 
         <label>
           <Header as="h1"><HeaderFont>ETHVAULT.XYZ</HeaderFont></Header>

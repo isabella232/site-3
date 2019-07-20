@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import DocumentTitle from './DocumentTitle';
 import ExternalLink from './ExternalLink';
 import { GetStartedChecklist } from './GetStartedChecklist';
+import ScrollToTop from './ScrollToTop';
 import { HeaderFont } from './Typography';
 
 const StyledContainer = styled(Container)`
@@ -16,6 +17,7 @@ export default function AboutPage(props: RouteComponentProps) {
   return (
     <StyledContainer>
       <DocumentTitle title="About"/>
+      <ScrollToTop/>
       <Header as="h1"><HeaderFont>About Ethvault</HeaderFont></Header>
 
       <Header as="h2">
