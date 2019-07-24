@@ -53,6 +53,8 @@ function parseToken(hash: string): Token {
     throw new Error(`State mismatch: ${hashObject.state} !== ${expectedState}`);
   }
 
+  hashObject.expires_at = new Date(new Date().getTime() + hashObject.expires_in * 1000).getTime();
+
   return hashObject as any;
 }
 

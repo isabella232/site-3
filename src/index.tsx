@@ -2,26 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { PersistGate } from 'redux-persist/integration/react';
 import 'semantic-ui-css/semantic.min.css';
 import App from './App';
 import GoogleAnalytics, { initGoogleAnalytics } from './components/GoogleAnalytics';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import configurePersistedStore from './util/configure-persisted-store';
+import configureStore from './util/configure-store';
 
 initGoogleAnalytics();
 
-const { store, persistor } = configurePersistedStore();
+const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <PersistGate persistor={persistor}>
-      <BrowserRouter>
-        <App/>
-        <GoogleAnalytics/>
-      </BrowserRouter>
-    </PersistGate>
+    <BrowserRouter>
+      <App/>
+      <GoogleAnalytics/>
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );

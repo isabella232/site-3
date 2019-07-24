@@ -88,6 +88,7 @@ export default connect(
                   placeholder="Account password"
                   autoComplete="current-password"
                   required
+                  autoFocus
                   value={password}
                   onChange={e => this.setState({ password: e.target.value })}
                 />
