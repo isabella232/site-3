@@ -11,6 +11,7 @@ import FooterButtons from './FooterButtons';
 import HomePageComponent from './HomePageComponent';
 import InvalidURLPage from './InvalidURLPage';
 import SignedOutComponent from './SignedOutComponent';
+import SmoothScroller from './SmoothScroller';
 
 const StyledMain = styled.main`
   position: absolute;
@@ -31,7 +32,7 @@ const StyledContent = styled.section`
   position: relative;
 `;
 
-const StyledContentInner = styled.section`
+const StyledContentInner = styled(SmoothScroller)`
   position: absolute;
   top: 0;
   left: 0;

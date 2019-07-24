@@ -12,6 +12,7 @@ import { CreateAccountDialog } from './CreateAccountDialog';
 import { LoggedOutPlaceholder } from './Placeholders';
 import { HeaderFont } from './Typography';
 import UnlockAccountPasswordDialog from './UnlockAccountPasswordDialog';
+import SmoothScroller from './SmoothScroller';
 
 const StyledContainer = styled.section`
   display: flex;
@@ -40,7 +41,7 @@ const StyledContent = styled.section`
   position: relative;
 `;
 
-const StyledContentInner = styled.div`
+const StyledContentInner = styled(SmoothScroller)`
   position: absolute;
   top: 0;
   left: 0;
