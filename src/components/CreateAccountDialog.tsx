@@ -21,6 +21,7 @@ interface FormState {
   description: string;
   password: string;
   confirmPassword: string;
+  alias: string;
 }
 
 interface CreateAccountDialogState {
@@ -46,6 +47,7 @@ export const CreateAccountDialog = connect(
     state = {
       form: {
         name: '',
+        alias: '',
         description: '',
         password: '',
         confirmPassword: ''
@@ -61,6 +63,7 @@ export const CreateAccountDialog = connect(
       this.setState({
         form: {
           name: '',
+          alias: '',
           description: '',
           password: '',
           confirmPassword: ''
@@ -124,6 +127,23 @@ export const CreateAccountDialog = connect(
                   onChange={e => this.changed({ name: e.target.value })}
                 />
               </Form.Field>
+
+              <Form.Field>
+                <label htmlFor="account-alias">Account alias</label>
+                <Input
+                  id="account-alias"
+                  autoComplete="off"
+                  type="text"
+                  placeholder="Account alias"
+                  labelPosition="right"
+                  label=".ethvault.xyz"
+                  fluid
+                  value={form.alias}
+                  pattern="^[a-z0-9-]+$"
+                  onChange={e => this.changed({ alias: e.target.value })}
+                />
+              </Form.Field>
+
               <Form.Field required>
                 <label htmlFor="account-description">Account description</label>
                 <TextArea

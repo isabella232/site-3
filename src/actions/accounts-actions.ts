@@ -29,6 +29,7 @@ export interface CreateAccountActionParams {
   name: string;
   description: string;
   password: string;
+  alias: string; // The first part of the ENS name to request
 }
 
 interface CreateAccountAction extends Action<'CREATE_ACCOUNT'> {
@@ -534,7 +535,8 @@ export const createAccount: (
         {
           name: params.name,
           description: params.description,
-          encryptedJson
+          encryptedJson,
+          ...(params.alias.trim().length > 0 ? { ensName: `${params.alias.trim()}.ethvault.xyz` } : null)
         },
         token
       );

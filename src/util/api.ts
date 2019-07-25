@@ -50,6 +50,7 @@ export interface CreateAccountRequest {
   name: string;
   description: string;
   encryptedJson: any;
+  ensName?: string;
 }
 
 export default class API {
