@@ -3,6 +3,7 @@ export interface Account {
   address: string;
   version: number;
   name: string;
+  ensName: string | null;
   description: string;
   created: number;
   updated: number;

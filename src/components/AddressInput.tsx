@@ -1,19 +1,10 @@
-import { InfuraProvider } from 'ethers/providers';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Input, InputProps } from 'semantic-ui-react';
 import { GlobalState } from '../reducers';
-import { INFURA_KEY } from '../util/env';
+import { isValidAddress, reverseLookupAddress } from '../util/ens';
 import { Account } from '../util/model';
-import { NetworkId, NETWORKS_INFO } from '../util/networks';
-
-/**
- * Return true if the value is a valid string address
- * @param value true if the value is a valid address
- */
-function isValidAddress(value: any) {
-  return typeof value === 'string' && value.length > 0 && /^0x[a-fA-F0-9]{40}$/.test(value);
-}
+import { NetworkId } from '../util/networks';
 
 interface AddressInputProps extends InputProps {
   network: NetworkId;
@@ -24,35 +15,6 @@ interface AddressInputState {
   ensName: string | null;
   loading: Promise<string | null> | null;
   loadCounter: number;
-}
-
-/**
- * Reverse lookup the ens name corresponding to some address for a particular network, or the mainnet if the
- * network doesn't have ENS
- * @param network network to resolve address for
- * @param address address to look up
- */
-async function reverseLookupAddress(network: NetworkId, address: string): Promise<string | null> {
-  if (!isValidAddress(address)) {
-    return null;
-  }
-
-  const networkInfo = NETWORKS_INFO[ network ];
-
-  if (networkInfo.ensAddress === null) {
-    return null;
-  }
-
-  try {
-    // TODO: replace this with something lower level
-    // We already have a client.
-    const client = new InfuraProvider(network, INFURA_KEY);
-
-    return await client.lookupAddress(address);
-  } catch (error) {
-    console.debug(`Failed to look up address in ENS: ${address}`, error);
-    return null;
-  }
 }
 
 export default connect(

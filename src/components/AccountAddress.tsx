@@ -34,7 +34,7 @@ export default connect(
     account ? (
       <FlexParent>
         <FlexChildGrowNoWrap title={account.address}>
-          {account.address}
+          {account.ensName ? account.ensName : account.address}
         </FlexChildGrowNoWrap>
         <FlexChildFixed>
           <TrackedButton
@@ -62,7 +62,7 @@ export default connect(
             action={'VIEW_ON_ETHERSCAN'}
             icon compact basic as={ExternalLink}
             title="View on Etherscan"
-            href={`${NETWORKS_INFO[ network ].etherscanBaseUrl}/address/${account.address}`}>
+            href={`${NETWORKS_INFO[ network ].etherscanBaseUrl}/address/${account.ensName ? account.ensName : account.address}`}>
             <Icon name="external"/>
           </TrackedButton>
         </FlexChildFixed>

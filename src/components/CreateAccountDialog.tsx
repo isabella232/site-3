@@ -4,6 +4,7 @@ import { Button, Dimmer, Form, Icon, Input, Modal, Progress, TextArea } from 'se
 import { createAccount, CreateAccountActionParams } from '../actions/accounts-actions';
 import { closeCreateAccountDialog } from '../actions/ui-actions';
 import { GlobalState } from '../reducers';
+import { lookupEnsName } from '../util/ens';
 import AnimatedTrackedModal from './AnimatedTrackedModal';
 import PasswordStrengthMeter from './PasswordStrengthMeter';
 
@@ -26,6 +27,9 @@ interface FormState {
 
 interface CreateAccountDialogState {
   form: FormState;
+
+  checkingAlias: boolean;
+  aliasAvailable: boolean;
 }
 
 export const CreateAccountDialog = connect(
@@ -45,6 +49,8 @@ export const CreateAccountDialog = connect(
   class extends React.Component<CreateAccountDialogProps,
     CreateAccountDialogState> {
     state = {
+      checkingAlias: false,
+      aliasAvailable: true,
       form: {
         name: '',
         alias: '',
@@ -78,9 +84,44 @@ export const CreateAccountDialog = connect(
       }
     }
 
+    private sanitizeAlias(alias: string): string {
+      return alias.toLowerCase().replace(/[^a-z0-9-]+/g, '');
+    }
+
+    handleAliasChange = async (alias: string) => {
+      const sanitized = this.sanitizeAlias(alias);
+
+      if (this.state.form.alias === sanitized) {
+        return;
+      }
+
+      this.changed({ alias: sanitized });
+
+      if (sanitized.length > 0) {
+        this.setState({
+          checkingAlias: true,
+          aliasAvailable: false
+        });
+
+        const address = await lookupEnsName('mainnet', `${sanitized}.ethvault.xyz`);
+
+        if (this.state.form.alias === sanitized) {
+          this.setState({
+            checkingAlias: false,
+            aliasAvailable: address === null,
+          });
+        }
+      } else {
+        this.setState({
+          checkingAlias: false,
+          aliasAvailable: true,
+        });
+      }
+    };
+
     render() {
       const props = this.props;
-      const { form } = this.state;
+      const { form, checkingAlias, aliasAvailable } = this.state;
 
       return (
         <AnimatedTrackedModal open={props.open} size="mini" modalName="CREATE_ACCOUNT_DIALOG">
@@ -138,9 +179,17 @@ export const CreateAccountDialog = connect(
                   labelPosition="right"
                   label=".ethvault.xyz"
                   fluid
+                  loading={checkingAlias}
+                  iconPosition="left"
+                  icon={{
+                    name: form.alias.length === 0 ? 'pencil' : (checkingAlias ? 'circle notch' : (aliasAvailable ? 'check' : 'dont')),
+                    color: (checkingAlias || form.alias.length === 0) ? null : (aliasAvailable ? 'green' : 'red'),
+                    loading: checkingAlias
+                  }}
                   value={form.alias}
+                  error={form.alias.length > 0 && !checkingAlias && !aliasAvailable}
                   pattern="^[a-z0-9-]+$"
-                  onChange={e => this.changed({ alias: e.target.value })}
+                  onChange={e => this.handleAliasChange(e.target.value)}
                 />
               </Form.Field>
 
@@ -213,7 +262,7 @@ export const CreateAccountDialog = connect(
             </Button>
             <Button
               primary
-              disabled={props.loading}
+              disabled={props.loading || checkingAlias || !aliasAvailable}
               loading={props.loading}
               onClick={() => {
                 this.submitButtonRef!.click();
