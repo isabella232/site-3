@@ -116,7 +116,9 @@ export default function AboutPage(props: RouteComponentProps) {
       <p>
         The account alias is an <ExternalLink href="https://ens.domains/">Ethereum Name Service</ExternalLink> subdomain
         that is assigned to the address for your account. You are the owner of the ENS subdomain and can assign
-        additional records or even change the resolver. The alias must be globally unique.
+        additional records or even change the resolver. The alias must be globally unique. You can inspect the ENS
+        ethvault.xyz domain <ExternalLink
+        href="https://manager.ens.domains/name/ethvault.xyz/subdomains">here</ExternalLink>.
       </p>
 
       <Header as="h3">How can I integrate with Ethvault?</Header>
