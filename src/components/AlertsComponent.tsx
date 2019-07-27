@@ -78,7 +78,7 @@ export default connect(
       return (
         <Transition.Group
           as={AlertParentContainer}
-          animation="fade left"
+          animation="vertical flip"
           duration={200}>
           {alerts.map(({ id, header, level, message, moreInfoUrl }) => (
             <AlertChildContainer key={id}>
