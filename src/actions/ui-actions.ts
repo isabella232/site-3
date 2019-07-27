@@ -48,12 +48,13 @@ interface ShowAlertInput {
   message: string;
   level: AlertLevel;
   moreInfoUrl?: string | null;
+  id?: string;
 }
 
-export function showAlert({ header, message, level = 'info', moreInfoUrl = null }: ShowAlertInput): ShowAlertAction {
+export function showAlert({ header, message, level = 'info', moreInfoUrl = null, id = randomId() }: ShowAlertInput): ShowAlertAction {
   return {
     type: 'SHOW_ALERT',
-    id: randomId(),
+    id,
     level,
     header,
     message,

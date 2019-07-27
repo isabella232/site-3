@@ -38,11 +38,15 @@ const AlertParentContainer = styled.div`
 const AlertChildContainer = styled.div`
   pointer-events: auto;
   margin-bottom: 0.6rem;
-
+  
   @media (max-width: 768px) {
     margin-bottom: 0;
     margin-top: 0.6rem;
   }
+`;
+
+const StyledMessage = styled(Message)`
+  cursor: pointer;
 `;
 
 interface AlertsComponentProps {
@@ -82,14 +86,13 @@ export default connect(
           duration={200}>
           {alerts.map(({ id, header, level, message, moreInfoUrl }) => (
             <AlertChildContainer key={id}>
-              <Message
-                onDismiss={() => dismissAlert(id)}
+              <StyledMessage
+                onClick={() => dismissAlert(id)}
                 success={level === 'success'}
                 warning={level === 'warning'}
                 info={level === 'info'}
                 error={level === 'error'}
-                icon
-              >
+                icon>
                 <Icon name={LEVEL_ICONS[ level ]}/>
                 <Message.Content>
                   <Message.Header>{header}</Message.Header>
@@ -102,7 +105,7 @@ export default connect(
                     ) : null
                   }
                 </Message.Content>
-              </Message>
+              </StyledMessage>
             </AlertChildContainer>
           ))}
         </Transition.Group>

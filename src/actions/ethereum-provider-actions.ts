@@ -509,6 +509,7 @@ export function handleMessage(message: any): EthereumProviderThunkAction<void> {
       // This is handled automatically based on the user's login/unlocked accounts state
       case 'enable':
       case 'eth_accounts': {
+        const ACCOUNT_INFO_ALERTS_ID = 'account-info-alerts';
         const sendEmptyAccountList = () => {
           dispatch(
             sendResultMessage(
@@ -520,6 +521,7 @@ export function handleMessage(message: any): EthereumProviderThunkAction<void> {
         if (!isLoggedIn) {
           sendEmptyAccountList();
           dispatch(showAlert({
+            id: ACCOUNT_INFO_ALERTS_ID,
             header: 'Not signed in',
             message: 'You must be signed in to use this dApp.',
             level: 'warning'
@@ -527,6 +529,7 @@ export function handleMessage(message: any): EthereumProviderThunkAction<void> {
         } else if (accounts.length === 0) {
           sendEmptyAccountList();
           dispatch(showAlert({
+            id: ACCOUNT_INFO_ALERTS_ID,
             header: 'No accounts created',
             message: 'You must create an account to use this dApp.',
             level: 'warning'
@@ -534,6 +537,7 @@ export function handleMessage(message: any): EthereumProviderThunkAction<void> {
         } else if (unlockedAccountInfo === null) {
           sendEmptyAccountList();
           dispatch(showAlert({
+            id: ACCOUNT_INFO_ALERTS_ID,
             header: 'No accounts unlocked',
             message: 'You must unlock an account to use the dApp.',
             level: 'warning'

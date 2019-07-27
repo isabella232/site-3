@@ -54,7 +54,7 @@ export const uiReducer: Reducer<UIState, UIActions | LoggedOutAction> =
         return {
           ...state,
           alerts: [
-            ...state.alerts,
+            ...state.alerts.filter(alert => alert.id !== action.id),
             {
               id: action.id,
               message: action.message,
