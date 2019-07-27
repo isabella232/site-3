@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardProps, Image, Label } from 'semantic-ui-react';
 import styled from 'styled-components';
+import { SHOW_ALL_SITES } from '../util/env';
 import { CATEGORY_LABEL_COLORS, Site } from '../util/sites-info';
 import { AnalyticsCategory, track } from './GoogleAnalytics';
 import LocationAwareLink from './LocationAwareLink';
@@ -42,15 +43,17 @@ export default function SiteCard({ site: { name, url, logo, category, descriptio
       <StyledImage src={logo} wrapped ui={false} alt={`${name} Logo`}/>
       <StyledCardContentNoGrow>
         {
-          integrated ? (
-            <StyledLabel color="green" ribbon="right">
-              Integrated
-            </StyledLabel>
-          ) : (
-            <StyledLabel ribbon="right">
-              Work in progress
-            </StyledLabel>
-          )
+          SHOW_ALL_SITES ? (
+            integrated ? (
+              <StyledLabel color="green" ribbon="right">
+                Integrated
+              </StyledLabel>
+            ) : (
+              <StyledLabel ribbon="right">
+                Work in progress
+              </StyledLabel>
+            )
+          ) : null
         }
         <Card.Header>{name}</Card.Header>
       </StyledCardContentNoGrow>
