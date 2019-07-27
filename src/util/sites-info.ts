@@ -99,7 +99,7 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
   {
     logo: '/ethvault-logo.svg',
     name: 'Ethvault Wallet',
-    labels: [ LABELS.NEW ],
+    labels: [],
     description: 'A simple mobile friendly wallet for sending basic transactions and signing messages.',
     url: new URL('https://wallet.ethvault.xyz'),
     category: SiteCategory.ADMIN,
@@ -135,7 +135,7 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
   {
     logo: LocalEthereumLogo,
     name: 'LocalEthereum',
-    labels: [ LABELS.NEW ],
+    labels: [],
     description: 'LocalEthereum is how people exchange ETH peer-to-peer.',
     url: new URL('https://localethereum.com'),
     category: SiteCategory.EXCHANGE,
