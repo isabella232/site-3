@@ -11,7 +11,7 @@ import { SITES_BY_URL_HOST } from '../util/sites-info';
 import { getValidUrl } from '../util/url';
 import DocumentTitle from './DocumentTitle';
 import { AnalyticsCategory, track } from './GoogleAnalytics';
-import HomePageComponent from './HomePageComponent';
+import InvalidURLPage from './InvalidURLPage';
 import PhishingURLPage from './PhishingURLPage';
 
 const IFrameContainer = styled.div`
@@ -207,7 +207,7 @@ export default connect(
 
       if (src === null) {
         return (
-          <HomePageComponent {...this.props}/>
+          <InvalidURLPage/>
         );
       }
 
