@@ -275,13 +275,11 @@ export const unlockAccount: (
         address: wallet.address
       });
 
-      // TODO: Dispatch an event to child iframe to indicate the accounts changed.
-
       dispatch(
         showAlert({
           header: `Unlocked account: "${fullAccount.name}"`,
           message:
-            'You may now use this account with a supported application.',
+            'You may now use this account with a supported dApp.',
           level: 'success'
         })
       );

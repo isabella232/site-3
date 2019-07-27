@@ -507,61 +507,42 @@ export function handleMessage(message: any): EthereumProviderThunkAction<void> {
 
     switch (message.method) {
       // This is handled automatically based on the user's login/unlocked accounts state
-      case 'enable': {
-        const failEnable = () => {
-          dispatch(sendMessages([
-            {
-              id: message.id,
-              // We send the same generic message to protect the user's privacy
-              error: { code: USER_DENIED_REQUEST_ACCOUNTS_ERROR_CODE, message: 'User rejected the request to connect' }
-            }
-          ]));
+      case 'enable':
+      case 'eth_accounts': {
+        const sendEmptyAccountList = () => {
+          dispatch(
+            sendResultMessage(
+              message.id,
+              [],
+            )
+          );
         };
         if (!isLoggedIn) {
-          failEnable();
+          sendEmptyAccountList();
           dispatch(showAlert({
             header: 'Not signed in',
             message: 'You must be signed in to use this dApp.',
             level: 'warning'
           }));
         } else if (accounts.length === 0) {
-          failEnable();
+          sendEmptyAccountList();
           dispatch(showAlert({
             header: 'No accounts created',
             message: 'You must create an account to use this dApp.',
             level: 'warning'
           }));
         } else if (unlockedAccountInfo === null) {
-          failEnable();
+          sendEmptyAccountList();
           dispatch(showAlert({
             header: 'No accounts unlocked',
             message: 'You must unlock an account to use the dApp.',
             level: 'warning'
           }));
         } else {
-          dispatch(sendMessages([
-            {
-              id: message.id,
-              result: [ unlockedAccountInfo.address ]
-            }
-          ]));
+          dispatch(sendResultMessage(message.id, [ unlockedAccountInfo.address ]));
         }
         break;
       }
-      case 'eth_accounts':
-        // TODO: we shouldn't just expose a user's accounts like this.
-        dispatch(
-          sendMessages([
-            {
-              id: message.id,
-              result:
-                unlockedAccountInfo !== null
-                  ? [ unlockedAccountInfo.address ]
-                  : []
-            }
-          ])
-        );
-        break;
 
       case 'eth_sendTransaction': {
         if (!message.params || message.params.length !== 1) {
