@@ -22,8 +22,7 @@ export default function AboutPage(props: RouteComponentProps) {
 
       <Header as="h2">
         Ethvault is a free and <ExternalLink href="https://github.com/ethvault">open
-        source</ExternalLink> Ethereum wallet and decentralized application browser paired with a key backup
-        service.
+        source</ExternalLink> Ethereum wallet and decentralized application browser built for the browser.
       </Header>
 
       <Header as="h3">
@@ -31,10 +30,9 @@ export default function AboutPage(props: RouteComponentProps) {
       </Header>
 
       <p>
-        Ethvault enables you to use Ethereum decentralized applications without needing to understand Ethereum or
-        risking losing your keys.
+        Ethvault enables you to use your Ethereum accounts with your favorite dApps from any device.
         You can send uncensorable peeps via Peepeth, grow your money with Compound, RSVP to events with Kickback,
-        or find work with Ethlance-directly from the browser, from anywhere, the same way you would use any website.
+        or find work with Ethlance-directly in the browser from any device, the same way you would use any website.
       </p>
 
       <Header as="h3">
