@@ -61,7 +61,7 @@ const FooterButtons = ({ openSidebar }: FooterButtonProps) => {
         as={LocationAwareLink}
         title="Learn more about Ethvault"
         to={{ pathname: '/about' }}>
-        <StyledIcon name="help circle"/><OnWideScreens> Help</OnWideScreens>
+        <StyledIcon name="help circle"/><OnWideScreens> About</OnWideScreens>
       </TrackedButton>
     </StyledButtonGroup>
   );
