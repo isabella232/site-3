@@ -456,6 +456,8 @@ export function clearQueue(): ClearQueueAction {
  * @param message that was received
  */
 export function handleMessage(message: any): EthereumProviderThunkAction<void> {
+  // This removes any keys that are present and explicitly set to the value `undefined` to avoid validation errors
+  // downstream.
   message = JSON.parse(JSON.stringify(message));
 
   return async (dispatch, getState) => {
@@ -470,7 +472,9 @@ export function handleMessage(message: any): EthereumProviderThunkAction<void> {
 
     const {
       ethereumProvider: { network },
+      auth: { isLoggedIn },
       accounts: {
+        accounts,
         unlockedAccount: { info: unlockedAccountInfo }
       }
     } = getState();
@@ -498,15 +502,48 @@ export function handleMessage(message: any): EthereumProviderThunkAction<void> {
     }
 
     switch (message.method) {
-      case 'enable':
-        dispatch(sendMessages([
-          {
-            id: message.id,
-            result: unlockedAccountInfo !== null ? [ unlockedAccountInfo.address ] : []
-          }
-        ]));
+      // This is handled automatically based on the user's login/unlocked accounts state
+      case 'enable': {
+        const failEnable = () => {
+          dispatch(sendMessages([
+            {
+              id: message.id,
+              // We send the same generic message to protect the user's privacy
+              error: { code: -32000, message: 'User rejected the request to connect' }
+            }
+          ]));
+        };
+        if (!isLoggedIn) {
+          failEnable();
+          dispatch(showAlert({
+            header: 'Not signed in',
+            message: 'You must be signed in to use this dApp.',
+            level: 'warning'
+          }));
+        } else if (accounts.length === 0) {
+          failEnable();
+          dispatch(showAlert({
+            header: 'No accounts created',
+            message: 'You must create an account to use this dApp.',
+            level: 'warning'
+          }));
+        } else if (unlockedAccountInfo === null) {
+          failEnable();
+          dispatch(showAlert({
+            header: 'No accounts unlocked',
+            message: 'You must unlock an account to use the dApp.',
+            level: 'warning'
+          }));
+        } else {
+          dispatch(sendMessages([
+            {
+              id: message.id,
+              result: [ unlockedAccountInfo.address ]
+            }
+          ]));
+        }
         break;
-
+      }
       case 'eth_accounts':
         // TODO: we shouldn't just expose a user's accounts like this.
         dispatch(
