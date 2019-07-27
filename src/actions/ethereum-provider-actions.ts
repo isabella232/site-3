@@ -451,10 +451,6 @@ export function clearQueue(): ClearQueueAction {
   };
 }
 
-// The code that should be sent when the user is not logged in
-// https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1193.md#error-object-and-codes
-const USER_DENIED_REQUEST_ACCOUNTS_ERROR_CODE: number = 4001;
-
 /**
  * A message has been received from the iframe.
  * @param message that was received
