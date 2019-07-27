@@ -45,10 +45,6 @@ const AlertChildContainer = styled.div`
   }
 `;
 
-const StyledMessage = styled(Message)`
-  cursor: pointer;
-`;
-
 interface AlertsComponentProps {
   alerts: Alert[];
   dismissAlert: typeof dismissAlert;
@@ -86,8 +82,8 @@ export default connect(
           duration={200}>
           {alerts.map(({ id, header, level, message, moreInfoUrl }) => (
             <AlertChildContainer key={id}>
-              <StyledMessage
-                onClick={() => dismissAlert(id)}
+              <Message
+                onDismiss={() => dismissAlert(id)}
                 success={level === 'success'}
                 warning={level === 'warning'}
                 info={level === 'info'}
@@ -105,7 +101,7 @@ export default connect(
                     ) : null
                   }
                 </Message.Content>
-              </StyledMessage>
+              </Message>
             </AlertChildContainer>
           ))}
         </Transition.Group>
