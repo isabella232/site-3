@@ -10,9 +10,9 @@ import {
 } from '../actions/ethereum-provider-actions';
 import { GlobalState } from '../reducers';
 import { NetworkId, NETWORKS_INFO } from '../util/networks';
-import AnimatedTrackedModal from './AnimatedTrackedModal';
 import SignMessageRequestInfo from './SignMessageRequestInfo';
 import SignTransactionRequestInfo from './SignTransactionRequestInfo';
+import TrackedModal from './TrackedModal';
 
 const TYPE_TO_HEADER = {
   'eth_sendTransaction': 'Sign transaction',
@@ -42,7 +42,11 @@ export default connect(
     const rendering = next === null ? showing : next;
 
     return (
-      <AnimatedTrackedModal open={!!next} size="tiny" modalName="PENDING_MESSAGES_DIALOG">
+      <TrackedModal
+        open={!!next}
+        size="tiny"
+        modalName="PENDING_MESSAGES_DIALOG"
+        onClose={() => next && dismissRequest(next.id)}>
         {
           rendering && rendering.method === 'eth_sendTransaction' &&
           <Label
@@ -70,6 +74,6 @@ export default connect(
             <Icon name="send"/> Sign
           </Button>
         </Modal.Actions>
-      </AnimatedTrackedModal>
+      </TrackedModal>
     );
   });

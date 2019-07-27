@@ -1,11 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import ReactGA from 'react-ga';
-import { Modal, ModalProps, TransitionablePortal, TransitionProps } from 'semantic-ui-react';
-
-const TRANSITION: TransitionProps = {
-  animation: 'scale'
-};
+import { Modal, ModalProps } from 'semantic-ui-react';
 
 export default ({ modalName, open, ...modalProps }: ModalProps & { modalName: string }) => {
   const [ lastOpen, setLastOpen ] = useState<boolean>(Boolean(open));
@@ -19,8 +15,6 @@ export default ({ modalName, open, ...modalProps }: ModalProps & { modalName: st
   }
 
   return (
-    <TransitionablePortal open={open} transition={TRANSITION}>
-      <Modal {...modalProps} open/>
-    </TransitionablePortal>
+    <Modal {...modalProps} open={open}/>
   );
 }

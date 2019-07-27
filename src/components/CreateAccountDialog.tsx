@@ -5,8 +5,8 @@ import { createAccount, CreateAccountActionParams } from '../actions/accounts-ac
 import { closeCreateAccountDialog } from '../actions/ui-actions';
 import { GlobalState } from '../reducers';
 import { lookupEnsName } from '../util/ens';
-import AnimatedTrackedModal from './AnimatedTrackedModal';
 import PasswordStrengthMeter from './PasswordStrengthMeter';
+import TrackedModal from './TrackedModal';
 
 interface CreateAccountDialogProps {
   open: boolean;
@@ -124,7 +124,11 @@ export const CreateAccountDialog = connect(
       const { form, checkingAlias, aliasAvailable } = this.state;
 
       return (
-        <AnimatedTrackedModal open={props.open} size="large" modalName="CREATE_ACCOUNT_DIALOG">
+        <TrackedModal
+          open={props.open}
+          size="large"
+          modalName="CREATE_ACCOUNT_DIALOG"
+          onClose={() => !props.loading && props.closeCreateAccountDialog()}>
           <Modal.Header>Create new account</Modal.Header>
           <Dimmer.Dimmable as={Modal.Content}>
             <Dimmer active={props.loading} inverted>
@@ -259,8 +263,7 @@ export const CreateAccountDialog = connect(
             <Button
               type="button"
               onClick={props.closeCreateAccountDialog}
-              disabled={props.loading}
-            >
+              disabled={props.loading}>
               Cancel
             </Button>
             <Button
@@ -274,7 +277,7 @@ export const CreateAccountDialog = connect(
               <Icon name="plus"/> Create account
             </Button>
           </Modal.Actions>
-        </AnimatedTrackedModal>
+        </TrackedModal>
       );
     }
   }

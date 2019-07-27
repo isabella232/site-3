@@ -5,7 +5,7 @@ import { Form, Icon, Input, Modal } from 'semantic-ui-react';
 import { dismissUnlockDialog, unlockAccount } from '../actions/accounts-actions';
 import { GlobalState } from '../reducers';
 import { Account } from '../util/model';
-import AnimatedTrackedModal from './AnimatedTrackedModal';
+import TrackedModal from './TrackedModal';
 import { AnalyticsCategory } from './GoogleAnalytics';
 import TrackedButton from './TrackedButton';
 
@@ -61,7 +61,7 @@ export default connect(
       const showing = unlockingAccount ? unlockingAccount : rendering;
 
       return (
-        <AnimatedTrackedModal open={!!unlockingAccount} size="mini" modalName="UNLOCK_ACCOUNT_PASSWORD_DIALOG">
+        <TrackedModal open={!!unlockingAccount} size="mini" modalName="UNLOCK_ACCOUNT_PASSWORD_DIALOG">
           <Modal.Header>
             Unlock account
           </Modal.Header>
@@ -111,7 +111,7 @@ export default connect(
               <Icon name="key"/> Unlock
             </TrackedButton>
           </Modal.Actions>
-        </AnimatedTrackedModal>
+        </TrackedModal>
       );
     }
   }

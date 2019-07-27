@@ -20,7 +20,7 @@ export const AppSidebar = connect(
   null
 )(({ sidebarOpen }) => (
   <StyledSidebar
-    animation="scale down"
+    animation="overlay"
     direction="left"
     visible={sidebarOpen}
     width="very wide"
