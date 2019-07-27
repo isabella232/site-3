@@ -33,7 +33,7 @@ const StyledLabel = styled(Label)`
   margin-bottom: 0.6rem !important;
 `;
 
-export default function SiteCard({ site: { name, url, logo, category, description, labels, status: { integrated } }, ...cardProps }: SiteCardProps) {
+export default function SiteCard({ site: { name, url, logo, category, description, status: { integrated } }, ...cardProps }: SiteCardProps) {
   return (
     <Card
       {...cardProps}
@@ -60,7 +60,6 @@ export default function SiteCard({ site: { name, url, logo, category, descriptio
       <StyledCardContentNoGrow>
         <Card.Meta>
           <Label size="large" key="category" color={CATEGORY_LABEL_COLORS[ category ]}>{category}</Label>
-          {labels.map(({ text, color }, ix) => <Label key={ix} size="large" color={color}>{text}</Label>)}
         </Card.Meta>
       </StyledCardContentNoGrow>
       <Card.Content>
