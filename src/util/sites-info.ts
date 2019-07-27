@@ -11,6 +11,7 @@ import MakerDAOLogo from '../assets/makerdao-logo.svg';
 import MyCryptoLogo from '../assets/mycrypto-logo.svg';
 import PeepethLogo from '../assets/peepeth-logo.png';
 import RadarRelayLogo from '../assets/radarrelay-logo.svg';
+import UniswapLogo from '../assets/uniswap-logo.png';
 import { getBlockyDataUri } from './blockies';
 import { SHOW_ALL_SITES } from './env';
 
@@ -175,6 +176,15 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
     url: new URL('https://app.radarrelay.com'),
     category: SiteCategory.EXCHANGE,
     status: { integrated: false }
+  },
+  {
+    logo: UniswapLogo,
+    name: 'Uniswap',
+    labels: [],
+    description: 'Uniswap is a protocol for automated token exchange on Ethereum.',
+    url: new URL('https://uniswap.apps.ethvault.xyz'),
+    category: SiteCategory.DEFI,
+    status: { integrated: true }
   }
 ];
 
