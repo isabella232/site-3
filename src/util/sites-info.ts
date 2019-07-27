@@ -142,12 +142,12 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
   },
   {
     logo: MakerDAOLogo,
-    name: 'MakerDAO CDP',
+    name: 'MakerDAO CDP Portal',
     labels: [],
     description: 'Maker is comprised of a decentralized stablecoin, collateral loans, and community governance',
-    url: new URL('https://cdp.makerdao.com'),
+    url: new URL('https://makerdao-cdp.apps.ethvault.xyz'),
     category: SiteCategory.DEFI,
-    status: { integrated: false }
+    status: { integrated: true }
   },
   {
     logo: MyCryptoLogo,
