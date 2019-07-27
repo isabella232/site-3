@@ -72,7 +72,9 @@ export default function AboutPage(props: RouteComponentProps) {
       <p>
         Ethvault uses client side encryption combined with server side encryption in a highly protected AWS
         account to keep your keys safe. All the code is open source and available for audit, including the back end
-        key service.
+        key service. <strong>Still, it is recommended to limit the value of the assets stored in any third party wallet
+        including Ethvault.</strong> Please limit the value of the assets stored in Ethvault accounts to less than
+        $1,500 USD.
       </p>
 
       <Header as="h3">How is Ethvault different from other wallets?</Header>
@@ -84,10 +86,11 @@ export default function AboutPage(props: RouteComponentProps) {
 
       <Header as="h3">Can I use my keys in another wallet?</Header>
       <p>
-        You can export your keys in the <ExternalLink
+        You can export your keys in the standard <ExternalLink
         href="https://theethereum.wiki/w/index.php/Accounts,_Addresses,_Public_And_Private_Keys,_And_Tokens#UTC_JSON_Keystore_File">UTC
         JSON Keystore format</ExternalLink> and import them into any compatible wallet. You should always keep a backup
-        of your keys on another storage provider.
+        of your keys on another storage provider. However be aware that exporting your keys introduces additional risk,
+        so remember to choose a very strong password to limit your risk.
       </p>
 
       <Header as="h3">What happens when I delete my keys?</Header>
@@ -99,7 +102,21 @@ export default function AboutPage(props: RouteComponentProps) {
 
       <Header as="h3">Is there any limit on how many accounts I can have?</Header>
       <p>
-        You are free to create as many accounts as you like.
+        No.
+      </p>
+
+      <Header as="h3">How many accounts should I create?</Header>
+      <p>
+        You can think of your Ethereum accounts like bank accounts. Most people want two accounts-an account for your
+        daily interaction with the Ethereum network (i.e. checking account), and an account for storing most of your
+        assets (i.e. savings.)
+      </p>
+
+      <Header as="h3">What is my account alias?</Header>
+      <p>
+        The account alias is an <ExternalLink href="https://ens.domains/">Ethereum Name Service</ExternalLink> subdomain
+        that is assigned to the address for your account. You are the owner of the ENS subdomain and can assign
+        additional records or even change the resolver. The alias must be globally unique.
       </p>
 
       <Header as="h3">How can I integrate with Ethvault?</Header>
