@@ -15,7 +15,7 @@ export default class SearchInput extends React.Component<InputProps> {
         ref={this.inputRef}
         type="search"
         icon="search"
-        placeholder="Search for an app"
+        placeholder="Search for a dApp"
         id="dapp-search-bar"
         fluid
       />

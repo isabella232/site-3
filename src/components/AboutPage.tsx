@@ -64,8 +64,8 @@ export default function AboutPage(props: RouteComponentProps) {
 
       <Header as="h3">How does Ethvault work?</Header>
       <p>
-        Ethvault runs DAPPs in a sandbox called an iframe and stores your encrypted keys for you.
-        The DAPP can request your signature (i.e. authorization) on transactions and messages.
+        Ethvault runs dApps in a sandbox called an iframe and stores your encrypted keys for you.
+        The dApp can request your signature (i.e. authorization) on transactions and messages.
         Because the encrypted keys are stored with the Ethvault service, you can use the same Ethereum account
         from any device.
       </p>
@@ -80,7 +80,7 @@ export default function AboutPage(props: RouteComponentProps) {
       <Header as="h3">How is Ethvault different from other wallets?</Header>
       <p>
         Ethvault keeps your encrypted keys stored on the server. That means you can log in from anywhere with your
-        username and password and interact with Ethereum DAPPs, and you don't have to worry about losing a seed phrase
+        username and password and interact with Ethereum dApps, and you don't have to worry about losing a seed phrase
         or hardware wallet.
       </p>
 

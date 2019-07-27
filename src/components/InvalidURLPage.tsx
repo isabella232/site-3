@@ -1,10 +1,12 @@
 import React from 'react';
 import { Container, Icon, Message } from 'semantic-ui-react';
+import DocumentTitle from './DocumentTitle';
 import LocationAwareLink from './LocationAwareLink';
 
 export default function InvalidURLPage() {
   return (
     <Container style={{ marginTop: '2rem' }}>
+      <DocumentTitle title="404 Invalid URL"/>
       <Message icon size="large">
         <Icon name="warning"/>
         <Message.Content>

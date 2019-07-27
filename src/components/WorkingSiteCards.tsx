@@ -33,7 +33,7 @@ export default function WorkingSiteCards({ search }: WorkingSiteCardsProps) {
             <Segment placeholder>
               <Header icon>
                 <Icon name="search minus"/>
-                No DAPPs found
+                No dApps found
               </Header>
               <TrackedButton
                 category={AnalyticsCategory.UI} action="CLEAR_SEARCH_PLACEHOLDER_BUTTON"

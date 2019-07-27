@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { hydrate, render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
@@ -13,15 +13,22 @@ initGoogleAnalytics();
 
 const store = configureStore();
 
-ReactDOM.render(
+const rootElement = document.getElementById('root');
+
+const Ethvault = () => (
   <Provider store={store}>
     <BrowserRouter>
       <App/>
       <GoogleAnalytics/>
     </BrowserRouter>
-  </Provider>,
-  document.getElementById('root')
+  </Provider>
 );
+
+if (rootElement && rootElement.hasChildNodes()) {
+  hydrate(<Ethvault/>, rootElement);
+} else {
+  render(<Ethvault/>, rootElement);
+}
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

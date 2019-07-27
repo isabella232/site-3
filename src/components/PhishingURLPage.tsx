@@ -5,7 +5,7 @@ import LocationAwareLink from './LocationAwareLink';
 export default function PhishingURLPage() {
   return (
     <Container style={{ marginTop: '2rem' }}>
-      <Message icon size="large" warning>
+      <Message icon size="large" warning id="phishing-error">
         <Icon name="warning sign"/>
         <Message.Content>
           <Message.Header>Phishing URL</Message.Header>

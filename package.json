@@ -34,6 +34,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "react-snap",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
@@ -70,7 +71,8 @@
     "@types/react-router-dom": "^4.3.4",
     "@types/styled-components": "^4.1.16",
     "@types/zxcvbn": "^4.4.0",
-    "cypress": "^3.4.0"
+    "cypress": "^3.4.0",
+    "react-snap": "^1.23.0"
   },
   "license": "UNLICENSED"
 }

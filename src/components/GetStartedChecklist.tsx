@@ -58,7 +58,7 @@ export const GetStartedChecklist = connect(
           <List.Content>
             <List.Header>Unlock your account</List.Header>
             <List.Description>
-              Unlock your account to make it available in the DAPPs. You can do this from your vault.
+              Unlock your account to make it available in the dApps. You can do this from your vault.
             </List.Description>
           </List.Content>
         </List.Item>
@@ -66,9 +66,9 @@ export const GetStartedChecklist = connect(
         <List.Item>
           <CheckboxItemIcon completed={isUnlocked && isLoggedIn && hasAccounts} incompleteIcon="app store"/>
           <List.Content>
-            <List.Header>Use the DAPPs</List.Header>
+            <List.Header>Use the dApps</List.Header>
             <List.Description>
-              Try one of the DAPPs from the <Link to="/">home page</Link>.
+              Try one of the dApps from the <Link to="/">home page</Link>.
             </List.Description>
           </List.Content>
         </List.Item>
