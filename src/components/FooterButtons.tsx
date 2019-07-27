@@ -30,6 +30,7 @@ const StyledButtonGroup = styled(Button.Group)`
     border-radius: 0 !important;
     font-family: 'Exo 2', sans-serif;
     text-transform: uppercase;
+    touch-action: none;
   }
 `;
 
