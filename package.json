@@ -12,6 +12,7 @@
     "jointz": "0.0.7",
     "lodash": "^4.17.14",
     "react": "^16.8.6",
+    "react-div-100vh": "^0.3.4",
     "react-dom": "^16.8.6",
     "react-ga": "^2.6.0",
     "react-qr-svg": "^2.2.1",

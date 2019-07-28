@@ -6,14 +6,14 @@ import { AppBackground } from './components/AppBackgroundApp';
 import { AppSidebar } from './components/AppSidebar';
 import PendingMessagesDialog from './components/PendingMessagesDialog';
 import QrCodeModal from './components/QrCodeModal';
+import Div100vh from 'react-div-100vh';
 
-const AppContainer = styled.div`
+const AppContainer = styled(Div100vh)`
   position: fixed;
   
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100vw;
 `;
 
 export default function AppComponent() {
