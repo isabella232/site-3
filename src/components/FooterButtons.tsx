@@ -25,12 +25,20 @@ const StyledIcon = styled(Icon)`
   }
 `;
 
+const isIOSStandalone = (
+  window &&
+  window.navigator &&
+  'standalone' in window.navigator &&
+  (window.navigator as any).standalone === true
+);
+
 const StyledButtonGroup = styled(Button.Group)`
   > .button {
     border-radius: 0 !important;
     font-family: 'Exo 2', sans-serif;
     text-transform: uppercase;
     touch-action: none;
+    ${isIOSStandalone ? 'padding-bottom: 2rem;' : ''}
   }
 `;
 
