@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: http://ethvault.xyz/sitemap.xml
+Sitemap: http://myethvault.com/sitemap.xml

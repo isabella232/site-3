@@ -56,7 +56,7 @@ export default function AboutPage(props: RouteComponentProps) {
       <Header as="h3">How can I reach Ethvault?</Header>
       <p>
         You can reach the developers at Ethvault directly via e-mail at <a
-        href="mailto:moody@ethvault.xyz">moody@ethvault.xyz</a>. We will respond to any support requests within 1
+        href="mailto:moody@myethvault.com">moody@myethvault.com</a>. We will respond to any support requests within 1
         business day.
       </p>
 
@@ -97,7 +97,7 @@ export default function AboutPage(props: RouteComponentProps) {
       <p>
         For your convenience, the encrypted key data is purged 1 month after you mark it for deletion.
         Please contact us if you would like your encrypted key data purged earlier, or if you deleted a key by accident,
-        via e-mail at <a href="mailto:moody@ethvault.xyz">moody@ethvault.xyz</a>
+        via e-mail at <a href="mailto:moody@myethvault.com">moody@myethvault.com</a>
       </p>
 
       <Header as="h3">Is there any limit on how many accounts I can have?</Header>
@@ -117,8 +117,8 @@ export default function AboutPage(props: RouteComponentProps) {
         The account alias is an <ExternalLink href="https://ens.domains/">Ethereum Name Service</ExternalLink> subdomain
         that is assigned to the address for your account. You are the owner of the ENS subdomain and can assign
         additional records or even change the resolver. The alias must be globally unique. You can inspect the ENS
-        ethvault.xyz domain <ExternalLink
-        href="https://manager.ens.domains/name/ethvault.xyz/subdomains">here</ExternalLink>.
+        myethvault.com domain <ExternalLink
+        href="https://manager.ens.domains/name/myethvault.com/subdomains">here</ExternalLink>.
       </p>
 
       <Header as="h3">How can I integrate with Ethvault?</Header>

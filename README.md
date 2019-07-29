@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/ethvault/site.svg?branch=master)](https://travis-ci.org/ethvault/site)
 
-This is the site that is deployed to https://ethvault.xyz
+This is the site that is deployed to https://myethvault.com
 
 ## Development
 

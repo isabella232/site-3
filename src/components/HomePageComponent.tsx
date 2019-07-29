@@ -63,7 +63,7 @@ export default class HomePageComponent extends React.Component<RouteComponentPro
         <ScrollToTop/>
 
         <label>
-          <Header as="h1"><HeaderFont>ETHVAULT.XYZ</HeaderFont></Header>
+          <Header as="h1"><HeaderFont>MYETHVAULT</HeaderFont></Header>
 
           <SearchInput
             value={search}

@@ -103,7 +103,7 @@ export const CreateAccountDialog = connect(
           aliasAvailable: false
         });
 
-        const address = await lookupEnsName('mainnet', `${sanitized}.ethvault.xyz`);
+        const address = await lookupEnsName('mainnet', `${sanitized}.myethvault.com`);
 
         if (this.state.form.alias === sanitized) {
           this.setState({
@@ -182,7 +182,7 @@ export const CreateAccountDialog = connect(
                     type="text"
                     placeholder="Account alias"
                     labelPosition="right"
-                    label=".ethvault.xyz"
+                    label=".myethvault.com"
                     fluid
                     required
                     loading={checkingAlias}

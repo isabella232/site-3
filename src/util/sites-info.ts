@@ -83,7 +83,7 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
     logo: '/ethvault-logo.svg',
     name: 'Ethvault Wallet',
     description: 'A simple mobile friendly wallet for sending basic transactions and signing messages.',
-    url: new URL('https://wallet.ethvault.xyz'),
+    url: new URL('https://wallet.myethvault.com'),
     category: SiteCategory.ADMIN,
     status: { integrated: true }
   },
@@ -123,7 +123,7 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
     logo: MakerDAOLogo,
     name: 'MakerDAO CDP Portal',
     description: 'Maker is comprised of a decentralized stablecoin, collateral loans, and community governance',
-    url: new URL('https://makerdao-cdp.apps.ethvault.xyz'),
+    url: new URL('https://makerdao-cdp.apps.myethvault.com'),
     category: SiteCategory.DEFI,
     status: { integrated: true }
   },
@@ -155,7 +155,7 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
     logo: UniswapLogo,
     name: 'Uniswap',
     description: 'Uniswap is a protocol for automated token exchange on Ethereum.',
-    url: new URL('https://uniswap.apps.ethvault.xyz'),
+    url: new URL('https://uniswap.apps.myethvault.com'),
     category: SiteCategory.DEFI,
     status: { integrated: true }
   }

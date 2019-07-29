@@ -5,17 +5,17 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
     <url>
-        <loc>https://ethvault.xyz/</loc>
+        <loc>https://myethvault.com/</loc>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://ethvault.xyz/about</loc>
+        <loc>https://myethvault.com/about</loc>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://ethvault.xyz/browse#wallet.ethvault.xyz</loc>
+        <loc>https://myethvault.com/browse#wallet.myethvault.com</loc>
         <changefreq>daily</changefreq>
         <priority>0.5</priority>
     </url>

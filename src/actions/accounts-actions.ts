@@ -534,7 +534,7 @@ export const createAccount: (
           name: params.name,
           description: params.description,
           encryptedJson,
-          ...(params.alias.trim().length > 0 ? { ensName: `${params.alias.trim()}.ethvault.xyz` } : null)
+          ...(params.alias.trim().length > 0 ? { ensName: `${params.alias.trim()}.myethvault.com` } : null)
         },
         token
       );
