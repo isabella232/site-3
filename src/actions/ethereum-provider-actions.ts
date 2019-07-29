@@ -475,6 +475,7 @@ export function handleMessage(message: any): EthereumProviderThunkAction<void> {
       auth: { isLoggedIn },
       accounts: {
         accounts,
+        isLoading,
         unlockedAccount: { info: unlockedAccountInfo }
       }
     } = getState();
@@ -522,7 +523,7 @@ export function handleMessage(message: any): EthereumProviderThunkAction<void> {
             message: 'You must be signed in to use this dApp.',
             level: 'warning'
           }));
-        } else if (accounts.length === 0) {
+        } else if (accounts.length === 0 && !isLoading) {
           sendEmptyAccountList();
           dispatch(showAlert({
             id: ACCOUNT_INFO_ALERTS_ID,
