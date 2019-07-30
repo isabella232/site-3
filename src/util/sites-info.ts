@@ -83,7 +83,7 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
     logo: '/ethvault-logo.svg',
     name: 'Ethvault Wallet',
     description: 'A simple mobile friendly wallet for sending basic transactions and signing messages.',
-    url: new URL('https://wallet.myethvault.com'),
+    url: new URL('https://wallet.apps.myethvault.com'),
     category: SiteCategory.ADMIN,
     status: { integrated: true }
   },

@@ -15,7 +15,7 @@
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://myethvault.com/browse#wallet.myethvault.com</loc>
+        <loc>https://myethvault.com/browse#wallet.apps.myethvault.com</loc>
         <changefreq>daily</changefreq>
         <priority>0.5</priority>
     </url>
