@@ -56,7 +56,7 @@ export default function AboutPage(props: RouteComponentProps) {
       <Header as="h3">How can I reach Ethvault?</Header>
       <p>
         You can reach the developers at Ethvault directly via e-mail at <a
-        href="mailto:moody@myethvault.com">moody@myethvault.com</a>. We will respond to any support requests within 1
+        href="mailto:support@myethvault.com">support@myethvault.com</a>. We will respond to any support requests within 1
         business day.
       </p>
 
@@ -97,7 +97,7 @@ export default function AboutPage(props: RouteComponentProps) {
       <p>
         For your convenience, the encrypted key data is purged 1 month after you mark it for deletion.
         Please contact us if you would like your encrypted key data purged earlier, or if you deleted a key by accident,
-        via e-mail at <a href="mailto:moody@myethvault.com">moody@myethvault.com</a>
+        via e-mail at <a href="mailto:support@myethvault.com">support@myethvault.com</a>
       </p>
 
       <Header as="h3">Is there any limit on how many accounts I can have?</Header>
