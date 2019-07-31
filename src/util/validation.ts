@@ -1,6 +1,6 @@
 import jointz from 'jointz/lib';
 
-export const JsonRpcRequestValidator = jointz.object().keys({
+export const JsonRpcRequestValidator = jointz.object({
   method: jointz.string(),
   jsonrpc: jointz.constant('2.0'),
   id: jointz.or(jointz.string(), jointz.number().integer()),
@@ -12,7 +12,7 @@ export const AddressValidator = jointz.string().pattern(/^0x[a-fA-F0-9]{40}$/);
 export const HexDataValidator = jointz.string().pattern(/^0x[a-fA-F0-9]*$/);
 export const ChainIdValidator = jointz.or(HexDataValidator, jointz.number().integer().min(0));
 
-export const SendTransactionParamValidator = jointz.object().keys({
+export const SendTransactionParamValidator = jointz.object({
   from: AddressValidator,
   to: AddressValidator,
   gas: HexDataValidator,

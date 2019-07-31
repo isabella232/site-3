@@ -9,7 +9,7 @@
     "downloadjs": "^1.4.7",
     "eth-phishing-detect": "^1.1.13",
     "ethers": "^4.0.30",
-    "jointz": "0.0.7",
+    "jointz": "^1.0.2",
     "lodash": "^4.17.14",
     "react": "^16.8.6",
     "react-div-100vh": "^0.3.4",
@@ -71,7 +71,7 @@
     "@types/react-router-dom": "^4.3.4",
     "@types/styled-components": "^4.1.16",
     "@types/zxcvbn": "^4.4.0",
-    "cypress": "^3.4.0"
+    "cypress": "^3.4.1"
   },
   "license": "UNLICENSED"
 }
