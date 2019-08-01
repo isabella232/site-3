@@ -159,46 +159,45 @@ export const CreateAccountDialog = connect(
                 props.createAccount(form);
               }}
             >
-              <Form.Group widths={2}>
-                <Form.Field required>
-                  <label htmlFor="account-name">Account name</label>
-                  <Input
-                    id="account-name"
-                    autoComplete="username"
-                    type="text"
-                    placeholder="Account name"
-                    required
-                    minLength={1}
-                    value={form.name}
-                    onChange={e => this.changed({ name: e.target.value })}
-                  />
-                </Form.Field>
 
-                <Form.Field required>
-                  <label htmlFor="account-alias">Account alias</label>
-                  <Input
-                    id="account-alias"
-                    autoComplete="off"
-                    type="text"
-                    placeholder="Account alias"
-                    labelPosition="right"
-                    label=".myethvault.com"
-                    fluid
-                    required
-                    loading={checkingAlias}
-                    iconPosition="left"
-                    icon={{
-                      name: form.alias.length === 0 ? 'linkify' : (checkingAlias ? 'circle notch' : (aliasAvailable ? 'check' : 'dont')),
-                      color: (checkingAlias || form.alias.length === 0) ? null : (aliasAvailable ? 'green' : 'red'),
-                      loading: checkingAlias
-                    }}
-                    value={form.alias}
-                    error={form.alias.length > 0 && !checkingAlias && !aliasAvailable}
-                    pattern="^[a-z0-9-]+$"
-                    onChange={e => this.handleAliasChange(e.target.value)}
-                  />
-                </Form.Field>
-              </Form.Group>
+              <Form.Field required>
+                <label htmlFor="account-name">Account name</label>
+                <Input
+                  id="account-name"
+                  autoComplete="username"
+                  type="text"
+                  placeholder="Account name"
+                  required
+                  minLength={1}
+                  value={form.name}
+                  onChange={e => this.changed({ name: e.target.value })}
+                />
+              </Form.Field>
+
+              {/*<Form.Field required>*/}
+              {/*  <label htmlFor="account-alias">Account alias</label>*/}
+              {/*  <Input*/}
+              {/*    id="account-alias"*/}
+              {/*    autoComplete="off"*/}
+              {/*    type="text"*/}
+              {/*    placeholder="Account alias"*/}
+              {/*    labelPosition="right"*/}
+              {/*    label=".myethvault.com"*/}
+              {/*    fluid*/}
+              {/*    required*/}
+              {/*    loading={checkingAlias}*/}
+              {/*    iconPosition="left"*/}
+              {/*    icon={{*/}
+              {/*      name: form.alias.length === 0 ? 'linkify' : (checkingAlias ? 'circle notch' : (aliasAvailable ? 'check' : 'dont')),*/}
+              {/*      color: (checkingAlias || form.alias.length === 0) ? null : (aliasAvailable ? 'green' : 'red'),*/}
+              {/*      loading: checkingAlias*/}
+              {/*    }}*/}
+              {/*    value={form.alias}*/}
+              {/*    error={form.alias.length > 0 && !checkingAlias && !aliasAvailable}*/}
+              {/*    pattern="^[a-z0-9-]+$"*/}
+              {/*    onChange={e => this.handleAliasChange(e.target.value)}*/}
+              {/*  />*/}
+              {/*</Form.Field>*/}
 
               <Form.Field required>
                 <label htmlFor="account-description">Account description</label>
