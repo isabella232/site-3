@@ -1,6 +1,6 @@
 {
   "name": "@ethvault/site",
-  "version": "0.1.88",
+  "version": "0.1.89",
   "private": true,
   "dependencies": {
     "@download/blockies": "^1.0.3",
