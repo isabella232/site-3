@@ -168,6 +168,7 @@ export const CreateAccountDialog = connect(
                   type="text"
                   placeholder="Account name"
                   required
+                  autoFocus
                   minLength={1}
                   value={form.name}
                   onChange={e => this.changed({ name: e.target.value })}
