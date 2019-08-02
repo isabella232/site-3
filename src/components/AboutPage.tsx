@@ -5,8 +5,7 @@ import styled from 'styled-components';
 import DocumentTitle from './DocumentTitle';
 import ExternalLink from './ExternalLink';
 import { GetStartedChecklist } from './GetStartedChecklist';
-import ScrollToTop from './ScrollToTop';
-import { HeaderFont } from './Typography';
+import HeaderFont from './HeaderFont';
 
 const StyledContainer = styled(Container)`
   padding-top: 2rem;
@@ -17,7 +16,6 @@ export default function AboutPage(props: RouteComponentProps) {
   return (
     <StyledContainer>
       <DocumentTitle title="About"/>
-      <ScrollToTop/>
       <Header as="h1"><HeaderFont>About Ethvault</HeaderFont></Header>
 
       <Header as="h2">
@@ -56,7 +54,8 @@ export default function AboutPage(props: RouteComponentProps) {
       <Header as="h3">How can I reach Ethvault?</Header>
       <p>
         You can reach the developers at Ethvault directly via e-mail at <a
-        href="mailto:support@myethvault.com">support@myethvault.com</a>. We will respond to any support requests within 1
+        href="mailto:support@myethvault.com">support@myethvault.com</a>. We will respond to any support requests within
+        1
         business day.
       </p>
 

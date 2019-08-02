@@ -10,7 +10,7 @@ import { ChangeNetworkDropdown } from './ChangeNetworkDropdown';
 import { CloseSidebarButton } from './CloseSidebarButton';
 import { CreateAccountDialog } from './CreateAccountDialog';
 import { LoggedOutPlaceholder } from './Placeholders';
-import { HeaderFont } from './Typography';
+import HeaderFont from './HeaderFont';
 import UnlockAccountPasswordDialog from './UnlockAccountPasswordDialog';
 import SmoothScroller from './SmoothScroller';
 

@@ -4,8 +4,8 @@ import { Button, Icon, Responsive, ResponsiveProps } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { openSidebar } from '../actions/ui-actions';
 import { AnalyticsCategory } from './GoogleAnalytics';
-import LocationAwareLink from './LocationAwareLink';
 import TrackedButton from './TrackedButton';
+import { Link } from 'react-router-dom';
 
 interface FooterButtonProps {
   openSidebar: () => void;
@@ -51,8 +51,8 @@ const FooterButtons = ({ openSidebar }: FooterButtonProps) => {
         id="home-button"
         category={AnalyticsCategory.UI}
         action="GO_HOME_BUTTON"
-        as={LocationAwareLink}
-        to={{ pathname: '/', hash: '' }}>
+        as={Link}
+        to="/">
         <StyledIcon name="home"/><OnWideScreens> Home</OnWideScreens>
       </TrackedButton>
       <TrackedButton
@@ -67,9 +67,9 @@ const FooterButtons = ({ openSidebar }: FooterButtonProps) => {
       <TrackedButton
         category={AnalyticsCategory.UI}
         action={'ABOUT_BUTTON_CLICKED'}
-        as={LocationAwareLink}
+        as={Link}
         title="Learn more about Ethvault"
-        to={{ pathname: '/about' }}>
+        to="/about">
         <StyledIcon name="help circle"/><OnWideScreens> About</OnWideScreens>
       </TrackedButton>
     </StyledButtonGroup>

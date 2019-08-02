@@ -64,7 +64,7 @@ export const AppBackground = connect(
   <Sidebar.Pusher dimmed={sidebarOpen}>
     <StyledMain>
       <StyledContent>
-        <StyledContentInner>
+        <StyledContentInner id="scrollable-app">
           <Switch>
             <Route exact path="/browse/:pageUrl" component={RedirectToNewPathStructure}/>
             <Route
