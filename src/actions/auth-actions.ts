@@ -1,7 +1,7 @@
 import { Action, ActionCreator } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { GlobalState } from '../reducers';
-import { isExpired, isValidToken, Token } from '../util/model';
+import { isExpired, Token, TokenValidator } from '../util/model';
 import { showAlert, ShowAlertAction } from './ui-actions';
 
 export interface SetTokenAction extends Action<'SET_TOKEN'> {
@@ -38,7 +38,7 @@ export const getTokenFromStorage: () => AuthThunkAction<void> = () => {
       try {
         const token = JSON.parse(storedToken);
 
-        if (isValidToken(token) && !isExpired(token)) {
+        if (TokenValidator.checkValid(token) && !isExpired(token)) {
           dispatch(setToken(token));
         } else {
           dispatch(loggedOut());

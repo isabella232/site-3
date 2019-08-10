@@ -9,7 +9,7 @@
     "downloadjs": "^1.4.7",
     "eth-phishing-detect": "^1.1.13",
     "ethers": "^4.0.30",
-    "jointz": "^1.0.2",
+    "jointz": "^2.0.1",
     "lodash": "^4.17.14",
     "react": "^16.8.6",
     "react-div-100vh": "^0.3.4",

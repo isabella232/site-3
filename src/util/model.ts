@@ -1,3 +1,5 @@
+import jointz, { ExtractResultType } from 'jointz';
+
 export interface Account {
   id: string;
   address: string;
@@ -13,16 +15,16 @@ export interface AccountWithEncryptedJson extends Account {
   encryptedJson: any;
 }
 
-export interface Token {
-  access_token: string;
-  expires_in: number;
-  token_type: 'Bearer';
-  state: string;
+export const TokenValidator = jointz.object({
+  access_token: jointz.string(),
+  state: jointz.string(),
+  scope: jointz.string(),
+  expires_in: jointz.number(),
+  expires_at: jointz.number(),
+  token_type: jointz.constant('Bearer')
+}).requiredKeys('access_token', 'state', 'scope', 'expires_in', 'expires_at', 'token_type');
 
-  // The epoch milliseconds when the token is expected to expire. This is calculated on the client when the token
-  // is received.
-  expires_at: number;
-}
+export type Token = ExtractResultType<typeof TokenValidator>;
 
 /**
  * Return true if the token has expired.
@@ -30,18 +32,4 @@ export interface Token {
  */
 export function isExpired(token: Token) {
   return token.expires_at < new Date().getTime();
-}
-
-/**
- * Return true if the object is the shape of a valid token.
- * @param value that may or may not be a token
- */
-export function isValidToken(value: any): value is Token {
-  return typeof value === 'object' &&
-    typeof value.access_token === 'string' &&
-    typeof value.state === 'string' &&
-    typeof value.scope === 'string' &&
-    typeof value.expires_in === 'number' &&
-    typeof value.expires_at === 'number' &&
-    value.token_type === 'Bearer';
 }
