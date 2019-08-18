@@ -77,7 +77,7 @@ export const ALL_SITES_INFO: Readonly<Site[]> = [
     description: 'ENS offers a secure & decentralised way to address resources both on and off the blockchain using simple, human-readable names.',
     url: new URL('https://manager.ens.domains'),
     category: SiteCategory.ADMIN,
-    status: { integrated: false }
+    status: { integrated: true }
   },
   {
     logo: '/ethvault-logo.svg',
