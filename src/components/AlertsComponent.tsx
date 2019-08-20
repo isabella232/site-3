@@ -47,6 +47,7 @@ const AlertChildContainer = styled.div`
   .message {
     box-shadow: none !important;
     border-radius: 0 !important;
+    padding: 1rem 2.5rem 1rem 1.3rem !important;
   }
 `;
 
