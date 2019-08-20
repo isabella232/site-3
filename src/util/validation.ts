@@ -1,10 +1,10 @@
-import jointz from 'jointz/lib';
+import jointz from 'jointz';
 
 export const JsonRpcRequestValidator = jointz.object({
   method: jointz.string(),
   jsonrpc: jointz.constant('2.0'),
   id: jointz.or(jointz.string(), jointz.number().integer()),
-  params: jointz.array()
+  params: jointz.array(jointz.any())
 }).requiredKeys('method', 'jsonrpc', 'id')
   .allowUnknownKeys(true);
 
