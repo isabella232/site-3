@@ -43,6 +43,11 @@ const AlertChildContainer = styled.div`
     margin-bottom: 0;
     margin-top: 0.6rem;
   }
+  
+  .message {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
 `;
 
 interface AlertsComponentProps {
