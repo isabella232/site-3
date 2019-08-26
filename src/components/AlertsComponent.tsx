@@ -45,7 +45,7 @@ const AlertChildContainer = styled.div`
   }
   
   .message {
-    box-shadow: none !important;
+    box-shadow: 0 0 4px 1px rgba(0,0,0,0.1) !important;
     border-radius: 0 !important;
     padding: 1rem 2.5rem 1rem 1.3rem !important;
   }
