@@ -11,10 +11,6 @@ export interface Account {
   updated: number;
 }
 
-export interface AccountWithEncryptedJson extends Account {
-  encryptedJson: any;
-}
-
 export const TokenValidator = jointz.object({
   access_token: jointz.string(),
   state: jointz.string(),

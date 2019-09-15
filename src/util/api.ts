@@ -1,12 +1,24 @@
 import { BASE_API_URL } from './env';
-import { Account, AccountWithEncryptedJson, Token } from './model';
+import { Account, Token } from './model';
 
+/**
+ * Error that is thrown when the token is invalid or expired.
+ */
 export class UnauthenticatedError extends Error {
 }
 
+/**
+ * Error that is thrown when the token does not have sufficient scopes.
+ */
 export class UnauthorizedError extends Error {
 }
 
+/**
+ * Fetch content from the API.
+ * @param path path to hit
+ * @param token token to use
+ * @param init typical fetch parameters
+ */
 const apiFetch = (path: string, { token, ...init }: Omit<RequestInit, 'url'> & { token: Token }): Promise<any> =>
   fetch(`${BASE_API_URL}${path}`, {
     ...init,
@@ -55,18 +67,18 @@ export interface CreateAccountRequest {
 
 export default class API {
   public static async getAccounts(token: Token): Promise<Account[]> {
-    return apiFetch('/accounts', { token });
+    return apiFetch('/v1/accounts', { token });
   }
 
   public static async deleteAccount(id: string, token: Token): Promise<void> {
-    return apiFetch(`/accounts/${id}`, { method: 'DELETE', token });
+    return apiFetch(`/v1/accounts/${id}`, { method: 'DELETE', token });
   }
 
   public static createAccount(request: CreateAccountRequest, token: Token): Promise<Account> {
-    return apiFetch('/accounts', { token, method: 'POST', body: JSON.stringify(request) });
+    return apiFetch('/v1/accounts', { token, method: 'POST', body: JSON.stringify(request) });
   }
 
-  public static getAccountWithEncryptedJson(id: string, token: Token): Promise<AccountWithEncryptedJson> {
-    return apiFetch(`/accounts/${id}`, { token });
+  public static getEncryptedJson(id: string, token: Token): Promise<any> {
+    return apiFetch(`/v1/accounts/${id}/encrypted-json`, { token });
   }
 }

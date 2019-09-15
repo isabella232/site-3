@@ -189,15 +189,15 @@ export const exportKey: (id: string) => AccountThunkAction<void> = id => {
       throw new Error('Token should not be null');
     }
 
-    const account = await API.getAccountWithEncryptedJson(id, token);
+    const encryptedJson = await API.getEncryptedJson(id, token);
 
     if (getState().accounts.exportingAccountId !== id) {
       return;
     }
 
-    const jsonString = JSON.stringify(account.encryptedJson);
+    const jsonString = JSON.stringify(encryptedJson);
 
-    download(jsonString, `${account.name} Key.json`, 'application/json');
+    download(jsonString, `${encryptedJson.name} Key.json`, 'application/json');
 
     dispatch({ type: 'KEY_EXPORTED', id });
   };
@@ -248,7 +248,7 @@ export const unlockAccount: (
     dispatch(dismissUnlockDialog());
 
     try {
-      const fullAccount = await API.getAccountWithEncryptedJson(account.id, token);
+      const encryptedJson = await API.getEncryptedJson(account.id, token);
 
       const throttledReportProgress = throttle((progress: number) => dispatch({
         type: 'UNLOCK_ACCOUNT_PROGRESS',
@@ -257,7 +257,7 @@ export const unlockAccount: (
       }), PROGRESS_REPORT_THROTTLE_MILLISECONDS);
 
       const wallet = await Wallet.fromEncryptedJson(
-        JSON.stringify(fullAccount.encryptedJson),
+        JSON.stringify(encryptedJson),
         password,
         progress => {
           throttledReportProgress(progress);
@@ -277,9 +277,8 @@ export const unlockAccount: (
 
       dispatch(
         showAlert({
-          header: `Unlocked account: "${fullAccount.name}"`,
-          message:
-            'You may now use this account with a supported dApp.',
+          header: `Unlocked account`,
+          message: 'You may now use this account.',
           level: 'success'
         })
       );
