@@ -197,7 +197,7 @@ export const exportKey: (id: string) => AccountThunkAction<void> = id => {
 
     const jsonString = JSON.stringify(encryptedJson);
 
-    download(jsonString, `${encryptedJson.name} Key.json`, 'application/json');
+    download(jsonString, `${id}-key.json`, 'application/json');
 
     dispatch({ type: 'KEY_EXPORTED', id });
   };
@@ -398,7 +398,7 @@ export const deleteAccount: (id: string) => AccountThunkAction<void> = id => {
         showAlert({
           header: `Account deleted: "${account.name}"`,
           message:
-            'Your account has been permanently deleted. Your keys will be evicted from the service within a week. Contact support as soon as possible if this was an accident.',
+            'The account has been deleted. Your keys will be evicted from the service within a week. Contact support as soon as possible if this was an accident.',
           level: 'warning'
         })
       );
