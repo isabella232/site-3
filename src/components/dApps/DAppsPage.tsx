@@ -3,10 +3,10 @@ import * as React from 'react';
 import { createRef } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Container, Header } from 'semantic-ui-react';
-import DocumentTitle from './DocumentTitle';
-import SearchInput from './SearchInput';
-import HeaderFont from './HeaderFont';
-import WorkingSiteCards from './WorkingSiteCards';
+import DocumentTitle from '../DocumentTitle';
+import SearchInput from '../SearchInput';
+import HeaderFont from '../HeaderFont';
+import WorkingSiteCards from '../WorkingSiteCards';
 
 function parseSearch(hash: string): string {
   if (hash.length < 2 || !hash.startsWith('#')) {
@@ -26,7 +26,7 @@ function parseSearch(hash: string): string {
   return hashObject[ 'search' ] || '';
 }
 
-export default class HomePageComponent extends React.Component<RouteComponentProps> {
+export default class dAppsPage extends React.Component<RouteComponentProps> {
   private searchRef = createRef<SearchInput>();
 
   interceptSearchToFocusSearchInput = (e: KeyboardEvent) => {
@@ -58,7 +58,7 @@ export default class HomePageComponent extends React.Component<RouteComponentPro
 
     return (
       <Container style={{ marginTop: '2rem', marginBottom: '2rem' }}>
-        <DocumentTitle title="Home"/>
+        <DocumentTitle title="dApps"/>
         <label>
           <Header as="h1"><HeaderFont>ETHVAULT</HeaderFont></Header>
 

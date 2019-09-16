@@ -8,10 +8,11 @@ import AboutPage from './AboutPage';
 import AuthenticateEndpointComponent from './AuthenticateEndpointComponent';
 import BrowseIFrameComponent from './BrowseIFrameComponent';
 import FooterButtons from './FooterButtons';
-import HomePageComponent from './HomePageComponent';
+import DAppsPage from './dApps/DAppsPage';
 import InvalidURLPage from './InvalidURLPage';
 import SignedOutComponent from './SignedOutComponent';
 import SmoothScroller from './SmoothScroller';
+import HomePage from './home/HomePage';
 
 const StyledMain = styled.main`
   position: absolute;
@@ -51,9 +52,16 @@ const StyledFooter = styled.footer`
  * Temporary redirector to push the old route to the new route
  * @param match matching route
  */
-function RedirectToNewPathStructure({ match }: RouteComponentProps<{ pageUrl: string; }>) {
+function RedirectToNewPathStructure({
+  match
+}: RouteComponentProps<{ pageUrl: string }>) {
   return (
-    <Redirect to={{ pathname: '/browse', hash: decodeURIComponent(match.params.pageUrl) }}/>
+    <Redirect
+      to={{
+        pathname: '/browse',
+        hash: decodeURIComponent(match.params.pageUrl)
+      }}
+    />
   );
 }
 
@@ -66,27 +74,28 @@ export const AppBackground = connect(
       <StyledContent>
         <StyledContentInner id="scrollable-app">
           <Switch>
-            <Route exact path="/browse/:pageUrl" component={RedirectToNewPathStructure}/>
             <Route
               exact
-              path="/browse"
-              component={BrowseIFrameComponent}
+              path="/browse/:pageUrl"
+              component={RedirectToNewPathStructure}
             />
+            <Route exact path="/browse" component={BrowseIFrameComponent} />
             <Route
               exact
               path="/authenticate"
               component={AuthenticateEndpointComponent}
             />
-            <Route exact path="/logout" component={SignedOutComponent}/>
-            <Route exact path="/" component={HomePageComponent}/>
-            <Route exact path="/about" component={AboutPage}/>
-            <Route component={InvalidURLPage}/>
+            <Route exact path="/logout" component={SignedOutComponent} />
+            <Route exact path="/dApps" component={DAppsPage} />
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/about" component={AboutPage} />
+            <Route component={InvalidURLPage} />
           </Switch>
         </StyledContentInner>
       </StyledContent>
 
       <StyledFooter>
-        <FooterButtons/>
+        <FooterButtons />
       </StyledFooter>
     </StyledMain>
   </Sidebar.Pusher>
